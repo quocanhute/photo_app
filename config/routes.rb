@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   scope '/admin', constraints: { role: 0 } do
     resources :users
   end
+  get '/users/:id', to: 'users#view_profile', as: 'view_profile'
 end
