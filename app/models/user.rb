@@ -6,4 +6,7 @@ class User < ApplicationRecord
 
   # Add the role attribute
   enum role: { admin: 0, user: 1 }
+  def username
+    self.first_name + " " + self.last_name
+  end
 end

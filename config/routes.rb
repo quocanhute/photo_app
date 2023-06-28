@@ -4,4 +4,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
   root to: "home#index"
+  scope '/admin', constraints: { role: 0 } do
+    resources :users
+  end
 end
