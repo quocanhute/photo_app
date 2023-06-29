@@ -1,0 +1,5 @@
+<% if following?(@user) %>
+  <%= link_to "Unfollow", profile_unfollow_path(@user), method: :delete, class: "btn btn-danger" %>
+<% else %>
+  <%= link_to "Follow", profile_follow_path(@user), method: :post, class: "btn btn-primary" %>
+<% end %>

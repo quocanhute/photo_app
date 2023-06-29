@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'profile/show'
   devise_for :users,controllers:{
     registrations: 'users/registrations',
     sessions: 'users/sessions'
@@ -7,5 +8,7 @@ Rails.application.routes.draw do
   scope '/admin', constraints: { role: 0 } do
     resources :users
   end
-  get '/users/:id', to: 'users#view_profile', as: 'view_profile'
+  get '/profile/:id', to: 'profile#show', as: 'view_profile'
+  post 'profile/follow/:id', to: 'profile#follow', as: 'profile_follow'
+  delete 'profile/unfollow/:id', to: 'profile#unfollow', as: 'profile_unfollow'
 end

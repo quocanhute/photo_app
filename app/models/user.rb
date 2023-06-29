@@ -14,4 +14,22 @@ class User < ApplicationRecord
       "Nothing"
     end
   end
+
+  # access the Relationship object
+  has_many :followed_user,
+           foreign_key: :follower_id,
+           class_name: 'Relationship',
+           dependent: :destroy
+
+  # access the user through the relationship object
+  has_many :followee, through: :followed_user, dependent: :destroy
+
+  # access the Relationship object
+  has_many :following_user,
+           foreign_key: :followee_id,
+           class_name: 'Relationship',
+           dependent: :destroy
+
+  # access the user through the relationship object
+  has_many :follower, through: :following_user, dependent: :destroy
 end

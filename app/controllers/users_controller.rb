@@ -13,11 +13,6 @@ class UsersController < ApplicationController
     end
   end
 
-
-  def view_profile
-    @user = User.find(params[:id])
-  end
-
   # GET /users/1
   # GET /users/1.json
   def show
