@@ -1,16 +1,16 @@
-<p><%= @user.username %></p>
-<p><%= @user.first_name %></p>
-<p><%= @user.last_name %></p>
-<p><%= @user.email %></p>
+<p><%= user.username %></p>
+<p><%= user.first_name %></p>
+<p><%= user.last_name %></p>
+<p><%= user.email %></p>
+<br />
 
-
-<%= render 'profile/follower_count', user: @user %>
+<%= render 'profile/follower_count', user: user %>
 <div>
-  <%= @user.followee.count %> following
+  <%= user.followee.count %> following
 </div>
 
-<% if @user == current_user %>
+<% if user == current_user %>
   <%= link_to "Edit Profile" , edit_user_registration_path, class: "btn btn-primary text-white" %>
 <% elsif current_user %>
-  <%= render partial:  'profile/follow_button',user: @user %>
+  <%= render partial: 'profile/follow_button',locals: {user: user} %>
 <% end %>
