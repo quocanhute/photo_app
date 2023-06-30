@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_29_013008) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_30_021832) do
+  create_table "albums", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.boolean "is_public"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_albums_on_user_id"
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.text "description"
+    t.boolean "is_public"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_photos_on_user_id"
+  end
+
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followee_id"
@@ -33,4 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_013008) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "albums", "users"
+  add_foreign_key "photos", "users"
 end

@@ -32,4 +32,6 @@ class User < ApplicationRecord
 
   # access the user through the relationship object
   has_many :follower, through: :following_user, dependent: :destroy
+  has_many :photos, dependent: :destroy
+  has_many :albums, dependent: :destroy
 end
