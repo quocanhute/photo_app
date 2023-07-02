@@ -16,6 +16,7 @@
                   Welcome <%= current_user.username %></b>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><%= link_to "My Photos", photos_path(current_user.id), class: "my-2 my-sm-0 dropdown-item" %></li>
                   <li><%= link_to "Your profile", view_profile_path(current_user.id), class: "my-2 my-sm-0 dropdown-item" %></li>
                   <li><%= link_to "Edit account", edit_user_registration_path, class: "my-2 my-sm-0 dropdown-item" %></li>
                   <li><%= link_to "Sign out", destroy_user_session_path, class: "my-2 my-sm-0 dropdown-item", method: :delete %></li>
