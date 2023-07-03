@@ -1,0 +1,28 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Albums</h1>
+
+<table id="albums">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @albums.each do |album| %>
+    <tr>
+      <th><%= album.title %></th>
+      <th><%= link_to "View", album_path(album) %></th>
+      <th><%= link_to "Edit",edit_album_path(album)%></th>
+      <th><%= link_to "Delete", album, method: :delete%></th>
+    </tr>
+  <% end %>
+  </tbody>
+
+
+</table>
+
+<%= link_to "New album", new_album_path %>

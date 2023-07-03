@@ -1,25 +1,41 @@
-<nav class="sidebar-left pt-5 col-2">
+<div class="sidebar-left pt-5 col-2 d-none d-md-block">
   <div class="sidebar-sticky pt-3">
-    <ul class="nav flex-column align-items-center">
-
-      <li class="nav-item w-50">
+    <ul class="nav flex-column">
+      <li class="nav-item">
         <a class="nav-link active" href="#">
           <span data-feather="home"></span>
           Feeds <span class="sr-only">(current)</span>
         </a>
       </li>
-      <li class="nav-item w-50">
-        <a class="nav-link" href="#">
-          <span data-feather="file"></span>
-          My Photos
-        </a>
+      <li class="nav-item">
+        <%= link_to "My Photos", photos_path(current_user.id), class: "nav-link active" %>
       </li>
-      <li class="nav-item w-50">
-        <a class="nav-link" href="#">
-          <span data-feather="shopping-cart"></span>
-          My Albums
-        </a>
+      <li class="nav-item">
+        <%= link_to "My Albums", albums_path(current_user.id), class: "nav-link active" %>
       </li>
     </ul>
   </div>
-</nav>
+</div>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Tab Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">
+          <span data-feather="home"></span>
+          Feeds <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <%= link_to "My Photos", photos_path(current_user.id), class: "nav-link active" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "My Albums", albums_path(current_user.id), class: "nav-link active" %>
+      </li>
+    </ul>
+  </div>
+</div>

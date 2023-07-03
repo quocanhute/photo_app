@@ -14,9 +14,9 @@
   <% @photos.each do |photo| %>
     <tr>
       <th><%= photo.title %></th>
-      <th><%= link_to "View", photo_path(@user,photo) %></th>
-      <th><%= link_to "Edit",edit_photo_path(@user,photo)%></th>
-      <th><%= link_to "Delete"%></th>
+      <th><%= link_to "View", photo_path(photo) %></th>
+      <th><%= link_to "Edit",edit_photo_path(photo)%></th>
+      <th><%= link_to "Delete", photo, method: :delete%></th>
     </tr>
   <% end %>
   </tbody>

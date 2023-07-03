@@ -1,6 +1,9 @@
 <div class="header sticky-top">
   <nav class="navbar navbar-expand-lg navbar-light primary-bg">
     <div class="container-xl">
+      <button class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        <i class="fa-solid fa-caret-down"></i>
+      </button>
       <div class="d-flex">
         <%= link_to "Photobook", root_path, class: "navbar-brand text-white" %>
         <form class="form-inline my-2 my-lg-0">
@@ -16,7 +19,8 @@
                   Welcome <%= current_user.username %></b>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><%= link_to "My Photos", photos_path(current_user.id), class: "my-2 my-sm-0 dropdown-item" %></li>
+                  <li><%= link_to "My Photos", photos_path, class: "my-2 my-sm-0 dropdown-item" %></li>
+                  <li><%= link_to "My Albums", albums_path, class: "my-2 my-sm-0 dropdown-item" %></li>
                   <li><%= link_to "Your profile", view_profile_path(current_user.id), class: "my-2 my-sm-0 dropdown-item" %></li>
                   <li><%= link_to "Edit account", edit_user_registration_path, class: "my-2 my-sm-0 dropdown-item" %></li>
                   <li><%= link_to "Sign out", destroy_user_session_path, class: "my-2 my-sm-0 dropdown-item", method: :delete %></li>

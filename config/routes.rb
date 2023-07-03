@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # resources :albums
   # resources :photos
   get 'profile/show'
   devise_for :users,controllers:{
@@ -12,8 +13,12 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  scope '/users/:userid' do
+  scope '/users' do
     resources :photos
+  end
+
+  scope '/users' do
+    resources :albums
   end
   # ============================================
 

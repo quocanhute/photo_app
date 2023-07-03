@@ -7,13 +7,14 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
 
   <body>
   <%= render 'layouts/header' %>
   <div class="container-fluid">
     <%= render 'layouts/slide_bar_left' %>
-    <main role="main" class="col-lg-8 px-md-4 mx-auto pt-3">
+    <main role="main" class="col-12 col-md-8 px-md-4 mx-auto pt-3">
       <div class="row align-items-center justify-content-center">
         <div>
           <p class="notice"><%= notice %></p>
