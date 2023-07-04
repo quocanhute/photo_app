@@ -1,3 +1,55 @@
+<h1>Photos</h1>
+<%= turbo_stream_from "public_likes" %>
+<% photo_channel = current_user ? "private_photos" : "public_photos" %>
+<%= turbo_stream_from photo_channel %>
+<table id="<%= photo_channel %>">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Owner</th>
+    <% if current_user %>
+      <th>Like</th>
+    <% end %>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+    <%= content_tag(:tbody, id: photo_channel) do %>
+      <% @photos.each do |photo| %>
+        <% if current_user %>
+          <%= render "photos/private_photo", like_status: current_user.liked?(photo),photo: photo %>
+        <% else %>
+          <%= render "photos/public_photo", photo: photo %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+
+</table>
+<h1>Album</h1>
+<table id="photos">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Owner</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @albums.each do |album| %>
+    <tr>
+      <th><%= album.title %></th>
+      <th><%= album.user.username %></th>
+      <th><%= link_to "View"%></th>
+    </tr>
+  <% end %>
+  </tbody>
+
+
+</table>
 <main role="main" class="col-lg-8 px-md-4 mx-auto pt-3">
   <div class="row justify-content-center">
     <div class="d-flex justify-content-center">

@@ -10,10 +10,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <%= link_to "My Photos", photos_path(current_user.id), class: "nav-link active" %>
+          <%= link_to "My Photos", photos_path, class: "nav-link active" %>
         </li>
         <li class="nav-item">
-          <%= link_to "My Albums", albums_path(current_user.id), class: "nav-link active" %>
+          <%= link_to "My Albums", albums_path, class: "nav-link active" %>
         </li>
       </ul>
     <% else %>
@@ -44,10 +44,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <%= link_to "My Photos", photos_path(current_user.id), class: "nav-link active" %>
+          <%= link_to "My Photos", photos_path, class: "nav-link active" %>
         </li>
         <li class="nav-item">
-          <%= link_to "My Albums", albums_path(current_user.id), class: "nav-link active" %>
+          <%= link_to "My Albums", albums_path, class: "nav-link active" %>
         </li>
       </ul>
     <% else %>

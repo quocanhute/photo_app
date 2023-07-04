@@ -1,0 +1,8 @@
+<div id="<%= dom_id photo %>">
+  <tr>
+    <th><%= photo.title %> |</th>
+    <th><%= photo.user.username %>|</th>
+    <th><%= render "likes/like_count",photo: photo%></th>
+    <th><%= link_to "View"%></th>
+  </tr>
+</div>

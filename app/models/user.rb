@@ -14,24 +14,44 @@ class User < ApplicationRecord
       "Nothing"
     end
   end
-
+  # ==================================================================
   # access the Relationship object
   has_many :followed_user,
            foreign_key: :follower_id,
            class_name: 'Relationship',
            dependent: :destroy
-
+  # ==================================================================
   # access the user through the relationship object
   has_many :followee, through: :followed_user, dependent: :destroy
-
+  # ==================================================================
   # access the Relationship object
   has_many :following_user,
            foreign_key: :followee_id,
            class_name: 'Relationship',
            dependent: :destroy
-
+  # ==================================================================
   # access the user through the relationship object
   has_many :follower, through: :following_user, dependent: :destroy
   has_many :photos, dependent: :destroy
   has_many :albums, dependent: :destroy
+  # ==================================================================
+  has_many :likeables, dependent: :destroy
+  has_many :liked_photos,through: :likeables, source: :photo
+
+  def liked?(photo)
+    liked_photos.include?(photo)
+  end
+  def like(photo)
+    if liked_photos.include?(photo)
+      liked_photos.destroy(photo)
+    else
+      liked_photos << photo
+    end
+    public_target = "photo_#{photo.id}_public_likes"
+    broadcast_replace_later_to 'public_likes',
+                               target: public_target,
+                               partial: 'likes/like_count',
+                               locals: {photo: photo}
+  end
+  # ==================================================================
 end

@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "#{dom_id(photo)} private_likes" do %>
+<% like_text = like_status ? "Unlike" : "like" %>
+<%= button_to like_text, like_photo_path(id: photo.id) %>
+<%= render 'likes/like_count', photo: photo %>
+<% end %>

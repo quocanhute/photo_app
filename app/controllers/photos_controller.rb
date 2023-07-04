@@ -56,6 +56,11 @@ class PhotosController < ApplicationController
     end
   end
 
+  def like_photo
+    @like = Like.new(photo: @photo,user: current_user)
+    @like.save
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_photo

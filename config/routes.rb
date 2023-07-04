@@ -25,4 +25,6 @@ Rails.application.routes.draw do
   get '/profile/:id', to: 'profile#show', as: 'view_profile'
   post 'profile/follow/:id', to: 'profile#follow', as: 'profile_follow'
   delete 'profile/unfollow/:id', to: 'profile#unfollow', as: 'profile_unfollow'
+  # ============================================
+  post 'like_photo/:id', to: 'home#like_photo', as: 'like_photo'
 end
