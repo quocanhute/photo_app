@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :get_all_photos, :get_all_albums
+  before_action :get_all_photos, :get_all_albums, :set_user_gid
   def index
   end
 
@@ -30,5 +30,8 @@ class HomeController < ApplicationController
   end
   def get_all_albums
     @albums = Album.all
+  end
+  def set_user_gid
+    @user_gid = current_user.to_gid_param if current_user
   end
 end

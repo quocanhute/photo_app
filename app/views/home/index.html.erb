@@ -1,32 +1,19 @@
 <h1>Photos</h1>
+<div> Welcome <%= @user_gid %> </div>
 <%= turbo_stream_from "public_likes" %>
 <% photo_channel = current_user ? "private_photos" : "public_photos" %>
 <%= turbo_stream_from photo_channel %>
-<table id="<%= photo_channel %>">
-  <thead>
-  <tr>
-    <th>Title</th>
-    <th>Owner</th>
+<%= turbo_stream_from [@user_gid, 'private_likes'] %>
+<%= content_tag(:div, id: photo_channel) do %>
+  <% @photos.each do |photo| %>
     <% if current_user %>
-      <th>Like</th>
+      <%= render "photos/private_photo", like_status: current_user.liked?(photo),photo: photo %>
+    <% else %>
+      <%= render "photos/public_photo", photo: photo %>
     <% end %>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-    <%= content_tag(:tbody, id: photo_channel) do %>
-      <% @photos.each do |photo| %>
-        <% if current_user %>
-          <%= render "photos/private_photo", like_status: current_user.liked?(photo),photo: photo %>
-        <% else %>
-          <%= render "photos/public_photo", photo: photo %>
-        <% end %>
-      <% end %>
-    <% end %>
+  <% end %>
+<% end %>
 
-
-</table>
 <h1>Album</h1>
 <table id="photos">
   <thead>

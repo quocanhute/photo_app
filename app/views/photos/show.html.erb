@@ -1,10 +1,16 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @photo %>
+<% if current_user %>
+  <%= render "photos/private_photo", like_status: current_user.liked?(@photo),photo: @photo %>
+<% else %>
+  <%= render "photos/public_photo", photo: @photo %>
+<% end %>
 
+<% if current_user == @photo.user %>
 <div>
   <%= link_to "Edit this photo", edit_photo_path(@photo) %> |
   <%= link_to "Back to photos", photos_path %>
 
   <%= button_to "Destroy this photo", @photo, method: :delete %>
 </div>
+<% end %>
