@@ -37,7 +37,11 @@ class User < ApplicationRecord
   # ==================================================================
   has_many :likeables, dependent: :destroy
   has_many :liked_photos,through: :likeables, source: :photo
+  # ==================================================================
+  has_many :likeablealbums, dependent: :destroy
+  has_many :liked_albums,through: :likeablealbums, source: :album
 
+  # ============================Photo==================================
   def liked?(photo)
     liked_photos.include?(photo)
   end
@@ -54,4 +58,21 @@ class User < ApplicationRecord
                                locals: {photo: photo}
   end
   # ==================================================================
+    # ============================Album==================================
+  def liked_album?(album)
+    liked_albums.include?(album)
+  end
+  def like_album(album)
+    if liked_albums.include?(album)
+      liked_albums.destroy(album)
+    else
+      liked_albums << album
+    end
+    public_target = "album_#{album.id}_public_likes"
+    broadcast_replace_later_to 'album_public_likes',
+                               target: public_target,
+                               partial: 'likes/like_count_album',
+                               locals: {album: album}
+  end
+    # ==================================================================
 end

@@ -15,28 +15,20 @@
 <% end %>
 
 <h1>Album</h1>
-<table id="photos">
-  <thead>
-  <tr>
-    <th>Title</th>
-    <th>Owner</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
+<%= turbo_stream_from "album_public_likes" %>
+<% album_channel = current_user ? "private_albums" : "public_albums" %>
+<%= turbo_stream_from album_channel %>
+<%= turbo_stream_from [@user_gid, 'album_private_likes'] %>
+<%= content_tag(:div, id: album_channel) do %>
   <% @albums.each do |album| %>
-    <tr>
-      <th><%= album.title %></th>
-      <th><%= album.user.username %></th>
-      <th><%= link_to "View"%></th>
-    </tr>
+    <% if current_user %>
+      <%= render "albums/private_album", album_like_status: current_user.liked_album?(album),album: album %>
+    <% else %>
+      <%= render "albums/public_album", album: album %>
+    <% end %>
   <% end %>
-  </tbody>
+<% end %>
 
-
-</table>
 <main role="main" class="col-lg-8 px-md-4 mx-auto pt-3">
   <div class="row justify-content-center">
     <div class="d-flex justify-content-center">

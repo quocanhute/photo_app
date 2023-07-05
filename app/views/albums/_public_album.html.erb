@@ -1,0 +1,5 @@
+<div id="<%= dom_id album %>">
+  <%= render 'likes/like_count_album', album: album %>
+  <%= album.title %>
+  <%= link_to "View", album_path(album) %>
+</div>

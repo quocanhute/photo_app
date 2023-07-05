@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   delete 'profile/unfollow/:id', to: 'profile#unfollow', as: 'profile_unfollow'
   # ============================================
   post 'like_photo/:id', to: 'home#like_photo', as: 'like_photo'
+  post 'like_album/:id', to: 'home#like_album', as: 'like_album'
 end

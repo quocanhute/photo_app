@@ -36,7 +36,7 @@ class Photo < ApplicationRecord
     broadcast_replace_later_to 'private_photos',
                                target: shared_target_photo,
                                partial: 'photos/private_photo',
-                               locals: { tweet: self, like_status: false }
+                               locals: { photo: self, like_status: false }
   end
 
   def broadcast_destroy_photo

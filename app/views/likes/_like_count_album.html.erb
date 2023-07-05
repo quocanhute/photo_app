@@ -1,0 +1,4 @@
+<%= turbo_frame_tag "#{dom_id(album)}_public_likes" do %>
+  <%= pluralize(album.likes.count, "like") %>
+<% end %>
+

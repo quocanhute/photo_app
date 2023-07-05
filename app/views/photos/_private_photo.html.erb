@@ -1,7 +1,5 @@
 <div id="<%= dom_id photo %>">
-  <%= render 'likes/private_button',
-             photo: photo,
-             like_status: like_status %>
+  <%= render 'likes/private_button', photo: photo, like_status: like_status %>
   <%= photo.title %>
   <%= link_to "View", photo_path(photo) %>
 </div>
