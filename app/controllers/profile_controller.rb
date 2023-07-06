@@ -6,6 +6,14 @@ class ProfileController < ApplicationController
     @photos = @user.photos
   end
 
+  def show_photo
+
+  end
+
+  def show_album
+
+  end
+
   def follow
     Relationship.create_or_find_by(follower_id: current_user.id, followee_id: @user.id)
     redirect_back(fallback_location: root_path)
