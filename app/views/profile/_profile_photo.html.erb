@@ -1,15 +1,17 @@
-<% photos.each do |photo| %>
-  <div class="col col-3 my-2 rounded float-left">
-    <div class="card border-0 align-items-center justify-content-center" style="width: 18rem;">
-      <img class="w-100 card-img-top" src="https://picsum.photos/300/300" alt="<%= photo.title %>" data-bs-toggle="modal" data-bs-target="#modal" data-image-src="https://picsum.photos/300/300" data-image-alt="<%= photo.title %>">
-      <div class="card-body">
-        <p class="card-text"><%= photo.title %></p>
+<div class="row row-cols-4 d-flex align-items-center justify-content-center">
+    <% photos.each do |photo| %>
+      <div class="col col-3 my-2 rounded float-left">
+        <div class="card border-0 align-items-center justify-content-center" style="width: 18rem;">
+          <%= image_tag(photo.img, alt: "#{photo.title}", class: "w-100 card-img-top", id: "avatar",style: 'height:300px;width:300px',data: { bs_toggle: "modal", bs_target: "#modal", image_src: "" }) %>
+          <div class="card-body">
+            <p class="card-text"><%= photo.title %></p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-<% end %>
+    <% end %>
+</div>
 
-<!-- MODAL SHOW IMG -->
+<!-- MODAL SHOW IMG-->
 <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

@@ -1,6 +1,4 @@
 <main>
   <%= render "profile/user", user: @user %>
-  <div class="row row-cols-4 d-flex align-items-center justify-content-center">
-    <%= render "profile/profile_photo", photos: @user.photos %>
-  </div>
+  <%= render "profile/profile_photo", photos: @user.photos %>
 </main>
