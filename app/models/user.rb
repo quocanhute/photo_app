@@ -7,6 +7,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   # Add the role attribute
   enum role: { admin: 0, user: 1 }
+
+  has_one_attached :avatar
   def username
     if self.first_name && self.last_name
       self.first_name + " " + self.last_name

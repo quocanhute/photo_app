@@ -3,6 +3,8 @@ class Photo < ApplicationRecord
   has_many :likes, through: :likeables, source: :user
   belongs_to :user
 
+  has_one_attached :img
+
   after_create_commit do
     broadcast_new_photo
   end

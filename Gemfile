@@ -82,3 +82,4 @@ end
 gem "jquery-rails"
 gem "bootstrap"
 gem "sassc-rails"
+gem 'cloudinary', '~> 1.18', '>= 1.18.1'

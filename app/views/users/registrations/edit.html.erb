@@ -18,6 +18,16 @@
     <%= f.text_field :last_name %>
   </div>
 
+  <div class="field">
+    <div class="gravatar_edit">
+      <%= f.file_field :avatar,
+                       placeholder: 'Update picture',
+                       id: "change-img-field",
+                       direct_upload: true
+      %>
+    </div>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

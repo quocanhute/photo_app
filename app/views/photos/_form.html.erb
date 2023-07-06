@@ -21,6 +21,17 @@
     <%= form.text_field :url %>
   </div>
 
+  <div class="field">
+    <div class="gravatar_edit">
+      <%= form.file_field :img,
+                       placeholder: 'Upload picture',
+                       id: "change-img-field",
+                       direct_upload: true
+      %>
+    </div>
+  </div>
+
+
   <div>
     <%= form.label :description %>
     <%= form.text_area :description %>
