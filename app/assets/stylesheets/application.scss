@@ -17,6 +17,16 @@
 @import "bootstrap";
 
 
+a {
+    color: #0060B6;
+    text-decoration: none;
+}
+
+a:hover {
+    color:#00A0C6;
+    text-decoration:none;
+    cursor:pointer;
+}
 
 .primary-bg{
     background-color: #3C599A;
@@ -147,3 +157,4 @@ body {
 input[type=file][data-direct-upload-url][disabled] {
     display: none;
 }
+

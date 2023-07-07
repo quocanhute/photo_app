@@ -10,11 +10,11 @@
       </div>
     </div>
     <div>
-      <h1><%= user.username %></h1>
+      <h1 class="fw-bold"><%= user.username %></h1>
     </div>
     <div class="fs-2">
-      <%= link_to 'Photo' , view_photos_user_path %> |
-      <%= link_to 'Album', view_albums_user_path %>|
+      <%= link_to pluralize(user.photos.count, "Photo") , view_photos_user_path %> |
+      <%= link_to pluralize(user.albums.count, "Album"), view_albums_user_path %>|
       <% if user == current_user %>
         <%= link_to " #{user.followee.count} Following" , class: "" %>
       <% elsif current_user %>
