@@ -1,49 +1,62 @@
 <h2>Sign up</h2>
+<hr/>
+<div class="row justify-content-md-center">
+  <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+    <div class="card" style="border-radius: 15px;">
+      <div class="card-body p-5">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class:"d-flex flex-column align-items-center" }) do |f| %>
+          <%= render "users/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+          <div class="col-md-4">
+            <div class="profile-img">
+              <div class="avatar">
+                <%= image_tag("https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg", alt: "avatar", class: "avatar-image", id: "avatarUserRegister",style: 'height:150px;width:150px') %>
+              </div>
+              <div class="file btn btn-lg btn-primary">
+                Change Photo
+                <%= f.file_field :avatar,
+                                 placeholder: 'Upload picture',
+                                 id: "change-img-field-sign",
+                                 direct_upload: true
+                %>
+              </div>
+            </div>
+          </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+          <div class="form-outline mb-4 w-100">
+            <%= f.label :email, class: "" %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control form-control-lg" %>
+          </div>
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name" %>
-  </div>
+          <div class="form-outline mb-4 w-100">
+            <%= f.label :first_name %><br />
+            <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control form-control-lg" %>
+          </div>
 
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autocomplete: "last_name" %>
-  </div>
+          <div class="form-outline mb-4 w-100">
+            <%= f.label :last_name %><br />
+            <%= f.text_field :last_name, autocomplete: "last_name", class: "form-control form-control-lg" %>
+          </div>
 
-  <div class="field">
-    <div class="gravatar_edit">
-      <%= f.file_field :avatar,
-                       placeholder: 'Upload picture',
-                       id: "change-img-field",
-                       direct_upload: true
-      %>
+          <div class="form-outline mb-4 w-100">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "new-password", class: "form-control form-control-lg" %>
+          </div>
+
+          <div class="form-outline mb-4 w-100">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control form-control-lg" %>
+          </div>
+
+          <div class="d-flex w-50 justify-content-center actions">
+            <%= f.submit "Sign up", class: "btn primary-bg btn-block btn-lg gradient-custom-4 text-white" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
+</div>
 <%= render "users/shared/links" %>

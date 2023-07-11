@@ -1,6 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
 <%= @album.title %>
+<% @album.images.each do |image|%>
+  <%= image_tag(image, class: "", id: "avatar",style: 'height:300px;width:300px') %>
+<% end %>
 
 <% if current_user == @album.user %>
   <div>

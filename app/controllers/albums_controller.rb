@@ -38,6 +38,11 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
+        if params[:album][:images].present?
+          params[:album][:images].each do |image|
+            @album.images.attach(image)
+          end
+        end
         format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -63,7 +68,7 @@ class AlbumsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def album_params
       params.fetch(:album, {})
-      params.require(:album).permit(:title, :description, :is_public)
+      params.require(:album).permit(:title, :description, :is_public,images: [])
     end
 
     # def set_user

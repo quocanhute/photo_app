@@ -15,6 +15,9 @@
         <li class="nav-item">
           <%= link_to "My Albums", albums_path, class: "nav-link active" %>
         </li>
+        <li class="nav-item">
+          <%= link_to "My Profile", view_profile_path(current_user.id), class: "nav-link active" %>
+        </li>
       </ul>
     <% else %>
       <ul class="nav flex-column">

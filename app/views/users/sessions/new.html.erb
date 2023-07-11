@@ -1,26 +1,40 @@
-<h2>Log innnnnnn</h2>
+<h2>Log in PhotoBook</h2>
+<hr/>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+<div class="row justify-content-md-center">
+  <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+    <div class="card" style="border-radius: 15px;">
+      <div class="card-body p-5">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class:"d-flex flex-column align-items-center" }) do |f| %>
+          <div class="text-center mb-4">
+            <img src="https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg"
+                 alt="Profile Image" class="rounded-circle" style="width: 150px; height: 150px;">
+          </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+          <div class="form-outline mb-4 w-100">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email",class: "form-control form-control-lg"  %>
+          </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+          <div class="form-outline mb-4 w-100">
+            <%= f.label :password %><br />
+            <%= f.password_field :password, autocomplete: "current-password",class: "form-control form-control-lg"  %>
+          </div>
+
+          <% if devise_mapping.rememberable? %>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div>
+          <% end %>
+
+          <div class="d-flex w-50 justify-content-center actions">
+            <%= f.submit "Log in", class: "btn primary-bg btn-block btn-lg gradient-custom-4 text-white" %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
+</div>
 
 <%= render "users/shared/links" %>

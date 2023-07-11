@@ -45,3 +45,27 @@ import "bootstrap"
 //     const element = document.getElementById(`direct-upload-${id}`)
 //     element.classList.add("direct-upload--complete")
 // })
+$(document).ready(function() {
+    $('#change-img-field').on('change', function(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#avatarUser').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(file);
+    });
+});
+$(document).ready(function() {
+    $('#change-img-field-sign').on('change', function(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#avatarUserRegister').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(file);
+    });
+});

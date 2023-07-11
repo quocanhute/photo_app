@@ -3,6 +3,8 @@ class Album < ApplicationRecord
   has_many :likes, through: :likeablealbums, source: :user
   belongs_to :user
 
+  has_many_attached :images
+
   after_create_commit do
     broadcast_new_album
   end

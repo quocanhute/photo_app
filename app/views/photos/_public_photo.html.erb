@@ -2,4 +2,5 @@
   <%= render 'likes/like_count', photo: photo %>
   <%= photo.title %>
   <%= link_to "View", photo_path(photo) %>
+  <%= photo.user.username %>
 </div>

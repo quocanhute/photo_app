@@ -14,7 +14,10 @@
         <% if user_signed_in? %>
           <div class="float-right">
             <ul class="nav float-right">
-              <div class="dropdown">
+              <div class="dropdown d-flex align-items-center">
+                <% if current_user.avatar.attached? %>
+                    <%= image_tag(current_user.avatar, alt: "#{current_user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader",style: 'height:50px;width:50px') %>
+                <% end %>
                 <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
                   Welcome <%= current_user.username %></b>
                 </a>
