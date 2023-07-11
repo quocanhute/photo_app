@@ -15,9 +15,6 @@ Rails.application.routes.draw do
 
   scope '/users' do
     resources :photos
-  end
-
-  scope '/users' do
     resources :albums
   end
   # ============================================

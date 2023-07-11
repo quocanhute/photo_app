@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "#{@user.id}-follower-count" do %>
+<%= turbo_frame_tag "#{user.id}-follower-count" do %>
   <span>
     <%= pluralize(user.follower.count, "Follower") %>
   </span>

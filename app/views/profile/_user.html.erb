@@ -5,7 +5,11 @@
   <div class="col-md-8 d-flex flex-column justify-content-center">
     <div class=" d-flex flex-column ">
       <div class="d-flex">
-        <button class="btn btn-primary text-primary border-blue bg-white">Edit profile </button>
+        <% if user != current_user %>
+          <%= render partial: 'profile/follow_button',locals: {user: user} %>
+        <% elsif current_user %>
+          <button class="btn btn-primary text-primary border-blue bg-white">Edit profile </button>
+        <% end %>
         <span><i class="fa-solid fa-gear btn btn-lg"></i></span>
       </div>
     </div>
@@ -13,13 +17,9 @@
       <h1 class="fw-bold"><%= user.username %></h1>
     </div>
     <div class="fs-2">
-      <%= link_to pluralize(user.photos.count, "Photo") , view_photos_user_path %> |
-      <%= link_to pluralize(user.albums.count, "Album"), view_albums_user_path %>|
-      <% if user == current_user %>
-        <%= link_to " #{user.followee.count} Following" , class: "" %>
-      <% elsif current_user %>
-        <%= render partial: 'profile/follow_button',locals: {user: user} %>
-      <% end %>|
+      <%= link_to pluralize(user.photos.count, "Photo") , view_photos_user_path(user.id) %> |
+      <%= link_to pluralize(user.albums.count, "Album"), view_albums_user_path(user.id) %>|
+      <%= link_to " #{user.followee.count} Following" , class: "" %>|
       <a href=""><%= render 'profile/follower_count', user: user %></a>
     </div>
   </div>

@@ -31,10 +31,12 @@
           <div class="d-flex w-50 justify-content-center actions">
             <%= f.submit "Log in", class: "btn primary-bg btn-block btn-lg gradient-custom-4 text-white" %>
           </div>
+          <div class="d-flex">
+            <p class="mx-1">Not a member?</p><%= render "users/shared/links" %>
+          </div>
         <% end %>
       </div>
     </div>
   </div>
 </div>
 
-<%= render "users/shared/links" %>

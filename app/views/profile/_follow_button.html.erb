@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "#{dom_id(@user)} follow_user" do %>
   <% if following?(user) %>
-    <%= link_to "Unfollow", profile_unfollow_path(id: user.id), class: "",data: { turbo_method: :delete } %>
+    <%= link_to "Unfollow", profile_unfollow_path(id: user.id), class: "btn btn-primary text-primary border-blue bg-white",data: { turbo_method: :delete } %>
   <% else %>
-    <%= link_to "Follow", profile_follow_path(id: user.id), class: "",data: { turbo_method: :post }%>
+    <%= link_to "Follow", profile_follow_path(id: user.id), class: "btn btn-primary text-primary border-blue bg-white",data: { turbo_method: :post }%>
   <% end %>
 <% end %>
