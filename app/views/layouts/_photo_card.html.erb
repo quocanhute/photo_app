@@ -6,10 +6,13 @@
         <div class="card-body">
           <p class="card-text"><%= photo.title %></p>
         </div>
-        <div class="card-link-file btn btn-lg btn-primary"><%= link_to "Edit",edit_photo_path(photo)%></div>
-      </div>
-    </div>
-  <% end %>
+        <% unless photo.is_public? %>
+          <i class="border-white fa-solid fa-lock private-photo"></i>
+        <% end %>
+        <%=  link_to "Edit",edit_photo_path(photo),class: "card-link-file btn btn-lg btn-primary" %>
+          </div>
+        </div>
+        <% end %>
 </div>
 
 <!-- MODAL SHOW IMG-->
