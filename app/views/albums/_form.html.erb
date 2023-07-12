@@ -11,33 +11,29 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
 
-  <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-
-  <div class="field">
-    <div class="gravatar_edit">
-      <%= form.file_field :images,
-                          placeholder: 'Upload picture',
-                          id: "form-input-album",
-                          direct_upload: true,
-                          multiple: true
-      %>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-outline mb-4 w-100">
+        <%= form.label :title %>
+        <%= form.text_field :title,class: "form-control form-control-lg" %>
+      </div>
+      <div class="form-outline mb-4 w-100">
+        <%= form.label :is_public, 'Sharing Mode' %>
+        <%= form.select :is_public, [['Public', 1], ['Private', 0]], { selected: album.is_public ? 1 : 0 }, class: 'form-select' %>
+      </div>
+      <div class="form-outline mb-4 w-100">
+          <%= form.label :images %>
+          <%= form.file_field :images, :multiple => true%>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-outline mb-4 w-100">
+        <%= form.label :description %>
+        <%= form.text_area :description,class: "form-control form-control-lg" %>
+      </div>
     </div>
   </div>
-
-  <div>
-    <%= form.label :is_public, 'Public' %>
-    <%= form.check_box :is_public %>
-  </div>
-
   <div>
     <%= form.submit %>
   </div>

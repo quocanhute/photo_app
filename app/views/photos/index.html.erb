@@ -1,29 +1,3 @@
-<p style="color: green"><%= notice %></p>
-
-<!--<h1>Photos</h1>-->
-<!--<table id="photos">-->
-<!--  <thead>-->
-<!--  <tr>-->
-<!--    <th>Title</th>-->
-<!--    <th></th>-->
-<!--    <th></th>-->
-<!--    <th></th>-->
-<!--  </tr>-->
-<!--  </thead>-->
-<!--  <tbody>-->
-  <%# @photos.each do |photo| %>
-<!--    <tr>-->
-<!--      <th><%#= photo.title %></th>-->
-<!--      <th><%#= link_to "View", photo_path(photo) %></th>-->
-<!--      <th><%#= link_to "Delete", photo, method: :delete%></th>-->
-<!--    </tr>-->
-  <%# end %>
-<!--  </tbody>-->
-
-
-<!--</table>-->
-
-
 <main>
   <%= render "profile/user", user: current_user %>
   <%= link_to "New photo", new_photo_path %>

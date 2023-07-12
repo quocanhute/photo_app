@@ -1,9 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
 <%= @album.title %>
-<% @album.images.each do |image|%>
-  <%= image_tag(image, class: "", id: "avatar",style: 'height:300px;width:300px') %>
+<% @album.images.blobs.each do |image|%>
+  <%= cl_image_tag(image.key, class: "", :cloud_name => "dvpu5diow", :secure=>"true", :width=>150, :height=>150, :crop=>"fill") %>
 <% end %>
+
 
 <% if current_user == @album.user %>
   <div>
