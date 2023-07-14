@@ -1,8 +1,11 @@
 <p style="color: green"><%= notice %></p>
 
 <%= @album.title %>
-<% @album.images.blobs.each do |image|%>
-  <%= cl_image_tag(image.key, class: "", :cloud_name => "dvpu5diow", :secure=>"true", :width=>150, :height=>150, :crop=>"fill") %>
+<% @album.images.each do |image|%>
+  <%= image_tag(image, id: "avatar",style: 'height:150px;width:150px') %>
+  <%= link_to 'Remove', delete_image_album_path(@album,image.id),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
 <% end %>
 
 

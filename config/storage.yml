@@ -3,11 +3,16 @@ test:
   root: <%= Rails.root.join("tmp/storage") %>
 
 local:
-  service: Cloudinary
-  cloud_name: "dvpu5diow"
-  api_key: "134112357191927"
-  api_secret: "LS7qimDZBQAd1SChJmnVeTj01k8"
-  secure: true
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+#local:
+#  service: Cloudinary
+#  cloud_name: "dvpu5diow"
+#  api_key: "134112357191927"
+#  api_secret: "LS7qimDZBQAd1SChJmnVeTj01k8"
+#  secure: true
+
+
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

@@ -34,6 +34,24 @@
       </div>
     </div>
   </div>
+  <% if album %>
+    <div data-controller="multi-file">
+      <%= hidden_field_tag "album[remove_image][]", nil, id: "remove_image_hidden" %>
+      <% album.images.each do |image| %>
+        <%= content_tag(:div,class: "exist-images") do %>
+          <%= image_tag(image, id: "avatar", style: 'height:150px;width:150px') %>
+          <%= check_box_tag "photos_delete[]", image.id, false, id: "photos_delete#{image.id}", class: 'd-none' %>
+          <%= label_tag "photos_delete#{image.id}", "", class: "position-absolute delete-image-checkbox btn btn-outline-danger" do %>
+            <i class="fa-solid fa-xmark"></i>
+          <% end %>
+        <% end %>
+      <% end %>
+      <h1 data-target="multi-file.output"></h1>
+    </div>
+  <% end %>
+  <div data-controller="hello">
+    <h1 data-target="hello.output"></h1>
+  </div>
   <div>
     <%= form.submit %>
   </div>

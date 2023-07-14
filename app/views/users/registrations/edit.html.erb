@@ -6,18 +6,22 @@
   <div class="col-md-4">
     <div class="profile-img">
       <% if resource.avatar.attached? %>
-        <div class="avatar">
-          <%= image_tag(resource.avatar, alt: "#{resource.username}", class: "avatar-image", id: "avatarUser",style: 'height:150px;width:150px') %>
+        <div data-controller="upload-image">
+          <div class="avatar">
+            <%= image_tag(resource.avatar, alt: "#{resource.username}", class: "avatar-image", id: "avatarUser",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
+          </div>
+          <div class="file btn btn-lg btn-primary">
+            Change Photo
+            <%= f.file_field :avatar,
+                             placeholder: 'Update picture',
+                             id: "change-img-field",
+                             data:{action: 'change->upload-image#handleChange'},
+                             direct_upload: true
+            %>
+          </div>
         </div>
       <% end %>
-      <div class="file btn btn-lg btn-primary">
-        Change Photo
-        <%= f.file_field :avatar,
-                         placeholder: 'Update picture',
-                         id: "change-img-field",
-                         direct_upload: true
-        %>
-      </div>
+
     </div>
   </div>
 

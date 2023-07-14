@@ -49,6 +49,7 @@ class PhotosController < ApplicationController
 
   # DELETE /photos/1 or /photos/1.json
   def destroy
+    @photo.img.purge
     @photo.destroy
 
     respond_to do |format|

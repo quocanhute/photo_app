@@ -22,14 +22,14 @@
           <%= form.select :is_public, [['Public', 1], ['Private', 0]], { selected: @photo.is_public ? 1 : 0 }, class: 'form-select' %>
         </div>
         <div class="col-md-4">
-          <div class="profile-img">
+          <div class="profile-img" data-controller="upload-image">
             <% if @photo.img.attached? %>
               <div class="avatar">
-                <%= image_tag(@photo.img, alt: "#{@photo.title}", class: "photo-image", id: "imgPhoto",style: 'height:150px;width:150px') %>
+                <%= image_tag(@photo.img, alt: "#{@photo.title}", class: "photo-image", id: "imgPhoto",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
               </div>
             <%else %>
               <div class="avatar">
-                <%= image_tag('image.jpg', class: "photo-image", id: "imgPhoto",style: 'height:150px;width:150px') %>
+                <%= image_tag('image.jpg', class: "photo-image", id: "imgPhoto",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
               </div>
             <% end %>
             <div class="file btn btn-lg btn-primary">
@@ -37,6 +37,7 @@
               <%= form.file_field :img,
                                placeholder: 'Update photo',
                                id: "change-photo-field",
+                                  data:{action: 'change->upload-image#handleChange'},
                                direct_upload: true
               %>
             </div>
@@ -51,6 +52,6 @@
       </div>
   </div>
   <div class="actions">
-    <%= form.submit "Update", class: "btn btn-primary primary-bg" %>
+    <%= form.submit %>
   </div>
 <% end %>

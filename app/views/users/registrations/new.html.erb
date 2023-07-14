@@ -9,16 +9,19 @@
 
           <div class="col-md-4">
             <div class="profile-img">
-              <div class="avatar">
-                <%= image_tag('user.jpg', class: "photo-image rounded-circle", id: "avatarUserRegister",style: 'height:150px;width:150px') %>
-              </div>
-              <div class="file btn btn-lg btn-primary">
-                Change Photo
-                <%= f.file_field :avatar,
-                                 placeholder: 'Upload picture',
-                                 id: "change-img-field-sign",
-                                 direct_upload: true
-                %>
+              <div data-controller="upload-image">
+                <div class="avatar">
+                  <%= image_tag('user.jpg', class: "photo-image rounded-circle", id: "avatarUserRegister",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
+                </div>
+                <div class="file btn btn-lg btn-primary">
+                  Change Photo
+                  <%= f.file_field :avatar,
+                                   placeholder: 'Upload picture',
+                                   id: "change-img-field-sign",
+                                   data:{action: 'change->upload-image#handleChange'},
+                                   direct_upload: true
+                  %>
+                </div>
               </div>
             </div>
           </div>

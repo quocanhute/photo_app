@@ -15,7 +15,11 @@ Rails.application.routes.draw do
 
   scope '/users' do
     resources :photos
-    resources :albums
+    resources :albums do
+      member do
+        delete '/:idKey',to: 'albums#delete_image_attachment', as: 'delete_image'
+      end
+    end
   end
   # ============================================
 
