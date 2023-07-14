@@ -22,10 +22,7 @@
         <%= form.label :is_public, 'Sharing Mode' %>
         <%= form.select :is_public, [['Public', 1], ['Private', 0]], { selected: album.is_public ? 1 : 0 }, class: 'form-select' %>
       </div>
-      <div class="form-outline mb-4 w-100">
-          <%= form.label :images %>
-          <%= form.file_field :images, :multiple => true%>
-      </div>
+
     </div>
     <div class="col-6">
       <div class="form-outline mb-4 w-100">
@@ -34,21 +31,33 @@
       </div>
     </div>
   </div>
-  <% if album %>
-    <div data-controller="multi-file">
-      <%= hidden_field_tag "album[remove_image][]", nil, id: "remove_image_hidden" %>
-      <% album.images.each do |image| %>
-        <%= content_tag(:div,class: "exist-images") do %>
-          <%= image_tag(image, id: "avatar", style: 'height:150px;width:150px') %>
-          <%= check_box_tag "photos_delete[]", image.id, false, id: "photos_delete#{image.id}", class: 'd-none' %>
-          <%= label_tag "photos_delete#{image.id}", "", class: "position-absolute delete-image-checkbox btn btn-outline-danger" do %>
-            <i class="fa-solid fa-xmark"></i>
+  <div class="row">
+    <div class="col-12">
+      <% if album %>
+        <div class="form-outline mb-4 w-100 d-flex row row-col-4" data-controller="multi-file">
+          <% album.images.each do |image| %>
+            <%= content_tag(:div,class: "exist-images col-3 position-relative overflow-hidden mb-1") do %>
+              <%= image_tag(image, id: "avatar") %>
+              <%= check_box_tag "photos_delete[]", image.id,false,class: "d-none", id: "photos_delete#{image.id}" %>
+              <%= label_tag "photos_delete#{image.id}", "", class: "position-absolute delete-image-checkbox btn btn-outline-danger",data: {action:'click->multi-file#toggleValue'} do %>
+                <i class="fa-solid fa-xmark"></i>
+              <% end %>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       <% end %>
-      <h1 data-target="multi-file.output"></h1>
     </div>
-  <% end %>
+
+  </div>
+  <div class="form-outline mb-4 w-100" data-controller="preview-upload">
+    <div class="row">
+      <div class="col-12">
+          <%= form.label :images %>
+          <%= form.file_field :images, multiple: true, data:{action:'input->preview-upload#test', target: 'preview-upload.input'} %>
+      </div>
+      <div class="col-12 preview-image" data-target="preview-upload.preview"></div>
+    </div>
+  </div>
   <div data-controller="hello">
     <h1 data-target="hello.output"></h1>
   </div>
