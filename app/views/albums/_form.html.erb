@@ -47,20 +47,17 @@
         </div>
       <% end %>
     </div>
+    <div class="col-12" data-controller="preview-upload" data-action="change->preview-upload#updatePreview">
+      <%= form.label :images, class: 'label-image-upload' do %>
+        + Add Images
+        <%= form.file_field :images, multiple: true, class: "input-image-upload", data: { target: "preview-upload.input" } %>
+      <% end %>
+      <div data-target="preview-upload.previewContainer"></div>
+    </div>
 
   </div>
-  <div class="form-outline mb-4 w-100" data-controller="preview-upload">
-    <div class="row">
-      <div class="col-12">
-          <%= form.label :images %>
-          <%= form.file_field :images, multiple: true, data:{action:'input->preview-upload#test', target: 'preview-upload.input'} %>
-      </div>
-      <div class="col-12 preview-image" data-target="preview-upload.preview"></div>
-    </div>
-  </div>
-  <div data-controller="hello">
-    <h1 data-target="hello.output"></h1>
-  </div>
+
+
   <div>
     <%= form.submit %>
   </div>

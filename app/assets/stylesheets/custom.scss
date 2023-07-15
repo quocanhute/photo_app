@@ -140,3 +140,20 @@ img{
   top: 4%;
   right: 4%;
 }
+
+
+.label-image-upload{
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px dotted black;
+  border-radius: 20px;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  font-size: large;
+}
+.input-image-upload{
+  display: none;
+}
