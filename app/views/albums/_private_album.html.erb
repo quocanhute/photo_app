@@ -2,5 +2,5 @@
   <%= render 'likes/private_button_album', album: album, album_like_status: album_like_status %>
   <%= album.title %>
   <%= link_to "View", album_path(album) %>
-  <%= album.user.username %>
+  <%= link_to "#{album.user.username}", view_profile_path(album.user) %>
 </div>

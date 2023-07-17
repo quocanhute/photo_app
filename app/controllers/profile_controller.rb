@@ -1,17 +1,50 @@
 class ProfileController < ApplicationController
   include ProfileHelper
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[ follow unfollow]
   before_action :set_user
   def show
-    @photos = @user.photos
+    if current_user
+      if params[:id].to_f == current_user.id
+        @photos = current_user.photos
+      else
+        @photos = @user.photos.where(is_public: true )
+      end
+    else
+      @photos = @user.photos.where(is_public: true )
+    end
   end
 
   def show_photo
+    if current_user
+      if params[:id].to_f == current_user.id
+        @photos = current_user.photos
+      else
+        @photos = @user.photos.where(is_public: true )
+      end
+    else
+      @photos = @user.photos.where(is_public: true )
+    end
 
   end
 
   def show_album
+    if current_user
+      if params[:id].to_f == current_user.id
+        @albums = current_user.albums
+      else
+        @albums = @user.albums.where(is_public: true )
+      end
+    else
+      @albums = @user.albums.where(is_public: true )
+    end
+  end
 
+  def show_follower_user
+    @follower = @user.follower
+  end
+
+  def show_followee_user
+    @followee = @user.followee
   end
 
   def follow

@@ -9,12 +9,13 @@
         <% unless album.is_public? %>
           <i class="border-white fa-solid fa-lock private-photo"></i>
         <% end %>
+        <%=  link_to "Edit",edit_album_path(album),class: "card-link-file btn btn-lg btn-primary" %>
       </div>
     </div>
   <% end %>
 </div>
 
-<!-- MODAL SHOW IMG -->
+<!-- MODAL SHOW IMG-->
 <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

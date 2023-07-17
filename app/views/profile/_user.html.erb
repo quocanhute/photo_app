@@ -1,6 +1,10 @@
 <div class="row mb-5">
   <div class="col-md-4">
-    <%= image_tag(user.avatar, alt: "Profile Picture", class: "rounded-circle", id: "avatar",style: 'height:250px;width:250px') %>
+    <% if user.avatar.blob %>
+      <%= image_tag(user.avatar, alt: "Profile Picture", class: "rounded-circle", id: "avatar",style: 'height:250px;width:250px') %>
+    <%else %>
+      <%= image_tag('user.jpg', class: "photo-image rounded-circle", id: "avatar",style: 'height:250px;width:250px') %>
+    <% end %>
   </div>
   <div class="col-md-8 d-flex flex-column justify-content-center">
     <div class=" d-flex flex-column ">
@@ -17,10 +21,11 @@
       <h1 class="fw-bold"><%= user.username %></h1>
     </div>
     <div class="fs-2">
-      <%= link_to pluralize(user.photos.count, "Photo") , view_photos_user_path(user.id) %> |
-      <%= link_to pluralize(user.albums.count, "Album"), view_albums_user_path(user.id) %>|
-      <%= link_to " #{user.followee.count} Following" , class: "" %>|
-      <a href=""><%= render 'profile/follower_count', user: user %></a>
+      <%= link_to pluralize(user.photos.count, "Photo") , view_photos_user_path(user) %> |
+      <%= link_to pluralize(user.albums.count, "Album"), view_albums_user_path(user) %>|
+      <%= link_to " #{user.followee.count} Following" , view_followee_user_path(user) %>|
+      <a href="<%= view_follower_user_path(user) %>"><%= render 'profile/follower_count', user: user %></a>
     </div>
   </div>
 </div>
+<hr/>

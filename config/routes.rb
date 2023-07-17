@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   # ==============
   get '/profile/:id/photos', to: 'profile#show_photo', as: 'view_photos_user'
   get '/profile/:id/albums', to: 'profile#show_album', as: 'view_albums_user'
+  get '/profile/:id/follower', to: 'profile#show_follower_user', as: 'view_follower_user'
+  get '/profile/:id/followee', to: 'profile#show_followee_user', as: 'view_followee_user'
   # ==============
   # ============================================
   post 'like_photo/:id', to: 'home#like_photo', as: 'like_photo'

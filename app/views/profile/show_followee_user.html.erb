@@ -1,0 +1,10 @@
+<main>
+  <%= render "profile/user", user: @user %>
+  <% @followee.each do |user| %>
+    <% if user.avatar.blob %>
+      <%= image_tag(user.avatar, alt: "Profile Picture", class: "rounded-circle", id: "avatar",style: 'height:250px;width:250px') %>
+    <%else %>
+      <%= image_tag('user.jpg', class: "photo-image rounded-circle", id: "avatar",style: 'height:250px;width:250px') %>
+    <% end %>
+  <% end %>
+</main>

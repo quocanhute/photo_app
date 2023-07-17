@@ -46,10 +46,10 @@ class HomeController < ApplicationController
                          })
   end
   def get_all_photos
-    @photos = Photo.all
+    @photos = Photo.where(is_public: true )
   end
   def get_all_albums
-    @albums = Album.all
+    @albums = Album.where(is_public: true )
   end
   def set_user_gid
     @user_gid = current_user.to_gid_param if current_user

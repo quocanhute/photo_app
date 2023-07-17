@@ -26,6 +26,9 @@
                   <li><%= link_to "My Albums", albums_path, class: "my-2 my-sm-0 dropdown-item" %></li>
                   <li><%= link_to "Your profile", view_profile_path(current_user.id), class: "my-2 my-sm-0 dropdown-item" %></li>
                   <li><%= link_to "Edit account", edit_user_registration_path, class: "my-2 my-sm-0 dropdown-item" %></li>
+                  <% if current_user.admin? %>
+                    <li><%= link_to "Edit User", users_path, class: "my-2 my-sm-0 dropdown-item" %></li>
+                  <% end %>
                   <li><%= link_to "Sign out", destroy_user_session_path, class: "my-2 my-sm-0 dropdown-item", method: :delete %></li>
                 </ul>
               </div>
