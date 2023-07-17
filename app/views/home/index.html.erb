@@ -1,42 +1,8 @@
 <main role="main" class="col-lg-8 px-md-4 mx-auto pt-3">
-  <div class="row justify-content-center" data-controller="home">
+  <div class="row justify-content-center">
     <div class="d-flex justify-content-center">
-      <button id="photoButton" class="btn primary-bg text-white" data-action="click->home#buttonPhoto">PHOTO</button>
-      <button id="albumButton" class="btn btn-light primary-color"  data-action="click->home#buttonAlbum">ALBUM</button>
-    </div>
-    <div id="photoContent" data-target="home.photoContent">
-      <h1>Photos</h1>
-      <div> Welcome <%= @user_gid %> </div>
-      <%= turbo_stream_from "public_likes" %>
-      <% photo_channel = current_user ? "private_photos" : "public_photos" %>
-      <%= turbo_stream_from photo_channel %>
-      <%= turbo_stream_from [@user_gid, 'private_likes'] %>
-      <%= content_tag(:div, id: photo_channel) do %>
-        <% @photos.each do |photo| %>
-          <% if current_user %>
-            <%= render "photos/private_photo", like_status: current_user.liked?(photo),photo: photo %>
-          <% else %>
-            <%= render "photos/public_photo", photo: photo %>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
-
-    <div id="albumContent" data-target="home.albumContent">
-      <h1>Album</h1>
-      <%= turbo_stream_from "album_public_likes" %>
-      <% album_channel = current_user ? "private_albums" : "public_albums" %>
-      <%= turbo_stream_from album_channel %>
-      <%= turbo_stream_from [@user_gid, 'album_private_likes'] %>
-      <%= content_tag(:div, id: album_channel) do %>
-        <% @albums.each do |album| %>
-          <% if current_user %>
-            <%= render "albums/private_album", album_like_status: current_user.liked_album?(album),album: album %>
-          <% else %>
-            <%= render "albums/public_album", album: album %>
-          <% end %>
-        <% end %>
-      <% end %>
+      <button id="photoButton" class="btn btn-light primary-color"><%= link_to "PHOTOS", photos_index_path%></button>
+      <button id="albumButton" class="btn btn-light primary-color"><%= link_to "ALBUMS", albums_index_path%></button>
     </div>
     <div>
       <% if user_signed_in? %>

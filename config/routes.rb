@@ -6,8 +6,10 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
+  # ============================================
   root to: "home#index"
-
+  get '/photos', to: "home#index_show_photo", as: 'photos_index'
+  get '/albums', to: "home#index_show_album", as: 'albums_index'
   # ============================================
   scope '/admins', constraints: { role: 0 } do
     resources :users

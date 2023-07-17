@@ -1,6 +1,5 @@
 <div id="<%= dom_id photo %>">
   <%= render 'likes/like_count', photo: photo %>
-  <%= photo.title %>
   <%= link_to "View", photo_path(photo) %>
   <%= link_to "#{photo.user.username}", view_profile_path(photo.user) %>
 </div>

@@ -1,0 +1,27 @@
+<main role="main" class="col-lg-8 px-md-4 mx-auto pt-3">
+  <div class="row justify-content-center">
+    <div class="d-flex justify-content-center">
+      <button id="photoButton" class="btn btn-light primary-color"><%= link_to "PHOTOS", photos_index_path%></button>
+      <button id="albumButton" class="btn primary-bg text-white"><%= link_to "ALBUMS", albums_index_path%></button>
+    </div>
+    <div id="albumContent">
+      <h1>Album</h1>
+      <%= turbo_stream_from "album_public_likes" %>
+      <% album_channel = current_user ? "private_albums" : "public_albums" %>
+      <%= turbo_stream_from album_channel %>
+      <%= turbo_stream_from [@user_gid, 'album_private_likes'] %>
+      <%= content_tag(:div, id: album_channel) do %>
+        <% @albums.each do |album| %>
+          <% if current_user %>
+            <%= render "albums/private_album", album_like_status: current_user.liked_album?(album),album: album %>
+          <% else %>
+            <%= render "albums/public_album", album: album %>
+          <% end %>
+        <% end %>
+        <%= paginate @albums, theme: 'bootstrap-5',
+                     pagination_class: "pagination-sm flex-wrap justify-content-center",
+                     nav_class: "d-inline-block" %>
+      <% end %>
+    </div>
+  </div>
+</main>

@@ -157,3 +157,21 @@ img{
 .input-image-upload{
   display: none;
 }
+
+.photo-card {
+  .card-title{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-text{
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+.photo-image{
+  aspect-ratio: 2/2.5;
+}

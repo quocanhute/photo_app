@@ -1,0 +1,43 @@
+<main role="main" class="col-lg-12 px-md-4 mx-auto pt-3">
+  <div class="row justify-content-center col-12">
+    <div class="d-flex justify-content-center">
+      <button id="photoButton" class="btn primary-bg text-white"><%= link_to "PHOTOS", photos_index_path%></button>
+      <button id="albumButton" class="btn btn-light primary-color"><%= link_to "ALBUMS", albums_index_path%></button>
+    </div>
+    <div id="photoContent">
+      <h1>Photos</h1>
+      <%= turbo_stream_from "public_likes" %>
+      <% photo_channel = current_user ? "private_photos" : "public_photos" %>
+      <%= turbo_stream_from photo_channel %>
+      <%= turbo_stream_from [@user_gid, 'private_likes'] %>
+      <%= content_tag(:div, id: photo_channel,class: "row row-col-2") do %>
+        <% @photos.each do |photo| %>
+          <div class=" col-6">
+            <div class="card mb-3 p-1" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-6">
+                  <%= image_tag(photo.img, alt: "Photo Picture", class: "photo-image img-fluid rounded-start", id: "photo_#{photo.id}") %>
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body photo-card">
+                    <h5 class="card-title"><%= photo.title %></h5>
+                    <p class="card-text"><%= photo.description %></p>
+                    <% if current_user %>
+                      <%= render "photos/private_photo", like_status: current_user.liked?(photo),photo: photo %>
+                    <% else %>
+                      <%= render "photos/public_photo", photo: photo %>
+                    <% end %>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <%= paginate @photos, theme: 'bootstrap-5',
+                     pagination_class: "pagination-sm flex-wrap justify-content-center",
+                     nav_class: "d-inline-block" %>
+      <% end %>
+    </div>
+  </div>
+</main>
