@@ -39,28 +39,27 @@ class AlbumsController < ApplicationController
 
   # PATCH/PUT /albums/1 or /albums/1.json
   def update
-    render :json => params
-
-    # respond_to do |format|
-    #   if params[:photos_delete].present?
-    #     @album.images.where(:id => params[:photos_delete]).each do |img|
-    #       img.destroy
-    #     end
-    #   end
-    #   if params[:album][:images].present?
-    #     if @album.update(album_params_with_images)
-    #       format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
-    #     else
-    #       format.html { render :edit, status: :unprocessable_entity }
-    #     end
-    #   else
-    #     if @album.update(album_params_without_images)
-    #       format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
-    #     else
-    #       format.html { render :edit, status: :unprocessable_entity }
-    #     end
-    #   end
-    # end
+    # render :json => params
+    respond_to do |format|
+      if params[:photos_delete].present?
+        @album.images.where(:id => params[:photos_delete]).each do |img|
+          img.destroy
+        end
+      end
+      if params[:album][:images].present?
+        if @album.update(album_params_with_images)
+          format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+        end
+      else
+        if @album.update(album_params_without_images)
+          format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+        end
+      end
+    end
   end
 
   # DELETE /albums/1 or /albums/1.json
