@@ -5,7 +5,7 @@ class PhotosController < ApplicationController
 
   # GET /photos or /photos.json
   def index
-    @photos = current_user.photos.all
+    @photos = current_user.photos.page(params[:page]).per(8)
   end
 
   # GET /photos/1 or /photos/1.json
@@ -29,7 +29,7 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.save
-        format.html { redirect_to photo_url(@photo), notice: "Photo was successfully created." }
+        format.html { redirect_to photos_url, notice: "Photo was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -61,6 +61,7 @@ class PhotosController < ApplicationController
     @like = Like.new(photo: @photo,user: current_user)
     @like.save
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

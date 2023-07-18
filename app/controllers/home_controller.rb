@@ -24,7 +24,7 @@ class HomeController < ApplicationController
   def like_album
     @album = Album.find(params[:id])
     current_user.like_album(@album)
-    # redirect_to root_url
+
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: private_stream_album

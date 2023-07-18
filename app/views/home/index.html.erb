@@ -1,8 +1,8 @@
 <main role="main" class="col-lg-8 px-md-4 mx-auto pt-3">
   <div class="row justify-content-center">
     <div class="d-flex justify-content-center">
-      <button id="photoButton" class="btn btn-light primary-color"><%= link_to "PHOTOS", photos_index_path%></button>
-      <button id="albumButton" class="btn btn-light primary-color"><%= link_to "ALBUMS", albums_index_path%></button>
+      <button id="photoButton" class="btn btn-secondary primary-color mx-1"><%= link_to "PHOTOS", photos_index_path, class: "text-white"%></button>
+      <button id="albumButton" class="btn btn-secondary primary-color mx-1"><%= link_to "ALBUMS", albums_index_path,class: "text-white"%></button>
     </div>
     <div>
       <% if user_signed_in? %>

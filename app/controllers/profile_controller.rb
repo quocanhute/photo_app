@@ -5,24 +5,24 @@ class ProfileController < ApplicationController
   def show
     if current_user
       if params[:id].to_f == current_user.id
-        @photos = current_user.photos
+        @photos = current_user.photos.page(params[:page]).per(8)
       else
-        @photos = @user.photos.where(is_public: true )
+        @photos = @user.photos.where(is_public: true ).page(params[:page]).per(8)
       end
     else
-      @photos = @user.photos.where(is_public: true )
+      @photos = @user.photos.where(is_public: true ).page(params[:page]).per(8)
     end
   end
 
   def show_photo
     if current_user
       if params[:id].to_f == current_user.id
-        @photos = current_user.photos
+        @photos = current_user.photos.page(params[:page]).per(8)
       else
-        @photos = @user.photos.where(is_public: true )
+        @photos = @user.photos.where(is_public: true ).page(params[:page]).per(8)
       end
     else
-      @photos = @user.photos.where(is_public: true )
+      @photos = @user.photos.where(is_public: true ).page(params[:page]).per(8)
     end
 
   end
@@ -30,12 +30,12 @@ class ProfileController < ApplicationController
   def show_album
     if current_user
       if params[:id].to_f == current_user.id
-        @albums = current_user.albums
+        @albums = current_user.albums.page(params[:page]).per(8)
       else
-        @albums = @user.albums.where(is_public: true )
+        @albums = @user.albums.where(is_public: true ).page(params[:page]).per(8)
       end
     else
-      @albums = @user.albums.where(is_public: true )
+      @albums = @user.albums.where(is_public: true ).page(params[:page]).per(8)
     end
   end
 
