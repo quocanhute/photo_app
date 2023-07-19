@@ -10,7 +10,7 @@
           <i class="border-white fa-solid fa-lock private-photo"></i>
         <% end %>
         <%= link_to "Edit",edit_photo_path(photo),class: "card-link-edit btn btn-lg btn-primary" %>
-        <%= link_to "View", photo_path(photo),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "modal" } %>
+        <%= link_to "View", photo_path(photo),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "modal_photo" } %>
           </div>
         </div>
 

@@ -71,8 +71,8 @@ class ProfileController < ApplicationController
 
   private
   def update_action_follow
-    private_target = "#{dom_id_for_follower(@user)} follow_user"
-    turbo_stream.replace(private_target,
+    private_target = ".#{dom_id_for_follower(@user)}_follow_user"
+    turbo_stream.replace_all(private_target,
                          partial: 'profile/follow_button',
                          locals: {
                            user: @user

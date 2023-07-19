@@ -169,13 +169,28 @@ input[type=file][data-direct-upload-url][disabled] {
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        max-width: 600px;
+        .modal-title{
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .modal-body{
+            #photo-modal{
+                height: 500px;
+                width: 500px;
+            }
+        }
+    }
+}
+.image_album_modal{
+    height: 500px;
+    width: 500px;
 }
 
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    /* Set the maximum width of the modal here */
-    max-width: 400px; /* Adjust this value to your desired width */
-}

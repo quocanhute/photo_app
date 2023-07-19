@@ -1,32 +1,11 @@
-<%= turbo_frame_tag "modal" do %>
-<!--  <div class="">-->
-<!--    <p style="color: green"><%#= notice %></p>-->
-
-    <%# if current_user %>
-      <%#= render "photos/private_photo", like_status: current_user.liked?(@photo),photo: @photo %>
-    <%# else %>
-      <%#= render "photos/public_photo", photo: @photo %>
-    <%# end %>
-
-    <%# if current_user == @photo.user %>
-<!--      <div>-->
-<!--        <%#= link_to "Edit this photo", edit_photo_path(@photo) %> |-->
-        <%#= link_to "Back to photos", photos_path %>
-
-        <%#= button_to "Destroy this photo", @photo, method: :delete %>
-<!--      </div>-->
-    <%# end %>
-<!--    <div>-->
-      <%#= link_to "Cancel", "#",data:{ controller: "modals", action: "modals#close", class: "cancel-button" } %>
-<!--    </div>-->
-<!--  </div>-->
+<%= turbo_frame_tag "modal_photo" do %>
   <div class="modal-container">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal Title</h5>
+        <h5 class="modal-title"><%= @photo.title %></h5>
       </div>
       <div class="modal-body">
-        <%= image_tag(@photo.img, alt: "#{@photo.title}", class: "profile-photo w-100 card-img-top", id: "avatar",style: 'height:300px;width:300px') %>
+        <%= image_tag(@photo.img, alt: "#{@photo.title}", class: "profile-photo w-100 card-img-top", id: "photo-modal") %>
       </div>
       <div class="modal-footer">
         <%= link_to "Cancel", "#",data:{ controller: "modals", action: "modals#close", class: "cancel-button" } %>

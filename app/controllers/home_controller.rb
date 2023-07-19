@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   before_action :set_user_gid
   def index
+    @users = User.all
   end
 
   def index_show_photo

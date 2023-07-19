@@ -1,5 +1,6 @@
 <main>
   <%= render "profile/user", user: current_user %>
   <%= link_to "New Album", new_album_path %>
-  <%= render "layouts/album_card", albums: current_user.albums %>
+  <%= turbo_frame_tag "modal_album" %>
+  <%= render "layouts/album_card", albums: @albums %>
 </main>

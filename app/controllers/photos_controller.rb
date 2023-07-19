@@ -1,6 +1,5 @@
 class PhotosController < ApplicationController
-  before_action :authenticate_user!
-  # before_action :set_user
+  before_action :authenticate_user!, only: %i[ index new edit create update destroy ]
   before_action :set_photo, only: %i[ show edit update destroy ]
 
   # GET /photos or /photos.json
@@ -57,10 +56,10 @@ class PhotosController < ApplicationController
     end
   end
 
-  def like_photo
-    @like = Like.new(photo: @photo,user: current_user)
-    @like.save
-  end
+  # def like_photo
+  #   @like = Like.new(photo: @photo,user: current_user)
+  #   @like.save
+  # end
 
 
   private

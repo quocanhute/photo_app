@@ -87,3 +87,4 @@ gem 'kaminari'       # gíup phân trang
 gem 'ransack'     # tạo form tìm kiếm
 gem 'bootstrap5-kaminari-views' # giao diện đẹp cho phân trang
 
+gem "sidekiq"

@@ -1,6 +1,6 @@
 <div class="row row-cols-4 d-flex align-items-center justify-content-center">
   <% albums.each do |album| %>
-    <div class="col col-3 my-2 rounded float-left profile-card-img">
+    <div class="col col-3 my-2 rounded float-left profile-card-album">
       <div class="card border-0 align-items-center justify-content-center" style="width: 18rem;">
         <%= image_tag(album.images.first, alt: "#{album.title}", class: "w-100 card-img-top", id: "avatar",style: 'height:300px;width:300px',data: { bs_toggle: "modal", bs_target: "#modal", image_src: "" }) %>
         <div class="card-body">
@@ -9,49 +9,12 @@
         <% unless album.is_public? %>
           <i class="border-white fa-solid fa-lock private-photo"></i>
         <% end %>
-        <%=  link_to "Edit",edit_album_path(album),class: "card-link-file btn btn-lg btn-primary" %>
+        <%= link_to "Edit",edit_album_path(album),class: "card-link-edit btn btn-lg btn-primary" %>
+        <%= link_to "View", album_path(album),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "modal_album" } %>
       </div>
     </div>
   <% end %>
+  <%= paginate albums, theme: 'bootstrap-5',
+               pagination_class: "pagination-sm flex-wrap justify-content-center",
+               nav_class: "d-inline-block col-12" %>
 </div>
-
-<!-- MODAL SHOW IMG-->
-<div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <img class="w-100" id="modalImage" src="" alt="">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-    var modal = document.getElementById("modal");
-    var modalImage = document.getElementById("modalImage");
-    var modalTitle = document.getElementById("modalLabel");
-
-    var cards = document.querySelectorAll("[data-bs-target='#modal']");
-
-    cards.forEach(function(card) {
-        card.addEventListener("click", function() {
-            var imgSrc = this.dataset.imageSrc;
-            var imgAlt = this.dataset.imageAlt;
-
-            modalImage.src = imgSrc;
-            modalImage.alt = imgAlt;
-
-            modalTitle.textContent = imgAlt;
-        });
-    });
-</script>
-
-

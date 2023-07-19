@@ -10,6 +10,7 @@
       <% photo_channel = current_user ? "private_photos" : "public_photos" %>
       <%= turbo_stream_from photo_channel %>
       <%= turbo_stream_from [@user_gid, 'private_likes'] %>
+      <%= turbo_frame_tag "modal_photo" %>
       <%= content_tag(:div, id: photo_channel,class: "row row-col-2") do %>
         <% @photos.each do |photo| %>
           <div class=" col-6">
@@ -20,6 +21,16 @@
                 </div>
                 <div class="col-md-6">
                   <div class="card-body photo-card">
+                    <div class="user-photo-card">
+                      <%= link_to "#{photo.user.username}", view_profile_path(photo.user) %>
+                      <% if current_user %>
+                        <% if photo.user != current_user %>
+                          <%= render partial: 'profile/follow_button',locals: {user: photo.user} %>
+                        <% elsif current_user %>
+                          <button class="btn btn-primary text-primary border-blue bg-white">Edit profile </button>
+                        <% end %>
+                      <% end %>
+                    </div>
                     <h5 class="card-title"><%= photo.title %></h5>
                     <p class="card-text"><%= photo.description %></p>
                     <% if current_user %>
@@ -36,7 +47,7 @@
         <% end %>
         <%= paginate @photos, theme: 'bootstrap-5',
                      pagination_class: "pagination-sm flex-wrap justify-content-center",
-                     nav_class: "d-inline-block" %>
+                     nav_class: "d-inline-block"%>
       <% end %>
     </div>
   </div>

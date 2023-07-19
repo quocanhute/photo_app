@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :photos
     resources :albums do
       member do
-        delete '/:idKey',to: 'albums#delete_image_attachment', as: 'delete_image'
+        delete '/:id_key',to: 'albums#delete_image_attachment', as: 'delete_image'
       end
     end
   end

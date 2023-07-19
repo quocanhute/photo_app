@@ -1,5 +1,4 @@
 <div id="<%= dom_id photo %>">
   <%= render 'likes/private_button', photo: photo, like_status: like_status %>
-  <%= link_to "View", photo_path(photo) %>
-  <%= link_to "#{photo.user.username}", view_profile_path(photo.user) %>
+  <%= link_to "View", photo_path(photo), data: { turbo_frame: "modal_photo" } %>
 </div>

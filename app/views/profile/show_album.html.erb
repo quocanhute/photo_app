@@ -1,4 +1,5 @@
 <main>
   <%= render "profile/user", user: @user %>
+  <%= turbo_frame_tag "modal_album" %>
   <%= render "profile/profile_album", albums: @albums  %>
 </main>

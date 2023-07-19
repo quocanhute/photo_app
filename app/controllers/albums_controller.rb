@@ -1,10 +1,10 @@
 class AlbumsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[ index new edit create update destroy ]
   before_action :set_album, only: %i[ show edit update destroy delete_image_attachment ]
 
   # GET /albums or /albums.json
   def index
-    @albums = current_user.albums.all
+    @albums = current_user.albums.page(params[:page]).per(8)
   end
 
   # GET /albums/1 or /albums/1.json
@@ -40,7 +40,7 @@ class AlbumsController < ApplicationController
         end
       end
       if @album.update(album_params)
-        format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
+        format.html { redirect_to albums_path(@album), notice: "Album was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -57,7 +57,7 @@ class AlbumsController < ApplicationController
   end
 
   def delete_image_attachment
-    img = @album.images.find(params[:idKey])
+    img = @album.images.find(params[:id_key])
     img.purge
     redirect_to albums_url
   end
