@@ -12,8 +12,8 @@
         <% if user != current_user %>
           <%= render partial: 'profile/follow_button',locals: {user: user} %>
         <% elsif current_user %>
-          <button class="btn btn-primary text-primary border-blue bg-white">Edit profile </button>
-        <% end %>
+          <%= link_to "Edit Profile", edit_user_registration_path,class: "btn btn-primary text-primary border-blue bg-white" %>
+      <% end %>
         <span><i class="fa-solid fa-gear btn btn-lg"></i></span>
       </div>
     </div>

@@ -21,13 +21,13 @@
                 </div>
                 <div class="col-md-6">
                   <div class="card-body photo-card">
-                    <div class="user-photo-card">
+                    <div class="user-photo-card d-flex justify-content-between">
                       <%= link_to "#{photo.user.username}", view_profile_path(photo.user) %>
                       <% if current_user %>
                         <% if photo.user != current_user %>
                           <%= render partial: 'profile/follow_button',locals: {user: photo.user} %>
                         <% elsif current_user %>
-                          <button class="btn btn-primary text-primary border-blue bg-white">Edit profile </button>
+                          <%= link_to "Edit Profile", edit_user_registration_path,class: "btn btn-primary text-primary border-blue bg-white" %>
                         <% end %>
                       <% end %>
                     </div>

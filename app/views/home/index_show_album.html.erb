@@ -1,5 +1,5 @@
 <main role="main" class="col-lg-12 px-md-4 mx-auto pt-3">
-  <div class="row justify-content-center">
+  <div class="row justify-content-center col-12">
     <div class="d-flex justify-content-center">
       <button id="photoButton" class="btn btn-secondary mx-1 primary-color"><%= link_to "PHOTOS", photos_index_path, class: "text-white"%></button>
       <button id="albumButton" class="btn primary-bg mx-1"><%= link_to "ALBUMS", albums_index_path,class: "text-white"%></button>
@@ -10,13 +10,40 @@
       <% album_channel = current_user ? "private_albums" : "public_albums" %>
       <%= turbo_stream_from album_channel %>
       <%= turbo_stream_from [@user_gid, 'album_private_likes'] %>
-      <%= content_tag(:div, id: album_channel) do %>
+      <%= turbo_frame_tag "modal_album" %>
+      <%= content_tag(:div, id: album_channel, class:  "row row-col-2") do %>
         <% @albums.each do |album| %>
-          <% if current_user %>
-            <%= render "albums/private_album", album_like_status: current_user.liked_album?(album),album: album %>
-          <% else %>
-            <%= render "albums/public_album", album: album %>
-          <% end %>
+          <div class=" col-6">
+            <div class="card mb-3 p-1" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-6">
+                  <%= image_tag(album.images.first, alt: "Photo Picture", class: "photo-image img-fluid rounded-start", id: "photo_#{album.id}") %>
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body photo-card">
+                    <div class="user-photo-card d-flex justify-content-between">
+                      <%= link_to "#{album.user.username}", view_profile_path(album.user) %>
+                      <% if current_user %>
+                        <% if album.user != current_user %>
+                          <%= render partial: 'profile/follow_button',locals: {user: album.user} %>
+                        <% elsif current_user %>
+                          <%= link_to "Edit Profile", edit_user_registration_path,class:"btn btn-primary text-primary border-blue bg-white" %>
+                    <% end %>
+                      <% end %>
+                    </div>
+                    <h5 class="card-title"><%= album.title %></h5>
+                    <p class="card-text"><%= album.description %></p>
+                    <% if current_user %>
+                      <%= render "albums/private_album", album_like_status: current_user.liked_album?(album),album: album %>
+                    <% else %>
+                      <%= render "albums/public_album", album: album %>
+                    <% end %>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         <% end %>
         <%= paginate @albums, theme: 'bootstrap-5',
                      pagination_class: "pagination-sm flex-wrap justify-content-center",
