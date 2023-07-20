@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
-  # resources :albums
-  # resources :photos
+  root to: "home#index_show_photo"
   get 'profile/show'
   devise_for :users,controllers:{
     registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
   # ============================================
-  root to: "home#index"
   get '/photos', to: "home#index_show_photo", as: 'photos_index'
   get '/albums', to: "home#index_show_album", as: 'albums_index'
   # ============================================

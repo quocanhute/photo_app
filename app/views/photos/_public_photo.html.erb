@@ -1,4 +1,4 @@
 <div id="<%= dom_id photo %>">
+  <i class="fa-solid fa-heart pink-heart"></i>
   <%= render 'likes/like_count', photo: photo %>
-  <%= link_to "View", photo_path(photo), data: { turbo_frame: "modal_photo" } %>
 </div>

@@ -1,6 +1,6 @@
 class Album < ApplicationRecord
   has_many :likeablealbums, dependent: :destroy
-  has_many :likes, through: :likeablealbums, source: :user
+  has_many :liked_user, through: :likeablealbums, source: :user
   belongs_to :user
 
   has_many_attached :images, dependent: :purge

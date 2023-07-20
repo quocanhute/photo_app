@@ -1,5 +1,10 @@
 <%= turbo_frame_tag "#{dom_id(album)} album_private_likes" do %>
-<% like_text = album_like_status ? "Unlike" : "like" %>
-<%= button_to like_text, like_album_path(id: album.id) %>
-<%= render 'likes/like_count_album', album: album %>
+  <% like_text = album_like_status ?  "fa-solid fa-heart pink-heart" : "fa-regular fa-heart" %>
+  <div class="d-flex align-items-center">
+    <%= link_to like_album_path(id: album.id),data: { turbo_method: :post } do %>
+      <%= content_tag(:i,class: "#{like_text}") do %>
+      <% end %>
+    <% end %>
+    <%= render 'likes/like_count_album', album: album %>
+  </div>
 <% end %>

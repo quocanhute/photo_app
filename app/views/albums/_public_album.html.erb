@@ -1,4 +1,4 @@
 <div id="<%= dom_id album %>">
+  <i class="fa-solid fa-heart pink-heart"></i>
   <%= render 'likes/like_count_album', album: album %>
-  <%= link_to "View", album_path(album), data: { turbo_frame: "modal_album" } %>
 </div>

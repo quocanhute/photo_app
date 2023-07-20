@@ -1,21 +1,13 @@
 class User < ApplicationRecord
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :first_name, presence: true, length: { maximum: 25 }
+  validates :last_name, presence: true, length: { maximum: 25 }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  # Add the role attribute
+  # Add the custom attribute
   enum role: { admin: 0, user: 1 }
-
   has_one_attached :avatar
-  def username
-    if self.first_name && self.last_name
-      self.first_name + " " + self.last_name
-    else
-      "Nothing"
-    end
-  end
   # ==================================================================
   # access the Relationship object
   has_many :followed_user,
@@ -59,7 +51,6 @@ class User < ApplicationRecord
                                partial: 'likes/like_count',
                                locals: {photo: photo}
   end
-  # ==================================================================
     # ============================Album==================================
   def liked_album?(album)
     liked_albums.include?(album)
@@ -77,4 +68,11 @@ class User < ApplicationRecord
                                locals: {album: album}
   end
     # ==================================================================
+  def username
+    if self.first_name && self.last_name
+      self.first_name + " " + self.last_name
+    else
+      "Nothing"
+    end
+  end
 end

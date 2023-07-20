@@ -21,24 +21,33 @@
                 </div>
                 <div class="col-md-6">
                   <div class="card-body photo-card">
-                    <div class="user-photo-card d-flex justify-content-between">
-                      <%= link_to "#{album.user.username}", view_profile_path(album.user) %>
-                      <% if current_user %>
-                        <% if album.user != current_user %>
-                          <%= render partial: 'profile/follow_button',locals: {user: album.user} %>
-                        <% elsif current_user %>
-                          <%= link_to "Edit Profile", edit_user_registration_path,class:"btn btn-primary text-primary border-blue bg-white" %>
-                    <% end %>
-                      <% end %>
+                    <div class="card-header">
+                      <div class="user-photo-card d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-start align-items-center">
+                          <%= image_tag(album.user.avatar, alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                          <%= link_to "#{album.user.username}", view_profile_path(album.user),class: "mx-1" %>
+                        </div>
+                        <% if current_user %>
+                          <% if album.user != current_user %>
+                            <%= render partial: 'profile/follow_button',locals: {user: album.user} %>
+                          <% elsif current_user %>
+                            <%= link_to "Edit Profile", edit_user_registration_path,class: "btn btn-primary text-primary border-blue bg-white" %>
+                          <% end %>
+                        <% end %>
+                      </div>
                     </div>
-                    <h5 class="card-title"><%= album.title %></h5>
-                    <p class="card-text"><%= album.description %></p>
-                    <% if current_user %>
-                      <%= render "albums/private_album", album_like_status: current_user.liked_album?(album),album: album %>
-                    <% else %>
-                      <%= render "albums/public_album", album: album %>
-                    <% end %>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <div class="card-body" style="height: 70%;">
+                      <h5 class="card-title"><%= album.title %></h5>
+                      <p class="card-text"><%= album.description %></p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between ">
+                      <% if current_user %>
+                        <%= render "albums/private_album", album_like_status: current_user.liked?(album),album: album %>
+                      <% else %>
+                        <%= render "albums/public_album", album: album %>
+                      <% end %>
+                      <%= content_tag(:p,"Create at #{album.created_at.strftime('%d/%m/%Y')}",class:"card-text") %>
+                    </div>
                   </div>
                 </div>
               </div>
