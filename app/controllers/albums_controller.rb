@@ -1,7 +1,7 @@
 class AlbumsController < ApplicationController
   before_action :authenticate_user!, only: %i[ index new edit create update destroy ]
   before_action :set_album, only: %i[ show edit update destroy delete_image_attachment ]
-
+  before_action :check_album_ownership, only: [:edit, :update, :destroy]
   # GET /albums or /albums.json
   def index
     @albums = current_user.albums.page(params[:page]).per(8)
@@ -73,5 +73,13 @@ class AlbumsController < ApplicationController
 
   def get_images_update_album
     params.require(:album).permit(images: [])
+  end
+
+  def check_album_ownership
+    album = Album.find_by(id: params[:id])
+    if album && album.user_id == current_user.id
+    else
+      redirect_to root_path, alert: 'Access denied.'
+    end
   end
 end

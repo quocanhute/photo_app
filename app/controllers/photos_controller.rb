@@ -1,6 +1,7 @@
 class PhotosController < ApplicationController
   before_action :authenticate_user!, only: %i[ index new edit create update destroy ]
   before_action :set_photo, only: %i[ show edit update destroy ]
+  before_action :check_photo_ownership, only: [:edit, :update, :destroy]
 
   # GET /photos or /photos.json
   def index
@@ -18,6 +19,7 @@ class PhotosController < ApplicationController
 
   # GET /photos/1/edit
   def edit
+
   end
 
   # POST /photos or /photos.json
@@ -64,17 +66,23 @@ class PhotosController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_photo
-      @photo = Photo.find(params[:id])
+  def set_photo
+    @photo = Photo.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def photo_params
+    params.require(:photo).permit(:title, :url, :img, :description, :is_public)
+  end
+
+  # def set_user
+  #   @user = User.find(params[:userid])
+  # end
+  def check_photo_ownership
+    photo = Photo.find_by(id: params[:id])
+    if photo && photo.user_id == current_user.id
+    else
+      redirect_to root_path, alert: 'Access denied.'
     end
-
-    # Only allow a list of trusted parameters through.
-    def photo_params
-      params.require(:photo).permit(:title, :url, :img, :description, :is_public)
-    end
-
-    # def set_user
-    #   @user = User.find(params[:userid])
-    # end
-
+  end
 end
