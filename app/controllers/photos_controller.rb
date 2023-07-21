@@ -85,4 +85,10 @@ class PhotosController < ApplicationController
       redirect_to root_path, alert: 'Access denied.'
     end
   end
+
+  def authorize_admin
+    unless current_user&.admin?
+      redirect_to root_path, alert: 'Access denied.'
+    end
+  end
 end

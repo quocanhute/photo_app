@@ -9,8 +9,14 @@ Rails.application.routes.draw do
   get '/photos', to: "home#index_show_photo", as: 'photos_index'
   get '/albums', to: "home#index_show_album", as: 'albums_index'
   # ============================================
-  scope '/admins', constraints: { role: 0 } do
+  namespace 'admin' do
     resources :users
+    # get '/users', to: 'admins#index_user', as: 'admin_get_users'
+    # get '/users/new', to: 'admins#new_user', as: 'admin_new_user'
+    # get '/users/:id', to: 'admins#show_user', as: 'admin_view_user'
+    # post '/users', to: 'admins#create_user', as: 'admin_create_user'
+    # get '/users/:id/edit', to: 'admins#edit_user', as: 'admin_edit_user'
+    # patch '/users/:id', to: 'admins#update_user', as: 'admin_update_user'
   end
 
   scope '/users' do

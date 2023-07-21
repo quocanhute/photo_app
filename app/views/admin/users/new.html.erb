@@ -1,0 +1,42 @@
+<h2>Create User</h2>
+
+<%= form_for(@user,url: admin_users_path,method: :post ) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p><%= f.label :first_name %><br />
+    <%= f.text_field :first_name %></p>
+
+  <p><%= f.label :last_name %><br />
+    <%= f.text_field :last_name %></p>
+
+  <p><%= f.label :email %><br />
+    <%= f.email_field :email %></p>
+
+  <p><%= f.label :password, "New password" %><br />
+    <%= f.password_field :password %></p>
+
+  <p><%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %></p>
+
+  <p>
+    <%= f.label :role %><br />
+    <%= f.select :role, User.roles.keys %>
+  </p>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<p></p>
+
+<%= link_to 'All users', admin_users_path %>
