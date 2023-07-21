@@ -1,6 +1,5 @@
 <main>
   <%= render "profile/user", user: current_user %>
   <%= link_to "New photo", new_photo_path %>
-  <%= turbo_frame_tag "modal_photo" %>
   <%= render "layouts/photo_card", photos: @photos %>
 </main>
