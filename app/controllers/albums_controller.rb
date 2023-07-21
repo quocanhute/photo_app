@@ -24,7 +24,7 @@ class AlbumsController < ApplicationController
   def create
     @album = current_user.albums.new(album_params)
     if @album.save
-      redirect_to album_url(@album), notice: "Album was successfully created."
+      redirect_to albums_path, notice: "Album was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -40,7 +40,7 @@ class AlbumsController < ApplicationController
         end
       end
       if @album.update(album_params)
-        format.html { redirect_to albums_path(@album), notice: "Album was successfully updated." }
+        format.html { redirect_to albums_path, notice: "Album was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end

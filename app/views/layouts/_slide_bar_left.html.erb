@@ -2,7 +2,7 @@
   <div class="sidebar-sticky pt-3">
 
     <% if user_signed_in? %>
-      <ul class="nav flex-column">
+      <ul class="nav flex-column px-3">
         <li class="nav-item">
           <a class="nav-link active" href="#">
             <span data-feather="home"></span>
@@ -18,6 +18,25 @@
         <li class="nav-item">
           <%= link_to "My Profile", view_profile_path(current_user.id), class: "nav-link active" %>
         </li>
+        <% if current_user.admin? %>
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin
+            </a>
+
+            <ul class="dropdown-menu">
+              <li class="nav-item">
+                <%= link_to "Edit All Users", admin_users_path, class: "nav-link active" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Edit All Photos", admin_photos_path, class: "nav-link active" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Edit All Albums", admin_albums_path, class: "nav-link active" %>
+              </li>
+            </ul>
+          </div>
+        <% end %>
       </ul>
     <% else %>
       <ul class="nav flex-column">
@@ -52,6 +71,28 @@
         <li class="nav-item">
           <%= link_to "My Albums", albums_path, class: "nav-link active" %>
         </li>
+        <li class="nav-item">
+          <%= link_to "My Profile", view_profile_path(current_user.id), class: "nav-link active" %>
+        </li>
+        <% if current_user.admin? %>
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin
+            </a>
+
+            <ul class="dropdown-menu">
+              <li class="nav-item">
+                <%= link_to "Edit All Users", admin_users_path, class: "nav-link active" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Edit All Photos", admin_photos_path, class: "nav-link active" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Edit All Albums", admin_albums_path, class: "nav-link active" %>
+              </li>
+            </ul>
+          </div>
+        <% end %>
       </ul>
     <% else %>
       <ul class="nav flex-column">

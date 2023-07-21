@@ -36,10 +36,10 @@
       <% if album %>
         <div class="form-outline mb-4 w-100 d-flex row row-col-4" data-controller="multi-file">
           <% album.images.each do |image| %>
-            <%= content_tag(:div,class: "exist-images col-3 position-relative overflow-hidden mb-1") do %>
-              <%= image_tag(image, id: "avatar") %>
+            <%= content_tag(:div,class: "exist-images col-2 position-relative overflow-hidden mb-1", ) do %>
+              <%= image_tag(image,id:"#{image.id}") %>
               <%= check_box_tag "photos_delete[]", image.id,false,class: "d-none", id: "photos_delete#{image.id}" %>
-              <%= label_tag "photos_delete#{image.id}", "", class: "position-absolute delete-image-checkbox btn btn-outline-danger",data: {action:'click->multi-file#toggleValue'} do %>
+              <%= label_tag "photos_delete#{image.id}", "", class: "position-absolute delete-image-checkbox btn btn-danger",data: {action:'click->multi-file#toggleValue'} do %>
                 <i class="fa-solid fa-xmark"></i>
               <% end %>
             <% end %>
@@ -47,12 +47,12 @@
         </div>
       <% end %>
     </div>
-    <div class="col-12" data-controller="preview-upload" data-action="change->preview-upload#updatePreview">
+    <div class="col-12 d-flex" data-controller="preview-upload" data-action="change->preview-upload#updatePreview">
       <%= form.label :images, class: 'label-image-upload' do %>
-        + Add Images
+        <p>+ Add Images</p>
         <%= form.file_field :images, multiple: true, class: "input-image-upload", data: { target: "preview-upload.input" } %>
       <% end %>
-      <div data-target="preview-upload.previewContainer"></div>
+      <div class="col-10 preview-images-zone row row-col-6" data-target="preview-upload.previewContainer"></div>
     </div>
 
   </div>

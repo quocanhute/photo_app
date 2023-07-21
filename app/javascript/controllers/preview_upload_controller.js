@@ -18,17 +18,20 @@ export default class extends Controller {
       reader.onload = (event) => {
         const imageUrl = event.target.result
         const img = document.createElement("img")
+        // img.classList.add("preview-image")
         img.src = imageUrl
 
         const deleteButton = document.createElement("button")
-        deleteButton.innerText = "Delete"
+        deleteButton.innerText = "Remove"
         deleteButton.addEventListener("click", () => {
           this.removeImage(img, file)
         })
+        deleteButton.classList.add("image-cancel","btn","btn-danger")
 
         const imageContainer = document.createElement("div")
         imageContainer.appendChild(img)
         imageContainer.appendChild(deleteButton)
+        imageContainer.classList.add("preview-image","col-2")
 
         this.previewContainerTarget.appendChild(imageContainer)
       }
