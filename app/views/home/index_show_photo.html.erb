@@ -10,14 +10,13 @@
       <% photo_channel = current_user ? "private_photos" : "public_photos" %>
       <%= turbo_stream_from photo_channel %>
       <%= turbo_stream_from [@user_gid, 'private_likes'] %>
-      <%= turbo_frame_tag "modal_photo" %>
       <%= content_tag(:div, id: photo_channel,class: "row row-col-2") do %>
         <% @photos.each do |photo| %>
           <div class=" col-6">
             <div class="card mb-3 p-1" style="max-width: 540px;">
               <div class="row g-0">
                 <div class="col-md-6">
-                  <%= link_to photo_path(photo), data: { turbo_frame: "modal_photo" } do%>
+                  <%= link_to photo_path(photo), data: { turbo_frame: "remote_modal" } do%>
                     <%= image_tag(photo.img, alt: "Photo Picture", class: "photo-image img-fluid rounded-start", id: "photo_#{photo.id}") %>
                   <% end %>
                 </div>

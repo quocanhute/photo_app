@@ -9,7 +9,7 @@
         <% unless photo.is_public? %>
           <i class="border-white fa-solid fa-lock private-photo"></i>
         <% end %>
-        <%= link_to "View", photo_path(photo),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "modal_photo" } %>
+        <%= link_to "View", photo_path(photo),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "remote_modal" } %>
       </div>
     </div>
   <% end %>

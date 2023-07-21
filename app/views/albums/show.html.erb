@@ -1,51 +1,101 @@
-<%= turbo_frame_tag "modal_album" do %>
-  <div class="modal-container">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-indicators">
-            <% @album.images.each_with_index do |image,index| %>
-              <% if index == 0 %>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= index %>" class="active" aria-current="true" aria-label="Slide <%= index %>"></button>
-              <%else %>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= index %>" aria-label="Slide <%= index %>"></button>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="carousel-inner">
-            <% @album.images.each_with_index do |image,index| %>
-              <% if index == 0 %>
-                <div class="carousel-item active col-12">
-                  <%= image_tag(image, alt: "#{@album.title}", class: "d-block w-100 image_album_modal", id: "image_album_#{index}") %>
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5><%= @album.title %></h5>
-                    <p><%= @album.description %></p>
-                  </div>
-                </div>
-              <%else %>
-                <div class="carousel-item col-12">
-                  <%= image_tag(image, alt: "#{@album.title}", class: "d-block w-100 image_album_modal", id: "image_album_#{index}") %>
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5><%= @album.title %></h5>
-                    <p><%= @album.description %></p>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
+<%#= turbo_frame_tag "modal_album" do %>
+<!--  <div class="modal-container">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-body">-->
+<!--        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">-->
+<!--          <div class="carousel-indicators">-->
+            <%# @album.images.each_with_index do |image,index| %>
+              <%# if index == 0 %>
+<!--                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%#= index %>" class="active" aria-current="true" aria-label="Slide <%#= index %>"></button>-->
+              <%#else %>
+<!--                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%#= index %>" aria-label="Slide <%#= index %>"></button>-->
+              <%# end %>
+            <%# end %>
+<!--          </div>-->
+<!--          <div class="carousel-inner">-->
+            <%# @album.images.each_with_index do |image,index| %>
+              <%# if index == 0 %>
+<!--                <div class="carousel-item active col-12">-->
+                  <%#= image_tag(image, alt: "#{@album.title}", class: "d-block w-100 image_album_modal", id: "image_album_#{index}") %>
+<!--                  <div class="carousel-caption d-none d-md-block">-->
+<!--                    <h5><%#= @album.title %></h5>-->
+<!--                    <p><%#= @album.description %></p>-->
+<!--                  </div>-->
+<!--                </div>-->
+              <%#else %>
+<!--                <div class="carousel-item col-12">-->
+                  <%#= image_tag(image, alt: "#{@album.title}", class: "d-block w-100 image_album_modal", id: "image_album_#{index}") %>
+<!--                  <div class="carousel-caption d-none d-md-block">-->
+<!--                    <h5><%#= @album.title %></h5>-->
+<!--                    <p><%#= @album.description %></p>-->
+<!--                  </div>-->
+<!--                </div>-->
+              <%# end %>
+            <%# end %>
+<!--          </div>-->
+<!--          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">-->
+<!--            <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--            <span class="visually-hidden">Previous</span>-->
+<!--          </button>-->
+<!--          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">-->
+<!--            <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--            <span class="visually-hidden">Next</span>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+        <%#= link_to "Cancel", "#",data:{ controller: "modals", action: "modals#close", class: "cancel-button" } %>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<%# end %>
+<%= render "layouts/remote_modal" do %>
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="newItemRemoteModalLabel"><%= @album.title %></h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body remote_modal_body" id="remote_modal_body">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <% @album.images.each_with_index do |image,index| %>
+          <% if index == 0 %>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= index %>" class="active" aria-current="true" aria-label="Slide <%= index %>"></button>
+          <%else %>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= index %>" aria-label="Slide <%= index %>"></button>
+          <% end %>
+        <% end %>
       </div>
-      <div class="modal-footer">
-        <%= link_to "Cancel", "#",data:{ controller: "modals", action: "modals#close", class: "cancel-button" } %>
+      <div class="carousel-inner">
+        <% @album.images.each_with_index do |image,index| %>
+          <% if index == 0 %>
+            <div class="carousel-item active col-12">
+              <%= image_tag(image, alt: "#{@album.title}", class: "d-block w-100 image_album_modal", id: "image_album_#{index}") %>
+              <div class="carousel-caption d-none d-md-block">
+                <h5><%= @album.title %></h5>
+                <p><%= @album.description %></p>
+              </div>
+            </div>
+          <%else %>
+            <div class="carousel-item col-12">
+              <%= image_tag(image, alt: "#{@album.title}", class: "d-block w-100 image_album_modal", id: "image_album_#{index}") %>
+              <div class="carousel-caption d-none d-md-block">
+                <h5><%= @album.title %></h5>
+                <p><%= @album.description %></p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
       </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
   </div>
 <% end %>
