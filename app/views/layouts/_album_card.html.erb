@@ -1,8 +1,10 @@
 <div class="row row-cols-4 d-flex align-items-center">
   <% albums.each do |album| %>
     <div class="col col-3 my-2 rounded float-left profile-card-album">
-      <div class="card border-0 align-items-center justify-content-center" style="width: 18rem;">
-        <%= image_tag(album.images.first, alt: "#{album.title}", class: "w-100 card-img-top", id: "avatar",style: 'height:300px;width:300px',data: { bs_toggle: "modal", bs_target: "#modal", image_src: "" }) %>
+      <div class="profile-album-card card border-0 align-items-center justify-content-center" >
+        <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album w-100 card-img-top") %>
+        <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album rotated-image1 w-100 card-img-top") %>
+        <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album rotated-image2 w-100 card-img-top") %>
         <div class="card-body">
           <p class="card-text"><%= album.title %></p>
         </div>
