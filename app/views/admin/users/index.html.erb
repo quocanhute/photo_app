@@ -1,38 +1,38 @@
-<main role="main" class="col-lg-8 px-md-4 mx-auto pt-3">
+<main role="main" class="col-lg-10 px-md-4 mx-auto pt-3">
   <div class="row justify-content-center">
     <!-- app/views/users/index.html.erb -->
     <h1>All Users</h1>
-
-    <table id="users">
-      <thead>
-        <tr>
-          <th>Full Name</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Created At</th>
-          <th></th>
-          <th></th>
-        </tr>
+    <table class="table">
+      <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Action</th>
+      </tr>
       </thead>
       <tbody>
-        <% @users.each do |user| %>
+      <% @users.each do |user| %>
         <tr>
-          <th><%= user.username %></th>
+          <th><%= user.id %></th>
           <th><%= user.first_name %></th>
           <th><%= user.last_name %></th>
           <th><%= user.email %></th>
           <th><%= user.role %></th>
-          <th><%= link_to "Edit", edit_admin_user_path(user) %></th>
-          <th><%= link_to "Delete", admin_user_path(user), :method => :delete, :confirm => "Are you sure?" %></th>
+          <th>
+            <%= link_to "Edit", edit_admin_user_path(user),class: "btn btn-warning" %>
+            <%= link_to "Delete", admin_user_path(user), :method => :delete,  data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+          </th>
         </tr>
-        <% end %>
+      <% end %>
       </tbody>
-
-
     </table>
 
     <p><%= link_to "New User", new_admin_user_path,class: 'btn primary-bg my-2 my-sm-0 text-white' %></p>
   </div>
+  <%= paginate @users, theme: 'bootstrap-5',
+               pagination_class: "pagination-sm flex-wrap justify-content-center",
+               nav_class: "d-inline-block col-12" %>
 </main>

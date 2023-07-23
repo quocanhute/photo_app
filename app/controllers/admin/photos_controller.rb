@@ -4,7 +4,7 @@ class Admin::PhotosController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @photos = Photo.page(params[:page]).per(8)
+    @photos = Photo.page(params[:page]).per(18)
   end
 
 

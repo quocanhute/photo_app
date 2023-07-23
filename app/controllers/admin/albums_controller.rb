@@ -12,7 +12,7 @@ class Admin::AlbumsController < ApplicationController
     @album.destroy
 
     respond_to do |format|
-      format.html { redirect_to admin_albums_path, notice: "Photo was successfully destroyed." }
+      format.html { redirect_to admin_albums_path, notice: "Album was successfully destroyed." }
     end
   end
   private

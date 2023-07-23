@@ -194,3 +194,25 @@ img{
 .disabled-image {
   opacity: 0.5;
 }
+
+.profile-album-card{
+  position: relative;
+  .card-text{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .profile-album{
+    top: 0;
+    aspect-ratio: 1/1;
+  }
+  .rotated-image1{
+    position: absolute;
+    transform: rotate(5deg);
+  }
+  .rotated-image2{
+    position: absolute;
+    transform: rotate(10deg);
+  }
+}

@@ -3,27 +3,15 @@ class Admin::UsersController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @users = User.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-    end
+    @users = User.page(params[:page]).per(15)
   end
 
   def show
     @user = User.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-    end
   end
 
   def new
     @user = User.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-    end
   end
 
   # GET /users/1/edit
@@ -68,7 +56,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :current_password)
+    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :current_password, :role)
   end
 
   def authorize_admin

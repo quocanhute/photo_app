@@ -1,0 +1,22 @@
+<div class="row row-cols-6 d-flex align-items-center">
+  <% albums.each do |album| %>
+    <div class="col col-2 my-2 rounded float-left profile-card-album">
+      <div class="profile-album-card card border-0 align-items-center justify-content-center">
+        <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album w-100 card-img-top") %>
+        <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album rotated-image1 w-100 card-img-top") %>
+        <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album rotated-image2 w-100 card-img-top") %>
+        <div class="card-body">
+          <p class="card-text"><%= album.title %></p>
+        </div>
+        <% unless album.is_public? %>
+          <i class="border-white fa-solid fa-lock private-photo"></i>
+        <% end %>
+        <%= link_to "View", album_path(album),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "remote_modal" } %>
+        <%= link_to "Delete",admin_album_path(album),:method => :delete,  data: { confirm: "Are you sure?" },class: "card-link-edit btn btn-lg btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+  <%= paginate albums, theme: 'bootstrap-5',
+               pagination_class: "pagination-sm flex-wrap justify-content-center",
+               nav_class: "d-inline-block col-12" %>
+</div>

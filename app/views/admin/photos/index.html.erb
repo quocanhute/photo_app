@@ -1,31 +1,8 @@
-<main role="main" class="col-lg-8 px-md-4 mx-auto pt-3">
+<main role="main" class="col-lg-12 px-md-4 mx-auto pt-3">
   <div class="row justify-content-center">
-    <%= turbo_frame_tag "modal_photo" %>
-    <!-- app/views/users/index.html.erb -->
     <h1>All Photos</h1>
 
-    <table id="users">
-      <thead>
-        <tr>
-          <th>Photo title</th>
-          <th>Created At</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @photos.each do |photo| %>
-        <tr>
-          <th><%= photo.title %></th>
-          <th><%= photo.created_at %></th>
-          <th><%= link_to "view", photo_path(photo),data: { turbo_frame: "modal_photo" } %></th>
-          <th><%= link_to "Delete", admin_photo_path(photo), :method => :delete, :confirm => "Are you sure?" %></th>
-        </tr>
-        <% end %>
-      </tbody>
-
-
-    </table>
+    <%= render "admin/photos/admin_photos", photos: @photos %>
     <%= paginate @photos, theme: 'bootstrap-5',
                  pagination_class: "pagination-sm flex-wrap justify-content-center",
                  nav_class: "d-inline-block"%>

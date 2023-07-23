@@ -19,6 +19,7 @@
           <%= link_to "My Profile", view_profile_path(current_user.id), class: "nav-link active" %>
         </li>
         <% if current_user.admin? %>
+          <hr/>
           <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Admin
@@ -75,6 +76,7 @@
           <%= link_to "My Profile", view_profile_path(current_user.id), class: "nav-link active" %>
         </li>
         <% if current_user.admin? %>
+          <hr/>
           <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Admin
