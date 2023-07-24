@@ -1,13 +1,13 @@
 <div class="header sticky-top">
-  <nav class="navbar navbar-expand-lg navbar-light primary-bg">
+  <nav class="navbar navbar-expand-lg navbar-light primary-bg d-flex">
     <div class="container-xl">
       <button class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
         <i class="fa-solid fa-bars"></i>
       </button>
-      <div class="d-flex">
+      <div class="d-flex align-items-center col-6 col-md-12">
         <%= link_to "Photobook", root_path, class: "navbar-brand text-white" %>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline my-2">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
         </form>
       </div>
       <div class="d-flex">
@@ -18,8 +18,7 @@
                 <% if current_user.avatar.attached? %>
                     <%= image_tag(current_user.avatar, alt: "#{current_user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
                 <% end %>
-                <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
-                  Welcome <%= current_user.username %></b>
+                <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"><%= current_user.username %></b>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <li><%= link_to "My profile", view_photos_user_path(current_user.id), class: "my-2 my-sm-0 dropdown-item" %></li>
@@ -29,7 +28,7 @@
               </div>
             </ul>
           </div>
-      <% else %>
+        <% else %>
           <%= button_to "Sign in", new_user_session_path,class: 'btn btn-outline-light my-2 my-sm-0 text-white', method: :get %>
         <% end %>
       </div>

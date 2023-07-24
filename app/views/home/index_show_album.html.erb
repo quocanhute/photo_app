@@ -12,10 +12,10 @@
       <%= turbo_stream_from [@user_gid, 'album_private_likes'] %>
       <%= content_tag(:div, id: album_channel, class:  "row row-col-2") do %>
         <% @albums.each do |album| %>
-          <div class=" col-6">
+          <div class="col-sm-12 col-md-6">
             <div class="card mb-3 p-1" style="max-width: 540px;">
               <div class="row g-0">
-                <div class="col-md-6">
+                <div class="col-sm-12 col-md-6">
                   <%= link_to album_path(album), data: { turbo_frame: "remote_modal" } do%>
                     <div class="profile-album-card card border-0 align-items-center justify-content-center m-3">
                       <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album w-100 card-img-top") %>
@@ -24,7 +24,7 @@
                     </div>
                   <% end %>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-12 col-md-6">
                   <div class="card-body photo-card">
                     <div class="card-header">
                       <div class="user-photo-card d-flex justify-content-between align-items-center">

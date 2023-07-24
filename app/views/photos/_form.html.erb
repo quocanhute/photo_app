@@ -23,24 +23,21 @@
         </div>
         <div class="col-md-4">
           <div class="profile-img" data-controller="upload-image">
-            <% if @photo.img.attached? %>
-              <div class="avatar">
-                <%= image_tag(@photo.img, alt: "#{@photo.title}", class: "photo-image", id: "imgPhoto",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
-              </div>
-            <%else %>
-              <div class="avatar">
-                <%= image_tag('image.jpg', class: "photo-image", id: "imgPhoto",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
-              </div>
-            <% end %>
-            <div class="file btn btn-lg btn-primary">
-              Change Photo
-              <%= form.file_field :img,
-                                  placeholder: 'Update photo',
-                                  id: "change-photo-field",
-                                  data:{action: 'change->upload-image#handleChange'},
-                                  direct_upload: true
-              %>
+          <% if @photo.img.attached? %>
+            <div class="avatar">
+              <%= image_tag(@photo.img, alt: "#{@photo.title}", class: "photo-image", id: "imgPhoto",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
             </div>
+          <%else %>
+            <div class="avatar">
+              <%= image_tag('image.jpg', class: "photo-image", id: "imgPhoto",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
+            </div>
+          <% end %>
+          <%= form.label :img,"Change Photo", class: "col-6 col-form-label label-avatar" %>
+          <%= form.file_field :img,
+                           class: "d-none",
+                           placeholder: 'Update picture',
+                           data:{action: 'change->upload-image#handleChange'},
+                           direct_upload: true %>
           </div>
         </div>
       </div>
