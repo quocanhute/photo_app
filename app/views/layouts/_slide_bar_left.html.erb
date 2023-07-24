@@ -1,45 +1,69 @@
 <div class="sidebar-left pt-5 col-2 d-none d-md-block">
   <div class="sidebar-sticky pt-3">
+    <% path = URI.parse(request.original_url).path.split('/').reject(&:empty?)  %>
 
     <% if user_signed_in? %>
       <ul class="nav flex-column px-3">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">
-            <span data-feather="home"></span>
-            Feeds <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <%= link_to "My Photos", photos_path, class: "nav-link active" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "My Albums", albums_path, class: "nav-link active" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "My Profile", view_profile_path(current_user.id), class: "nav-link active" %>
-        </li>
+        <%= content_tag(:li,class: "nav-item #{"active" if( (path.blank? || path.include?("photos")||path.include?("albums")) && !path.include?("users") && !path.include?("admin") && !path.include?("profile")) }") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-rss"></i>
+            <%= link_to "Feeds", root_path, class: "nav-link "%>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("photos")) }") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-image"></i>
+            <%= link_to "My Photos", photos_path, class: "nav-link " %>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("albums")) }") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-images"></i>
+            <%= link_to "My Albums", albums_path, class: "nav-link " %>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("profile") && (path[1]==current_user.id.to_s))}") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-regular fa-user"></i>
+            <%= link_to "My Profile", view_photos_user_path(current_user.id), class: "nav-link " %>
+          </div>
+        <% end %>
+
         <% if current_user.admin? %>
           <hr/>
-          <h3 class="nav-link">Admin</h3>
-          <li class="nav-item">
-            <%= link_to "Edit All Users", admin_users_path, class: "nav-link active" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Edit All Photos", admin_photos_path, class: "nav-link active" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Edit All Albums", admin_albums_path, class: "nav-link active" %>
-          </li>
+
+          <h3 class="nav-title"> Admin</h3>
+          <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("users")) }") do %>
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-gear"></i>
+              <%= link_to "Users Management", admin_users_path, class: "nav-link " %>
+            </div>
+          <% end %>
+
+          <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("photos")) }") do %>
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-gear"></i>
+              <%= link_to "Photos Management", admin_photos_path, class: "nav-link " %>
+            </div>
+          <% end %>
+
+          <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("albums")) }") do %>
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-gear"></i>
+              <%= link_to "Albums Management", admin_albums_path, class: "nav-link " %>
+            </div>
+          <% end %>
+
         <% end %>
       </ul>
     <% else %>
       <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">
-            <span data-feather="home"></span>
-            Feeds For Guest<span class="sr-only">(current)</span>
-          </a>
-        </li>
+        <%= content_tag(:li,class: "nav-item #{"active" if( (path.blank? || path.include?("photos")||path.include?("albums")) && !path.include?("users") && !path.include?("admin")) }") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-rss"></i>
+            <%= link_to "Feeds For Guest", root_path, class: "nav-link "%>
+          </div>
+        <% end %>
       </ul>
     <% end %>
   </div>
@@ -52,45 +76,69 @@
   </div>
   <div class="offcanvas-body">
     <% if user_signed_in? %>
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">
-            <span data-feather="home"></span>
-            Feeds <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <%= link_to "My Photos", photos_path, class: "nav-link active" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "My Albums", albums_path, class: "nav-link active" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "My Profile", view_profile_path(current_user.id), class: "nav-link active" %>
-        </li>
+      <ul class="nav flex-column px-3">
+        <%= content_tag(:li,class: "nav-item #{"active" if( (path.blank? || path.include?("photos")||path.include?("albums")) && !path.include?("users") && !path.include?("admin") && !path.include?("profile")) }") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-rss"></i>
+            <%= link_to "Feeds", root_path, class: "nav-link "%>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("photos")) }") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-image"></i>
+            <%= link_to "My Photos", photos_path, class: "nav-link " %>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("albums")) }") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-images"></i>
+            <%= link_to "My Albums", albums_path, class: "nav-link " %>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("profile")) }") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-regular fa-user"></i>
+            <%= link_to "My Profile", view_photos_user_path(current_user.id), class: "nav-link " %>
+          </div>
+        <% end %>
+
         <% if current_user.admin? %>
           <hr/>
-          <h3 class="nav-link">Admin</h3>
-          <li class="nav-item">
-            <%= link_to "Edit All Users", admin_users_path, class: "nav-link active" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Edit All Photos", admin_photos_path, class: "nav-link active" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Edit All Albums", admin_albums_path, class: "nav-link active" %>
-          </li>
+
+          <h3 class="nav-title"> Admin</h3>
+          <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("users")) }") do %>
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-gear"></i>
+              <%= link_to "Users Management", admin_users_path, class: "nav-link " %>
+            </div>
+          <% end %>
+
+          <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("photos")) }") do %>
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-gear"></i>
+              <%= link_to "Photos Management", admin_photos_path, class: "nav-link " %>
+            </div>
+          <% end %>
+
+          <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("albums")) }") do %>
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-gear"></i>
+              <%= link_to "Albums Management", admin_albums_path, class: "nav-link " %>
+            </div>
+          <% end %>
+
         <% end %>
       </ul>
     <% else %>
       <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">
-            <span data-feather="home"></span>
-            Feeds For Guest<span class="sr-only">(current)</span>
-          </a>
-        </li>
+        <%= content_tag(:li,class: "nav-item #{"active" if( (path.blank? || path.include?("photos")||path.include?("albums")) && !path.include?("users") && !path.include?("admin")) }") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-rss"></i>
+            <%= link_to "Feeds For Guest", root_path, class: "nav-link "%>
+          </div>
+        <% end %>
       </ul>
+
     <% end %>
   </div>
 </div>

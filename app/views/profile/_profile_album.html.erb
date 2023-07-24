@@ -12,6 +12,7 @@
           <i class="border-white fa-solid fa-lock private-photo"></i>
         <% end %>
         <%= link_to "View", album_path(album),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "remote_modal" } %>
+        <%= content_tag(:p,"#{pluralize(album.images.count, "Photo")}",class: "circle-total-photos") %>
       </div>
     </div>
   <% end %>

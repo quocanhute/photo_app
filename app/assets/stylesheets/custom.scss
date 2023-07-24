@@ -3,7 +3,19 @@
 }
 
 .profile-img{
+  position: relative;
   text-align: center;
+  .label-avatar{
+    position: absolute;
+    bottom: -5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #4b4b4b;
+    width: 120px;
+    color: white;
+    opacity: 0.7;
+    cursor: pointer;
+  }
 }
 .profile-img img{
   width: 70%;
@@ -19,45 +31,56 @@
   font-size: 15px;
   background: #212529b8;
 }
-.profile-img .file input {
-  position: absolute;
-  opacity: 0;
-  right: 0;
-  top: 0;
-}
 
 .profile-card-img, .profile-card-album{
   text-align: center;
   position: relative;
 }
-
-.profile-card-img, .profile-card-album{
-  text-align: center;
-  position: relative;
-  .card-link-edit {
-    position: absolute;
-    overflow: hidden;
-    //margin-top: -20%;
-    //width: 21%;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    background: #212529b8;
-    bottom: 16%;
-    right: 1%;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.profile-card-img, .profile-card-album{
+  text-align: center;
+  position: relative;
+  .card-link-edit,
   .card-link-view {
+    display: none; /* Hide the elements by default */
     position: absolute;
     overflow: hidden;
-    //margin-top: -20%;
-    //width: 21%;
     border: none;
     border-radius: 10px;
     font-size: 15px;
     background: #212529b8;
     bottom: 16%;
-    left: 1%;
+
+    &.card-link-edit {
+      right: 1%;
+    }
+
+    &.card-link-view {
+      left: 1%;
+    }
+
+    &.show {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out; /* Apply the fade-in animation to the elements */
+    }
   }
+
+  &:hover {
+    .card-link-edit,
+    .card-link-view {
+      @extend .show; /* Use the show class to trigger the fade-in animation */
+    }
+  }
+
   .private-photo {
     position: absolute;
     overflow: hidden;
@@ -215,4 +238,50 @@ img{
     position: absolute;
     transform: rotate(6deg);
   }
+}
+
+.belong-user{
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.active{
+  background-color: #a3d2f5;
+  color: #fff;
+  a{
+    color: white;
+  }
+}
+.nav-item{
+  padding: 0 10px;
+  border-radius: 10px;
+  margin: 5px 5px;
+  font-size: 16px;
+  &:hover {
+    background-color: #c7c7c7;
+    color: #fff;
+    a{
+      color: white;
+    }
+  }
+}
+
+.circle-total-photos {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background-color: #727272; /* Replace with your desired color */
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
 }

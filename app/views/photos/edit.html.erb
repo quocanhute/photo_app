@@ -2,8 +2,8 @@
 <hr/>
 <%= render "form", photo: @photo %>
 
-<br>
-
+<hr/>
 <div>
-  <%= link_to "Back to photos", photos_path %>
+  <%= link_to "Back to photos", photos_path,class: "btn btn-primary" %>
+  <%= link_to "Delete this photos", photo_path(@photo), :method => :delete,  data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
 </div>

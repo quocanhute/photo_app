@@ -33,17 +33,15 @@ class AlbumsController < ApplicationController
   # PATCH/PUT /albums/1 or /albums/1.json
   def update
     # render :json => params
-    respond_to do |format|
-      if params[:photos_delete].present?
-        @album.images.where(:id => params[:photos_delete]).each do |img|
-          img.destroy
-        end
+    if params[:photos_delete].present?
+      @album.images.where(:id => params[:photos_delete]).each do |img|
+        img.purge
       end
-      if @album.update(album_params)
-        format.html { redirect_to albums_path, notice: "Album was successfully updated." }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    end
+    if @album.update(album_params)
+      redirect_to albums_path, notice: "Album was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -60,6 +58,17 @@ class AlbumsController < ApplicationController
     img = @album.images.find(params[:id_key])
     img.purge
     redirect_to albums_url
+  end
+
+  def like_album
+    @album = Album.find(params[:id])
+    current_user.like_album(@album)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: private_stream_album
+      end
+    end
   end
 
   private
@@ -81,5 +90,15 @@ class AlbumsController < ApplicationController
     else
       redirect_to root_path, alert: 'Access denied.'
     end
+  end
+
+  def private_stream_album
+    private_target = "#{helpers.dom_id(@album)} album_private_likes"
+    turbo_stream.replace(private_target,
+                         partial: 'likes/private_button_album',
+                         locals:{
+                           album: @album,
+                           album_like_status: current_user.liked_album?(@album)
+                         })
   end
 end

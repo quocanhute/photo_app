@@ -1,6 +1,9 @@
-<p><%= @user.username %></p>
-<p><%= @user.first_name %></p>
-<p><%= @user.last_name %></p>
-<p><%= @user.email %></p>
+<%= render "layouts/remote_modal" do %>
+  <div class="modal-header">
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <%= render "profile/user", user: @user %>
+  </div>
+<% end %>
 
-<%= link_to 'All users', admin_users_path %>

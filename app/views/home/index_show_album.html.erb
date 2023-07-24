@@ -17,7 +17,11 @@
               <div class="row g-0">
                 <div class="col-md-6">
                   <%= link_to album_path(album), data: { turbo_frame: "remote_modal" } do%>
-                    <%= image_tag(album.images.first, alt: "Photo Picture", class: "photo-image img-fluid rounded-start", id: "photo_#{album.id}") %>
+                    <div class="profile-album-card card border-0 align-items-center justify-content-center m-3">
+                      <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album w-100 card-img-top") %>
+                      <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album rotated-image1 w-100 card-img-top") %>
+                      <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album rotated-image2 w-100 card-img-top") %>
+                    </div>
                   <% end %>
                 </div>
                 <div class="col-md-6">
@@ -25,14 +29,18 @@
                     <div class="card-header">
                       <div class="user-photo-card d-flex justify-content-between align-items-center">
                         <div class="d-flex justify-content-start align-items-center">
-                          <%= image_tag(album.user.avatar, alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                          <% if album.user.avatar_attachment %>
+                            <%= image_tag(album.user.avatar, alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                          <% else %>
+                            <%= image_tag('user.jpg', alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                          <% end %>
                           <%= link_to "#{album.user.username}", view_profile_path(album.user),class: "mx-1" %>
                         </div>
                         <% if current_user %>
                           <% if album.user != current_user %>
                             <%= render partial: 'profile/follow_button',locals: {user: album.user} %>
                           <% elsif current_user %>
-                            <%= link_to "Edit Profile", edit_user_registration_path,class: "btn btn-primary text-primary border-blue bg-white" %>
+                            <%= link_to "Edit", edit_user_registration_path,class: "btn btn-primary text-primary border-blue bg-white" %>
                           <% end %>
                         <% end %>
                       </div>

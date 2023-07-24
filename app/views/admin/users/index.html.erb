@@ -1,7 +1,7 @@
 <main role="main" class="col-lg-10 px-md-4 mx-auto pt-3">
   <div class="row justify-content-center">
     <!-- app/views/users/index.html.erb -->
-    <h1>All Users</h1>
+    <h1>Users Management</h1>
     <table class="table">
       <thead class="table-dark">
       <tr>
@@ -22,7 +22,8 @@
           <th><%= user.email %></th>
           <th><%= user.role %></th>
           <th>
-            <%= link_to "Edit", edit_admin_user_path(user),class: "btn btn-warning" %>
+            <%= link_to "View", admin_user_path(user), class: "btn btn-info text-white" ,data: { turbo_frame: "remote_modal" }%>
+            <%= link_to "Edit", edit_admin_user_path(user),class: "btn btn-warning text-white",data: { turbo_frame: "remote_modal" } %>
             <%= link_to "Delete", admin_user_path(user), :method => :delete,  data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
           </th>
         </tr>
@@ -30,7 +31,7 @@
       </tbody>
     </table>
 
-    <p><%= link_to "New User", new_admin_user_path,class: 'btn primary-bg my-2 my-sm-0 text-white' %></p>
+    <p><%= link_to "New User", new_admin_user_path,class: 'btn primary-bg my-2 my-sm-0 text-white',data: { turbo_frame: "remote_modal" } %></p>
   </div>
   <%= paginate @users, theme: 'bootstrap-5',
                pagination_class: "pagination-sm flex-wrap justify-content-center",

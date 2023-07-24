@@ -69,7 +69,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_041529) do
 
   create_table "photos", force: :cascade do |t|
     t.string "title"
-    t.string "url"
     t.text "description"
     t.boolean "is_public"
     t.datetime "created_at", null: false

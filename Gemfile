@@ -88,3 +88,8 @@ gem 'ransack'     # tạo form tìm kiếm
 gem 'bootstrap5-kaminari-views' # giao diện đẹp cho phân trang
 
 gem "sidekiq"
+#========================
+gem 'faker'
+gem 'populator'
+gem 'fake_picture'
+gem 'mini_magick'

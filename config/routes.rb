@@ -35,6 +35,6 @@ Rails.application.routes.draw do
   get '/profile/:id/followee', to: 'profile#show_followee_user', as: 'view_followee_user'
   # ==============
   # ============================================
-  post 'like_photo/:id', to: 'home#like_photo', as: 'like_photo'
-  post 'like_album/:id', to: 'home#like_album', as: 'like_album'
+  post 'like_photo/:id', to: 'photos#like_photo', as: 'like_photo'
+  post 'like_album/:id', to: 'albums#like_album', as: 'like_album'
 end

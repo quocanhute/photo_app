@@ -39,9 +39,10 @@ class PhotosController < ApplicationController
 
   # PATCH/PUT /photos/1 or /photos/1.json
   def update
+    # @photo.img.purge
     respond_to do |format|
       if @photo.update(photo_params)
-        format.html { redirect_to photo_url(@photo), notice: "Photo was successfully updated." }
+        format.html { redirect_to photos_path, notice: "Photo was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -58,12 +59,16 @@ class PhotosController < ApplicationController
     end
   end
 
-  # def like_photo
-  #   @like = Like.new(photo: @photo,user: current_user)
-  #   @like.save
-  # end
-
-
+  def like_photo
+    @photo = Photo.find(params[:id])
+    current_user.like(@photo)
+    # redirect_to root_url
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: private_stream_photo
+      end
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
   def set_photo
@@ -90,5 +95,15 @@ class PhotosController < ApplicationController
     unless current_user&.admin?
       redirect_to root_path, alert: 'Access denied.'
     end
+  end
+
+  def private_stream_photo
+    private_target = "#{helpers.dom_id(@photo)} private_likes"
+    turbo_stream.replace(private_target,
+                         partial: 'likes/private_button',
+                         locals:{
+                           photo: @photo,
+                           like_status: current_user.liked?(@photo)
+                         })
   end
 end

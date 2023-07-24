@@ -30,10 +30,10 @@ class User < ApplicationRecord
   has_many :albums, dependent: :destroy
   # ==================================================================
   has_many :likeables, dependent: :destroy
-  has_many :liked_photos,through: :likeables, source: :photo
+  has_many :liked_photos, through: :likeables, source: :photo
   # ==================================================================
   has_many :likeablealbums, dependent: :destroy
-  has_many :liked_albums,through: :likeablealbums, source: :album
+  has_many :liked_albums, through: :likeablealbums, source: :album
 
   # ============================Photo==================================
   def liked?(photo)

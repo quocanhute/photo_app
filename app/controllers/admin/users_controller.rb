@@ -20,11 +20,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params_with_password)
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to admin_user_path(@user), :notice => 'User was successfully created.' }
+        format.html { redirect_to view_profile_path(@user), :notice => 'User was successfully created.' }
       else
         format.html { redirect_to new_admin_user_path, :alert => @user.errors.full_messages.join(', ') }
       end
@@ -32,13 +32,24 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
+    # render :json => params
     @user = User.find(params[:id])
+    if params[:user][:password].blank?
+      respond_to do |format|
+        if @user.update(user_params_without_password)
+          format.html { redirect_to view_profile_path(@user), :notice => 'User was successfully updated.' }
+        else
+          format.html { redirect_to edit_admin_user_path(@user), :alert => @user.errors.full_messages.join(', ') }
+        end
+      end
 
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to admin_user_path(@user), :notice => 'User was successfully updated.' }
-      else
-        format.html { redirect_to edit_admin_user_path(@user), :alert => @user.errors.full_messages.join(', ') }
+    else
+      respond_to do |format|
+        if @user.update(user_params_with_password)
+          format.html { redirect_to view_profile_path(@user), :notice => 'User was successfully updated.' }
+        else
+          format.html { redirect_to edit_admin_user_path(@user), :alert => @user.errors.full_messages.join(', ') }
+        end
       end
     end
   end
@@ -55,8 +66,11 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :current_password, :role)
+  def user_params_with_password
+    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :role)
+  end
+  def user_params_without_password
+    params.require(:user).permit(:email, :first_name, :last_name, :role)
   end
 
   def authorize_admin

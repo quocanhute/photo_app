@@ -1,37 +1,59 @@
-<h2>Edit user</h2>
-
-<%= form_for(@user,url: admin_user_path, method: :patch) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <p><%= f.label :first_name %><br />
-    <%= f.text_field :first_name %></p>
-
-  <p><%= f.label :last_name %><br />
-    <%= f.text_field :last_name %></p>
-
-  <p><%= f.label :email %><br />
-    <%= f.email_field :email %></p>
-  <p>
-    <%= f.label :role %><br />
-    <%= f.select :role, User.roles.keys %>
-  </p>
-
-  <div class="actions">
-    <%= f.submit %>
+<%= render "layouts/remote_modal" do %>
+  <div class="modal-header">
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
+  <div class="modal-body">
+    <%= form_for(@user,url: admin_user_path, html: {class:"d-flex flex-column align-items-center", method: :patch }) do |f| %>
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <h2>Basic information</h2>
+
+      <div class="form-group  d-flex mb-3 w-25 mx-5">
+        <%= f.label :email, class: "col-6 col-form-label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-6 form-control here" %>
+      </div>
 
 
+      <div class="form-group  d-flex mb-3 w-25">
+        <%= f.label :first_name,class: "col-6 col-form-label" %>
+        <%= f.text_field :first_name ,class: "col-6 form-control here" %>
+      </div>
+
+      <div class="form-group  d-flex mb-3 w-25">
+        <%= f.label :last_name,class: "col-6 col-form-label" %>
+        <%= f.text_field :last_name ,class: "col-6 form-control"%>
+      </div>
+      <div class="form-group  d-flex mb-3 w-25">
+        <%= f.label :role,class: "col-6 col-form-label" %>
+        <%= f.select :role, User.roles.keys ,class: "col-6 form-control"%>
+      </div>
+
+      <div class="form-group  d-flex mb-3 w-25">
+        <%= f.label :password,class: "col-6 col-form-label" %>
+        <%= f.password_field :password ,class: "col-6 form-control"%>
+      </div>
+
+      <div class="form-group  d-flex mb-3 w-25">
+        <%= f.label :password_confirmation,class: "col-6 col-form-label" %>
+        <%= f.password_field :password_confirmation ,class: "col-6 form-control"%>
+      </div>
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+
+
+    <% end %>
+  </div>
+  <div class="modal-footer"></div>
 <% end %>
-<%= render 'passwords'%>
-
-<%= link_to 'All users', admin_users_path %>

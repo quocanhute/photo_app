@@ -1,4 +1,7 @@
 class Photo < ApplicationRecord
+  validates :title, presence: true, length: { maximum: 100 }
+  validates :description, presence: true, length: { maximum: 255 }
+
   has_many :likeables,dependent: :destroy
   has_many :likes, through: :likeables, source: :user
   belongs_to :user
