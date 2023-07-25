@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row people">
         <% @followee.each do |user| %>
-          <%= render "profile/followee_user_card", user: user %>
+          <%= render "profile/user_card", user: user %>
         <% end %>
       </div>
     </div>

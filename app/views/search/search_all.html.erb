@@ -1,0 +1,8 @@
+<h1>Search Page</h1>
+<main role="main" class="col-lg-12 px-md-4 mx-auto pt-3">
+  <div class="row justify-content-center">
+    <%= render "search/search_user", users: @users %>
+    <%= render "search/search_photo", photos: @photos %>
+    <%= render "search/search_album", albums: @albums %>
+  </div>
+</main>

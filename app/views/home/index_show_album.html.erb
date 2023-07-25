@@ -34,7 +34,7 @@
                           <% else %>
                             <%= image_tag('user.jpg', alt: "User Avatar", class: "avatar-image rounded-circle") %>
                           <% end %>
-                          <%= link_to "#{album.user.username}", view_profile_path(album.user),class: "mx-1" %>
+                          <%= link_to "#{album.user.username}", view_photos_user_path(album.user),class: "mx-1" %>
                         </div>
                         <% if current_user %>
                           <% if album.user != current_user %>

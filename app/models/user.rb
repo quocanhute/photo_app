@@ -8,30 +8,29 @@ class User < ApplicationRecord
   # Add the custom attribute
   enum role: { admin: 0, user: 1 }
   has_one_attached :avatar
-  # ==================================================================
+
   # access the Relationship object
   has_many :followed_user,
            foreign_key: :follower_id,
            class_name: 'Relationship',
            dependent: :destroy
-  # ==================================================================
+
   # access the user through the relationship object
   has_many :followee, through: :followed_user, dependent: :destroy
-  # ==================================================================
+
   # access the Relationship object
   has_many :following_user,
            foreign_key: :followee_id,
            class_name: 'Relationship',
            dependent: :destroy
-  # ==================================================================
+
   # access the user through the relationship object
   has_many :follower, through: :following_user, dependent: :destroy
   has_many :photos, dependent: :destroy
   has_many :albums, dependent: :destroy
-  # ==================================================================
+
   has_many :likeables, dependent: :destroy
   has_many :liked_photos, through: :likeables, source: :photo
-  # ==================================================================
   has_many :likeablealbums, dependent: :destroy
   has_many :liked_albums, through: :likeablealbums, source: :album
 

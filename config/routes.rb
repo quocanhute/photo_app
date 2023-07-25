@@ -5,16 +5,19 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
-  # ============================================
+
+  # action home page
   get '/photos', to: "home#index_show_photo", as: 'photos_index'
   get '/albums', to: "home#index_show_album", as: 'albums_index'
-  # ============================================
+
+  # action admin
   namespace 'admin' do
     resources :users
     resources :photos
     resources :albums
   end
 
+  # action user
   scope '/users' do
     resources :photos
     resources :albums do
@@ -23,18 +26,22 @@ Rails.application.routes.draw do
       end
     end
   end
-  # ============================================
 
+  # action view profile
   get '/profile/:id', to: 'profile#show', as: 'view_profile'
-  post 'profile/follow/:id', to: 'profile#follow', as: 'profile_follow'
-  delete 'profile/unfollow/:id', to: 'profile#unfollow', as: 'profile_unfollow'
-  # ==============
   get '/profile/:id/photos', to: 'profile#show_photo', as: 'view_photos_user'
   get '/profile/:id/albums', to: 'profile#show_album', as: 'view_albums_user'
   get '/profile/:id/follower', to: 'profile#show_follower_user', as: 'view_follower_user'
   get '/profile/:id/followee', to: 'profile#show_followee_user', as: 'view_followee_user'
-  # ==============
-  # ============================================
+
+  # action follow
+  post 'profile/follow/:id', to: 'profile#follow', as: 'profile_follow'
+  delete 'profile/unfollow/:id', to: 'profile#unfollow', as: 'profile_unfollow'
+
+  # action like
   post 'like_photo/:id', to: 'photos#like_photo', as: 'like_photo'
   post 'like_album/:id', to: 'albums#like_album', as: 'like_album'
+
+  # action search
+  get 'search', to: 'search#search_all', as: 'search_all'
 end

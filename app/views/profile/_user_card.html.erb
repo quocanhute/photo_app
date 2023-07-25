@@ -5,7 +5,7 @@
     <%else %>
       <%= image_tag('user.jpg', class: "rounded-circle", id: "avatar",style: 'height:250px;width:250px') %>
     <% end %>
-    <%= content_tag(:h3,user.last_name, class: "name") %>
+    <%= content_tag(:h3, user.last_name, class: "name") %>
     <%= content_tag(:p, user.role, class: "title") %>
     <%= content_tag(:p, "#{user.photos.count} photos", class: "description") %>
     <%= content_tag(:p, "#{user.albums.count} albums", class: "description") %>
