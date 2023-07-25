@@ -23,3 +23,34 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
+
+#=======================PG============================
+#default: &default
+#  adapter: postgresql
+#  encoding: unicode
+#  # For details on connection pooling, see Rails configuration guide
+#  # https://guides.rubyonrails.org/configuring.html#database-pooling
+#  pool: <%#= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+#development:
+#  <<: *default
+#  database: photo_app_development
+#  username: postgres
+#  password: 123456789
+#  host: localhost
+#  port: 5432
+#  min_messages: notice
+
+#test:
+#  <<: *default
+#  database: photo_app_test
+#
+#production:
+#  <<: *default
+#  database: photo_app_production
+#  username: postgres
+#  password: 123456789
+#  host: localhost
+#  port: 5432
+#  min_messages: notice
+

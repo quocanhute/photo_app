@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_07_06_041529) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -45,13 +48,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_041529) do
     t.boolean "is_public"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_albums_on_user_id"
   end
 
   create_table "likeablealbums", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "album_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "album_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["album_id"], name: "index_likeablealbums_on_album_id"
@@ -59,8 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_041529) do
   end
 
   create_table "likeables", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "photo_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "photo_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["photo_id"], name: "index_likeables_on_photo_id"
@@ -73,7 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_041529) do
     t.boolean "is_public"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_photos_on_user_id"
   end
 

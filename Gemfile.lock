@@ -108,6 +108,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dockerfile-rails (1.5.2)
+      rails
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.12.0)
@@ -183,6 +185,7 @@ GEM
     nokogiri (1.15.2-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pg (1.5.3)
     popper_js (2.11.7)
     populator (1.0.0)
     public_suffix (5.0.1)
@@ -311,6 +314,7 @@ DEPENDENCIES
   cloudinary (~> 1.18, >= 1.18.1)
   debug
   devise
+  dockerfile-rails (>= 1.5)
   fake_picture
   faker
   image_processing (~> 1.2)
@@ -319,6 +323,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   mini_magick
+  pg (~> 1.5)
   populator
   puma (~> 5.0)
   rails (~> 7.0.5)

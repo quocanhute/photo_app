@@ -93,3 +93,6 @@ gem 'faker'
 gem 'populator'
 gem 'fake_picture'
 gem 'mini_magick'
+gem "dockerfile-rails", ">= 1.5"
+
+gem "pg", "~> 1.5"

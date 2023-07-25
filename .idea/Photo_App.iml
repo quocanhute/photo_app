@@ -21,6 +21,7 @@
         <option value="devise:controllers" />
         <option value="devise:install" />
         <option value="devise:views" />
+        <option value="dockerfile" />
         <option value="generator" />
         <option value="helper" />
         <option value="integration_test" />
@@ -64,6 +65,7 @@
         <option value="devise:controllers" />
         <option value="devise:install" />
         <option value="devise:views" />
+        <option value="dockerfile" />
         <option value="generator" />
         <option value="helper" />
         <option value="integration_test" />
