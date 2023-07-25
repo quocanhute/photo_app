@@ -19,7 +19,7 @@
         <% @album.images.each_with_index do |image,index| %>
           <% if index == 0 %>
             <div class="carousel-item active col-12">
-              <%= image_tag(image, alt: "#{@album.title}", class: "d-block w-100 image_album_modal", id: "image_album_#{index}") %>
+              <%= image_tag(image, alt: "#{@album.title}", class: "d-block w-100 image_modal", id: "image_album_#{index}") %>
               <div class="carousel-caption d-none d-md-block">
                 <h5><%= @album.title %></h5>
                 <p><%= @album.description %></p>
@@ -27,7 +27,7 @@
             </div>
           <%else %>
             <div class="carousel-item col-12">
-              <%= image_tag(image, alt: "#{@album.title}", class: "d-block w-100 image_album_modal", id: "image_album_#{index}") %>
+              <%= image_tag(image, alt: "#{@album.title}", class: "d-block w-100 image_modal", id: "image_album_#{index}") %>
               <div class="carousel-caption d-none d-md-block">
                 <h5><%= @album.title %></h5>
                 <p><%= @album.description %></p>

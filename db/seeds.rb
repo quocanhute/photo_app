@@ -3,8 +3,8 @@ require 'net/http'
 
 def generate_random_image
   # Fetch random image URL from Unsplash API
-  # access_key = 'ttmgSgDGmNG6ih6kMmWjeIwdu2jrsEuBdrUxg_E-uZo'
-  access_key = 'y2DOCsMbq4sVkOmC2UC9U4270AIRy2YBTx7vLssYkLQ'
+  access_key = 'ttmgSgDGmNG6ih6kMmWjeIwdu2jrsEuBdrUxg_E-uZo'
+  # access_key = 'y2DOCsMbq4sVkOmC2UC9U4270AIRy2YBTx7vLssYkLQ'
 
   url = URI.parse("https://api.unsplash.com/photos/random?client_id=#{access_key}")
   response = Net::HTTP.get_response(url)

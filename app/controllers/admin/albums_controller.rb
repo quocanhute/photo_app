@@ -4,7 +4,7 @@ class Admin::AlbumsController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @albums = Album.page(params[:page]).per(8)
+    @albums = Album.page(params[:page]).per(18)
   end
 
 

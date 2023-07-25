@@ -1,6 +1,6 @@
 <div class="row row-cols-6 d-flex align-items-center">
   <% albums.each do |album| %>
-    <div class="col col-2 my-2 rounded float-left profile-card-album">
+    <div class="col col-6 col-md-2 my-2 rounded float-left profile-card-album">
       <%= content_tag(:h5,"Belong to #{album.user.username}_#{album.user.id}",class:"belong-user") %>
       <div class="profile-album-card card border-0 align-items-center justify-content-center">
         <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album w-100 card-img-top") %>

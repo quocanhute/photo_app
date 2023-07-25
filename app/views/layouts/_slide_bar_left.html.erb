@@ -57,7 +57,7 @@
         <% end %>
       </ul>
     <% else %>
-      <ul class="nav flex-column">
+      <ul class="nav flex-column px-3">
         <%= content_tag(:li,class: "nav-item #{"active" if( (path.blank? || path.include?("photos")||path.include?("albums")) && !path.include?("users") && !path.include?("admin")) }") do %>
           <div class="d-flex align-items-center">
             <i class="fa-solid fa-rss"></i>
@@ -130,7 +130,7 @@
         <% end %>
       </ul>
     <% else %>
-      <ul class="nav flex-column">
+      <ul class="nav flex-column px-3">
         <%= content_tag(:li,class: "nav-item #{"active" if( (path.blank? || path.include?("photos")||path.include?("albums")) && !path.include?("users") && !path.include?("admin")) }") do %>
           <div class="d-flex align-items-center">
             <i class="fa-solid fa-rss"></i>
