@@ -2,21 +2,22 @@
   <% if users.count > 0 %>
     <h3 class="col-12">Users Result</h3>
     <% users.each do |user| %>
-      <div class="col-md-6 col-lg-3 item">
-        <div class="box">
+      <div class="col-6 col-md-2 item">
+        <div class="card-user-detail border rounded p-2 my-2 ">
           <% if user.avatar.blob %>
-            <%= image_tag(user.avatar, alt: "Profile Picture", class: "rounded-circle", id: "avatar",style: 'height:250px;width:250px') %>
+            <%= image_tag(user.avatar, alt: "Profile Picture", class: "avatar-user rounded-circle", id: "avatar") %>
           <%else %>
-            <%= image_tag('user.jpg', class: "rounded-circle", id: "avatar",style: 'height:250px;width:250px') %>
+            <%= image_tag('user.jpg', class: "avatar-user rounded-circle", id: "avatar") %>
           <% end %>
-          <%= content_tag(:h3, user.last_name, class: "name") %>
-          <%= content_tag(:p, user.role, class: "title") %>
-          <%= content_tag(:p, "#{user.photos.count} photos", class: "description") %>
-          <%= content_tag(:p, "#{user.albums.count} albums", class: "description") %>
+          <%= content_tag(:h3, user.last_name, class: "name text-center") %>
+          <%= content_tag(:p, user.role, class: "title text-center") %>
+          <%= content_tag(:p, "#{pluralize(user.photos.count, "photo")}", class: "description text-center") %>
+          <%= content_tag(:p, "#{pluralize(user.albums.count, "album")} ", class: "description text-center") %>
           <%= render partial: 'profile/follow_button',locals: {user: user} %>
         </div>
       </div>
     <% end %>
+    <%= link_to "View all users", url_for(controller: 'search', action: 'show_all_user_search', params: request.query_parameters) %>
   <% else %>
     <h3 class="col-12">Nothing users to show!!!</h3>
   <% end %>

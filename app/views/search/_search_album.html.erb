@@ -20,6 +20,7 @@
         </div>
       </div>
     <% end %>
+    <%= link_to "View all albums", url_for(controller: 'search', action: 'show_all_album_search', params: request.query_parameters) %>
   <% else %>
     <h3 class="col-12">Nothing albums to show!!!</h3>
   <% end %>
