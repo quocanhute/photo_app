@@ -7,9 +7,6 @@ class UserMailer < ApplicationMailer
   #
   def new_user_email(user)
     @user = user
-    admins = User.where(role: :admin)
-    admins.each do |admin|
-      mail(to: admin.email, subject: 'New user signup')
-    end
+    mail(to: user.email, subject: 'Welcome to PhotoBook!!!')
   end
 end
