@@ -43,6 +43,8 @@ Rails.application.routes.draw do
   post 'like_album/:id', to: 'albums#like_album', as: 'like_album'
 
   # action search
+  post 'search', to: 'search#index', as: 'search'
+  post 'search/suggestions', to: 'search#suggestions', as: 'search_suggestions'
   get 'search', to: 'search#search_all', as: 'search_all'
   get 'show_all_user_search', to: 'search#show_all_user_search', as: :show_all_user_search
   get 'show_all_photo_search', to: 'search#show_all_photo_search', as: :show_all_photo_search

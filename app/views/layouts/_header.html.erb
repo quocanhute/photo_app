@@ -6,10 +6,11 @@
       </button>
       <div class="d-flex align-items-center col-7 col-md-8">
         <%= link_to "Photobook", root_path, class: "navbar-brand text-white" %>
-        <%= form_tag(search_all_path, method: :get,class:"form-inline my-2 my-lg-0 d-flex") do %>
-          <%= text_field_tag :term,"",placeholder: "Type something....",class: "form-control mr-sm-2"  %>
-          <%= submit_tag 'Search', class: "btn btn-outline-light mx-2" %>
-        <% end %>
+        <%#= form_tag(search_all_path, method: :get,class:"form-inline my-2 my-lg-0 d-flex") do %>
+          <%#= text_field_tag :term,"",placeholder: "Type something....",class: "form-control mr-sm-2"  %>
+          <%#= submit_tag 'Search', class: "btn btn-outline-light mx-2" %>
+        <%# end %>
+        <%= render partial: "search/form", locals: {results: []} %>
       </div>
       <div class="d-flex align-items-center col-3 col-md-4 justify-content-end">
         <% if user_signed_in? %>

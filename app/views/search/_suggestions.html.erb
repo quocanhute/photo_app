@@ -1,0 +1,10 @@
+<% if results.any? %>
+  <div class="position-absolute w-100 rounded overflow-hidden">
+    <% results.each do |photo| %>
+      <div class="p-2 suggestion d-flex align-items-center border">
+        <%= image_tag(photo.img, alt: "#{photo.title}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
+        <%= link_to photo.title, photo_path(photo),class:"suggestion-title", data: { turbo_frame: "remote_modal" } %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

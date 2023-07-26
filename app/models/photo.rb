@@ -1,13 +1,4 @@
 class Photo < ApplicationRecord
-  validates :title, presence: true, length: { maximum: 100 }
-  validates :description, presence: true, length: { maximum: 255 }
-
-  has_many :likeables,dependent: :destroy
-  has_many :likes, through: :likeables, source: :user
-  belongs_to :user
-
-  has_one_attached :img
-
   after_create_commit do
     broadcast_new_photo
   end
@@ -19,6 +10,15 @@ class Photo < ApplicationRecord
   after_destroy_commit do
     broadcast_destroy_photo
   end
+
+  validates :title, presence: true, length: { maximum: 100 }
+  validates :description, presence: true, length: { maximum: 255 }
+
+  has_many :likeables,dependent: :destroy
+  has_many :likes, through: :likeables, source: :user
+  belongs_to :user
+  has_one_attached :img
+
 
   def broadcast_new_photo
     broadcast_prepend_later_to 'public_photos',

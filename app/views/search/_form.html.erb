@@ -1,0 +1,22 @@
+<%= form_with(url: search_all_path, method: :get, class: "form-inline my-2 my-lg-0 d-flex", data: {
+  controller: "search",
+  action: "keyup->search#suggestions",
+  suggestions_url: search_suggestions_path,
+}) do |form| %>
+  <div class="position-relative d-flex">
+    <%= form.text_field :query,
+                        data: {
+                          search_target: "input",
+                          action: "blur->search#hideSuggestions",
+                        },
+                        class: "form-control mr-sm-2",
+                        placeholder: "Type something....", autocomplete: "off" %>
+    <div class="d-flex">
+      <%= form.submit "Search", class: "btn btn-outline-light mx-2" %>
+    </div>
+    <div id="suggestions" class="position-absolute w-100 top-100"
+         data-search-target="suggestions" data-action="mousedown->search#childClicked">
+      <%= render partial: "search/suggestions", locals: { results: results } %>
+    </div>
+  </div>
+<% end %>
