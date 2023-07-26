@@ -27,7 +27,11 @@ a:hover {
     text-decoration:none;
     cursor:pointer;
 }
-
+.btn{
+    &:hover {
+        background-color: #5b9cce;
+    }
+}
 .primary-bg{
     background-color: #3C599A;
 }
