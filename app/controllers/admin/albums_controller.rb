@@ -21,7 +21,7 @@ class Admin::AlbumsController < ApplicationController
       @album.images.attach(params[:album][:images])
     end
     if @album.update(album_params)
-      redirect_to albums_path, notice: "Album was successfully updated."
+      redirect_to admin_album_path, notice: "Album was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
