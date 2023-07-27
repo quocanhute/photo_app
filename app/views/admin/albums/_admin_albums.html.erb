@@ -12,7 +12,7 @@
         <% unless album.is_public? %>
           <i class="border-white fa-solid fa-lock private-photo"></i>
         <% end %>
-        <%= link_to "View", album_path(album),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "remote_modal" } %>
+        <%= link_to "Edit", edit_admin_album_path(album),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "remote_modal" } %>
         <%= link_to "Delete",admin_album_path(album),:method => :delete,  data: { confirm: "Are you sure?" },class: "card-link-edit btn btn-lg btn-primary" %>
         <%= content_tag(:p,"#{pluralize(album.images.count, "Photo")}",class: "circle-total-photos") %>
       </div>

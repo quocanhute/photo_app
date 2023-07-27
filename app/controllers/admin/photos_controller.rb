@@ -1,10 +1,25 @@
 class Admin::PhotosController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_photo, only: %i[ destroy ]
+  before_action :set_photo, only: %i[ destroy edit update ]
   before_action :authorize_admin
 
   def index
     @photos = Photo.page(params[:page]).per(18)
+  end
+
+  def edit
+
+  end
+
+  def update
+    # @photo.img.purge
+    respond_to do |format|
+      if @photo.update(photo_params)
+        format.html { redirect_to admin_photos_path, notice: "Photo was successfully updated." }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
   end
 
 
@@ -17,6 +32,10 @@ class Admin::PhotosController < ApplicationController
     end
   end
   private
+
+  def photo_params
+    params.require(:photo).permit(:title, :url, :img, :description, :is_public)
+  end
 
   def set_photo
     @photo = Photo.find(params[:id])

@@ -1,0 +1,76 @@
+<% user = @album.user %>
+<%= render "layouts/remote_modal" do %>
+  <div class="modal-header">
+    <h4 class="modal-title" id="newItemRemoteModalLabel">Editing album:<br><%= @album.title %></h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body remote_modal_body" id="remote_modal_body">
+    <%= form_for(@album,url: admin_album_path,method: :patch) do |form| %>
+      <% if @album.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
+
+          <ul>
+            <% @album.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-outline mb-4 w-100">
+            <%= form.label :title %>
+            <%= form.text_field :title,class: "form-control form-control-lg" %>
+          </div>
+          <div class="form-outline mb-4 w-100">
+            <%= form.label :is_public, 'Sharing Mode' %>
+            <%= form.select :is_public, [['Public', 1], ['Private', 0]], { selected: @album.is_public ? 1 : 0 }, class: 'form-select' %>
+          </div>
+
+        </div>
+        <div class="col-6">
+          <div class="form-outline mb-4 w-100">
+            <%= form.label :description %>
+            <%= form.text_area :description,class: "form-control form-control-lg" %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <% if @album %>
+            <div class="form-outline mb-4 w-100 d-flex row row-col-4" data-controller="multi-file">
+              <% @album.images.each do |image| %>
+                <%= content_tag(:div,class: "exist-images col-2 position-relative overflow-hidden mb-1", ) do %>
+                  <%= image_tag(image,id:"#{image.id}") %>
+                  <%= check_box_tag "photos_delete[]", image.id,false,class: "d-none", id: "photos_delete#{image.id}" %>
+                  <%= label_tag "photos_delete#{image.id}", "", class: "position-absolute delete-image-checkbox btn btn-danger",data: {action:'click->multi-file#toggleValue'} do %>
+                    <i class="fa-solid fa-xmark"></i>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-12 d-flex" data-controller="preview-upload" data-action="change->preview-upload#updatePreview">
+          <%= form.label :images, class: 'label-image-upload' do %>
+            <p>+ Add Images</p>
+            <%= form.file_field :images, multiple: true, class: "input-image-upload", data: { target: "preview-upload.input" } %>
+          <% end %>
+          <div class="col-10 preview-images-zone row row-col-6" data-target="preview-upload.previewContainer"></div>
+        </div>
+
+      </div>
+
+
+      <div>
+        <%= form.submit %>
+      </div>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <p>Created by <%= link_to user.username , view_albums_user_path(user) %></p>
+  </div>
+<% end %>

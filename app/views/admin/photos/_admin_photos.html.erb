@@ -10,7 +10,7 @@
         <% unless photo.is_public? %>
           <i class="border-white fa-solid fa-lock private-photo"></i>
         <% end %>
-        <%= link_to "View", photo_path(photo),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "remote_modal" } %>
+        <%= link_to "Edit", edit_admin_photo_path(photo),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "remote_modal" } %>
         <%= link_to "Delete",admin_photo_path(photo),:method => :delete,  data: { confirm: "Are you sure?" },class: "card-link-edit btn btn-lg btn-primary" %>
       </div>
     </div>

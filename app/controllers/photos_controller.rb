@@ -91,12 +91,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  def authorize_admin
-    unless current_user&.admin?
-      redirect_to root_path, alert: 'Access denied.'
-    end
-  end
-
   def private_stream_photo
     private_target = "#{helpers.dom_id(@photo)} private_likes"
     turbo_stream.replace(private_target,
