@@ -6,6 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
+  # notifications
+  has_many :notifications, as: :recipient, dependent: :destroy
   # Add the custom attribute
   enum role: { admin: 0, user: 1 }
   has_one_attached :avatar

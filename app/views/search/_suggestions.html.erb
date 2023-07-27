@@ -1,10 +1,34 @@
-<% if results.any? %>
-  <div class="position-absolute w-100 rounded overflow-hidden">
-    <% results.each do |photo| %>
-      <div class="p-2 suggestion d-flex align-items-center border">
+<div class="position-absolute w-100 rounded overflow-hidden suggestion">
+<% if users.any? %>
+  <h5>Users suggest</h5>
+    <% users.each do |user| %>
+      <div class="p-2  d-flex align-items-center border">
+        <% if user.avatar.attached? %>
+          <%= image_tag(user.avatar, alt: "#{user.username}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
+        <% else %>
+          <%= image_tag("user.jpg", alt: "#{user.username}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
+        <% end %>
+        <%= link_to user.username, view_photos_user_path(user),class:"suggestion-title" %>
+      </div>
+    <% end %>
+  <hr/>
+<% end %>
+<% if photos.any? %>
+  <h5>Photos suggest</h5>
+    <% photos.each do |photo| %>
+      <div class="p-2  d-flex align-items-center border">
         <%= image_tag(photo.img, alt: "#{photo.title}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
         <%= link_to photo.title, photo_path(photo),class:"suggestion-title", data: { turbo_frame: "remote_modal" } %>
       </div>
     <% end %>
-  </div>
 <% end %>
+<% if albums.any? %>
+  <h5>Albums suggest</h5>
+    <% albums.each do |album| %>
+      <div class="p-2  d-flex align-items-center border">
+        <%= image_tag(album.images.first, alt: "#{album.title}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
+        <%= link_to album.title, album_path(album),class:"suggestion-title", data: { turbo_frame: "remote_modal" } %>
+      </div>
+    <% end %>
+<% end %>
+</div>

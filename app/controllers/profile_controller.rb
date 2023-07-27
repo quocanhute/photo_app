@@ -59,6 +59,9 @@ class ProfileController < ApplicationController
 
 
   def unfollow
+    # puts(current_user.id)
+    # puts(@user.id)
+    # puts(current_user.followed_user.where(follower_id: current_user.id, followee_id: @user.id))
     current_user.followed_user.where(follower_id: current_user.id, followee_id: @user.id).destroy_all
     # redirect_back(fallback_location: root_path)
     respond_to do |format|

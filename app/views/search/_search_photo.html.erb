@@ -16,7 +16,7 @@
         </div>
       </div>
     <% end %>
-    <%= link_to "View all photos", url_for(controller: 'search', action: 'show_all_photo_search', params: request.query_parameters) %>
+    <%= link_to "View all photos", url_for(controller: 'search', action: 'show_all_photo_search', params: request.query_parameters),class: "col-12" %>
   <% else %>
     <h3 class="col-12">Nothing photos to show!!!</h3>
   <% end %>
