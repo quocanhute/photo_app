@@ -7,9 +7,13 @@ test:
 #  root: <%#= Rails.root.join("storage") %>
 local:
   service: Cloudinary
-  cloud_name: "dvpu5diow"
-  api_key: "134112357191927"
-  api_secret: "LS7qimDZBQAd1SChJmnVeTj01k8"
+#  cloud_name: "dvpu5diow"
+#  api_key: "134112357191927"
+#  api_secret: "LS7qimDZBQAd1SChJmnVeTj01k8"
+  cloud_name: <%= ENV['CLOUDINARY_NAME'] %>
+  api_key: <%= ENV['CLOUDINARY_API_KEY'] %>
+  api_secret: <%= ENV['CLOUDINARY_API_SECRET'] %>
+  enhance_image_tag: true
   secure: true
 
 

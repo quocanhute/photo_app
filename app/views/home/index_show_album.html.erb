@@ -5,7 +5,7 @@
       <button id="albumButton" class="btn primary-bg mx-1"><%= link_to "ALBUMS", albums_index_path,class: "text-white"%></button>
     </div>
     <div id="albumContent">
-      <h1>Album</h1>
+      <h1>Albums</h1>
       <%= turbo_stream_from "album_public_likes" %>
       <% album_channel = current_user ? "private_albums" : "public_albums" %>
       <%= turbo_stream_from album_channel %>
