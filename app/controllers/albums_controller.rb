@@ -38,6 +38,9 @@ class AlbumsController < ApplicationController
         img.purge
       end
     end
+    if params[:album][:images].present?
+      @album.images.attach(params[:album][:images])
+    end
     if @album.update(album_params)
       redirect_to albums_path, notice: "Album was successfully updated."
     else
@@ -77,7 +80,7 @@ class AlbumsController < ApplicationController
   end
 
   def album_params
-    params.require(:album).permit(:title, :description, :is_public,images: [])
+    params.require(:album).permit(:title, :description, :is_public)
   end
 
   def get_images_update_album
