@@ -10,10 +10,8 @@ default: &default
   timeout: 5000
 
 development:
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: <%= ENV['DATABASE_URL_DEV'] %>
+  <<: *default
+  database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,34 +25,3 @@ production:
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   url: <%= ENV['DATABASE_URL'] %>
-
-#=======================PG============================
-#default: &default
-#  adapter: postgresql
-#  encoding: unicode
-#  # For details on connection pooling, see Rails configuration guide
-#  # https://guides.rubyonrails.org/configuring.html#database-pooling
-#  pool: <%#= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-#development:
-#  <<: *default
-#  database: photo_app_development
-#  username: postgres
-#  password: 123456789
-#  host: localhost
-#  port: 5432
-#  min_messages: notice
-
-#test:
-#  <<: *default
-#  database: photo_app_test
-#
-#production:
-#  <<: *default
-#  database: photo_app_production
-#  username: postgres
-#  password: 123456789
-#  host: localhost
-#  port: 5432
-#  min_messages: notice
-

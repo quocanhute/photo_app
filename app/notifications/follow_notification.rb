@@ -20,7 +20,7 @@ class FollowNotification < Noticed::Base
   def message
     @follower = User.find(params[:follower][:id])
     @followee = User.find(params[:followee][:id])
-    "Dear#{@followee.username},#{@follower.username} just follow you!!"
+    "Dear #{@followee.username},#{@follower.username} just follow you!!"
   end
   #
   def url

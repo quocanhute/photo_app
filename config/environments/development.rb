@@ -33,10 +33,6 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  config.cache_store = :redis_cache_store, {
-    url: ENV['REDIS_URL']
-  }
-
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
@@ -81,9 +77,9 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               ENV['MAILER_DOMAIN'],
-    user_name:            ENV['MAILER_USER_NAME'],
-    password:             ENV['MAILER_PASSWORD'],
+    domain:               'gmail.com',
+    user_name:            'quocanh10a2',
+    password:             'klsbhncmbrmamtgc',
     authentication:       'plain',
     enable_starttls_auto: true,
     open_timeout:         5,
