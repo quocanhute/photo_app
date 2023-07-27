@@ -26,7 +26,7 @@ end
 # ======================User======================
 User.create(first_name: "Admin", last_name: "Admin", email: "admin@admin.com", role: 0,password: 123456)
 User.create(first_name: "User", last_name: "User", email: "user@user.com", role: 1,password: 123456)
-User.create(first_name: "Ta", last_name: "Anh", email: "quocanh10a2@gmail.com", role: 0,password: 123456)
+# User.create(first_name: "Ta", last_name: "Anh", email: "quocanh10a2@gmail.com", role: 0,password: 123456)
 
 10.times do |n|
   first_name  = Faker::Name.first_name

@@ -56,9 +56,9 @@ class SearchController < ApplicationController
 
   private
   def set_data
-    @set_users = User.where('first_name LIKE ? OR last_name LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%")
-    @set_photos = Photo.where('title LIKE ? AND is_public LIKE ?', "%#{params[:query]}%", true)
-    @set_albums = Album.where('title LIKE ? AND is_public LIKE ?', "%#{params[:query]}%", true)
+    @set_users = User.where('first_name LIKE ? OR last_name = ?', "%#{params[:query]}%", "%#{params[:query]}%")
+    @set_photos = Photo.where('title LIKE ? AND is_public = ?', "%#{params[:query]}%", true)
+    @set_albums = Album.where('title LIKE ? AND is_public = ?', "%#{params[:query]}%", true)
     @search_blank_users = User.limit(6)
     @search_blank_photos = Photo.where(is_public: true).limit(6)
     @search_blank_albums = Album.where(is_public: true).limit(6)
