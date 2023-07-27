@@ -17,8 +17,11 @@ class Admin::AlbumsController < ApplicationController
         img.purge
       end
     end
+    if params[:album][:images].present?
+      @album.images.attach(params[:album][:images])
+    end
     if @album.update(album_params)
-      redirect_to admin_albums_path, notice: "Album was successfully updated."
+      redirect_to albums_path, notice: "Album was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,7 +46,7 @@ class Admin::AlbumsController < ApplicationController
   end
 
   def album_params
-    params.require(:album).permit(:title, :description, :is_public,images: [])
+    params.require(:album).permit(:title, :description, :is_public)
   end
 end
 
