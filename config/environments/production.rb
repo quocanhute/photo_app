@@ -87,6 +87,9 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  config.cache_store = :redis_cache_store, {
+    url: ENV['REDIS_URL']
+  }
   config.action_mailer.default_url_options = {host: ENV['MAILER_HOST']}
 
   # SMTP Google
