@@ -35,7 +35,6 @@ class AlbumsController < ApplicationController
 
   # PATCH/PUT /albums/1 or /albums/1.json
   def update
-    # render :json => params
     if params[:photos_delete].present?
       @album.images.where(:id => params[:photos_delete]).each do |img|
         img.purge

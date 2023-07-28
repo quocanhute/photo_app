@@ -4,7 +4,6 @@ class Admin::AlbumsController < ApplicationController
   before_action :authorize_admin
 
   def index
-    # @albums = Album.page(params[:page]).per(18)
     @pagy, @albums = pagy_countless(Album.all, items:18)
     # sleep(1)
     respond_to do |format|
@@ -17,7 +16,6 @@ class Admin::AlbumsController < ApplicationController
   end
 
   def update
-    # render :json => params
     if params[:photos_delete].present?
       @album.images.where(:id => params[:photos_delete]).each do |img|
         img.purge

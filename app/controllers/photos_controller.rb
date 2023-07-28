@@ -24,8 +24,6 @@ class PhotosController < ApplicationController
 
   # POST /photos or /photos.json
   def create
-    # @photo = Photo.new(photo_params)
-
     @photo = current_user.photos.new(photo_params)
 
     respond_to do |format|
@@ -39,7 +37,6 @@ class PhotosController < ApplicationController
 
   # PATCH/PUT /photos/1 or /photos/1.json
   def update
-    # @photo.img.purge
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to photos_path, notice: "Photo was successfully updated." }
@@ -53,7 +50,6 @@ class PhotosController < ApplicationController
   def destroy
     @photo.img.purge
     @photo.destroy
-
     respond_to do |format|
       format.html { redirect_to photos_url, notice: "Photo was successfully destroyed." }
     end
@@ -62,7 +58,6 @@ class PhotosController < ApplicationController
   def like_photo
     @photo = Photo.find(params[:id])
     current_user.like(@photo)
-    # redirect_to root_url
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: private_stream_photo
@@ -70,19 +65,16 @@ class PhotosController < ApplicationController
     end
   end
   private
-    # Use callbacks to share common setup or constraints between actions.
+
   def set_photo
     @photo = Photo.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
+
   def photo_params
     params.require(:photo).permit(:title, :url, :img, :description, :is_public)
   end
-
-  # def set_user
-  #   @user = User.find(params[:userid])
-  # end
+  
   def check_photo_ownership
     photo = Photo.find_by(id: params[:id])
     if photo && photo.user_id == current_user.id

@@ -32,7 +32,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    # render :json => params
     @user = User.find(params[:id])
     if params[:user][:password].blank?
       respond_to do |format|
