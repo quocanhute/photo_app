@@ -23,6 +23,9 @@ class AlbumsController < ApplicationController
   # POST /albums or /albums.json
   def create
     @album = current_user.albums.new(album_params)
+    if params[:album][:images].present?
+      @album.images.attach(params[:album][:images])
+    end
     if @album.save
       redirect_to albums_path, notice: "Album was successfully created."
     else

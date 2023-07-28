@@ -11,13 +11,14 @@ class Photo < ApplicationRecord
     broadcast_destroy_photo
   end
 
-  validates :title, presence: true, length: { maximum: 100 }
-  validates :description, presence: true, length: { maximum: 255 }
-
   has_many :likeables,dependent: :destroy
   has_many :likes, through: :likeables, source: :user
   belongs_to :user
   has_one_attached :img
+
+  validates :title, presence: true, length: { maximum: 100 }
+  validates :description, presence: true, length: { maximum: 255 }
+  validates :img, presence: true
 
 
   def broadcast_new_photo

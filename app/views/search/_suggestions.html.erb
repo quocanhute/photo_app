@@ -8,7 +8,7 @@
         <% else %>
           <%= image_tag("user.jpg", alt: "#{user.username}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
         <% end %>
-        <%= link_to user.username, view_photos_user_path(user),class:"suggestion-title" %>
+        <%= link_to user.username, view_photos_user_path(user),class: "suggestion-title" %>
       </div>
     <% end %>
   <hr/>
@@ -18,7 +18,7 @@
     <% photos.each do |photo| %>
       <div class="p-2  d-flex align-items-center border">
         <%= image_tag(photo.img, alt: "#{photo.title}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
-        <%= link_to photo.title, photo_path(photo),class:"suggestion-title", data: { turbo_frame: "remote_modal" } %>
+        <%= link_to photo.title, photo_path(photo),class: "suggestion-title", data: { turbo_frame: "remote_modal" } %>
       </div>
     <% end %>
 <% end %>
@@ -27,7 +27,7 @@
     <% albums.each do |album| %>
       <div class="p-2  d-flex align-items-center border">
         <%= image_tag(album.images.first, alt: "#{album.title}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
-        <%= link_to album.title, album_path(album),class:"suggestion-title", data: { turbo_frame: "remote_modal" } %>
+        <%= link_to album.title, album_path(album),class: "suggestion-title", data: { turbo_frame: "remote_modal" } %>
       </div>
     <% end %>
 <% end %>

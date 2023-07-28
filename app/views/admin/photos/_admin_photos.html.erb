@@ -1,7 +1,7 @@
 <div class="row row-cols-6 d-flex align-items-center">
   <% photos.each do |photo| %>
     <div class="col col-6 col-md-2 my-2 rounded float-left profile-card-img">
-      <%= content_tag(:h5,"Belong to #{photo.user.username}_#{photo.user.id}",class:"belong-user") %>
+      <%= content_tag(:h5,"Belong to #{photo.user.username}_#{photo.user.id}",class: "belong-user") %>
       <div class="profile-photo-card card border-0 align-items-center justify-content-center">
         <%= image_tag(photo.img, alt: "#{photo.title}", class: "profile-photo w-100 card-img-top", id: "avatar") %>
         <div class="card-body">

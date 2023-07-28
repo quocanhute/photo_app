@@ -18,9 +18,13 @@
                 <div class="col-sm-12 col-md-6">
                   <%= link_to album_path(album), data: { turbo_frame: "remote_modal" } do%>
                     <div class="profile-album-card card border-0 align-items-center justify-content-center m-3">
-                      <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album w-100 card-img-top") %>
-                      <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album rotated-image1 w-100 card-img-top") %>
-                      <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album rotated-image2 w-100 card-img-top") %>
+                      <% if album.images.blobs.empty? %>
+                        <%= image_tag("image.jpg", alt: "#{album.title}", class: "profile-album w-100 card-img-top") %>
+                      <% else %>
+                        <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album w-100 card-img-top") %>
+                        <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album rotated-image1 w-100 card-img-top") %>
+                        <%= image_tag(album.images.first, alt: "#{album.title}", class: "profile-album rotated-image2 w-100 card-img-top") %>
+                      <% end %>
                     </div>
                   <% end %>
                 </div>
@@ -55,7 +59,7 @@
                       <% else %>
                         <%= render "albums/public_album", album: album %>
                       <% end %>
-                      <%= content_tag(:p,"Create at #{album.created_at.strftime('%d/%m/%Y')}",class:"card-text") %>
+                      <%= content_tag(:p,"Create at #{album.created_at.strftime('%d/%m/%Y')}",class: "card-text") %>
                     </div>
                   </div>
                 </div>
