@@ -32,7 +32,7 @@
                             <% else %>
                               <%= image_tag('user.jpg', alt: "User Avatar", class: "avatar-image rounded-circle") %>
                             <% end %>
-                            <%= link_to "#{photo.user.username}", view_photos_user_path(photo.user),class: "mx-1" %>
+                            <%= link_to "#{photo.user.username}", view_photos_user_path(photo.user),data:{turbo: false},class: "mx-1" %>
                           </div>
                           <% if current_user %>
                             <% if photo.user != current_user %>
