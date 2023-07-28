@@ -4,7 +4,13 @@ class Admin::AlbumsController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @albums = Album.page(params[:page]).per(18)
+    # @albums = Album.page(params[:page]).per(18)
+    @pagy, @albums = pagy_countless(Album.all, items:18)
+    # sleep(1)
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def edit

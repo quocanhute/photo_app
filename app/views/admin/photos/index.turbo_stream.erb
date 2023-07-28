@@ -1,5 +1,5 @@
-<div class="row row-cols-6 d-flex align-items-center">
-  <% photos.each do |photo| %>
+<%= turbo_stream.append :photos do %>
+  <% @photos.each do |photo| %>
     <div class="col col-6 col-md-2 my-2 rounded float-left profile-card-img">
       <%= content_tag(:h5,"Belong to #{photo.user.username}_#{photo.user.id}",class: "belong-user") %>
       <div class="profile-photo-card card border-0 align-items-center justify-content-center">
@@ -15,4 +15,11 @@
       </div>
     </div>
   <% end %>
-</div>
+<%end %>
+<%= turbo_stream.replace :pagination do %>
+  <% if @pagy.next.present? %>
+    <%= turbo_frame_tag :pagination,
+                        loading: :lazy,
+                        src: admin_photos_path(format: :turbo_stream, page: @pagy.next) %>
+  <% end %>
+<% end %>

@@ -2,10 +2,27 @@
   <div class="row justify-content-center">
     <h1>Photos Management</h1>
 
-    <%= render "admin/photos/admin_photos", photos: @photos %>
-    <%= paginate @photos, theme: 'bootstrap-5',
-                 pagination_class: "pagination-sm flex-wrap justify-content-center",
-                 nav_class: "d-inline-block"%>
-
+    <%= turbo_frame_tag :photos ,class: "row row-cols-6 d-flex align-items-center" do %>
+      <% @photos.each do |photo| %>
+        <div class="col col-6 col-md-2 my-2 rounded float-left profile-card-img">
+          <%= content_tag(:h5,"Belong to #{photo.user.username}_#{photo.user.id}",class: "belong-user") %>
+          <div class="profile-photo-card card border-0 align-items-center justify-content-center">
+            <%= image_tag(photo.img, alt: "#{photo.title}", class: "profile-photo w-100 card-img-top", id: "avatar") %>
+            <div class="card-body">
+              <p class="card-text"><%= photo.title %></p>
+            </div>
+            <% unless photo.is_public? %>
+              <i class="border-white fa-solid fa-lock private-photo"></i>
+            <% end %>
+            <%= link_to "Edit", edit_admin_photo_path(photo),class: "card-link-view btn btn-lg btn-primary", data: { turbo_frame: "remote_modal" } %>
+            <%= link_to "Delete",admin_photo_path(photo),:method => :delete,  data: { confirm: "Are you sure?" },class: "card-link-edit btn btn-lg btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    <%end %>
+    <%= turbo_frame_tag :pagination,
+                        loading: :lazy,
+                        src: admin_photos_path(format: :turbo_stream,page: @pagy.next)
+    %>
   </div>
 </main>

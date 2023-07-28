@@ -4,7 +4,13 @@ class Admin::PhotosController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @photos = Photo.page(params[:page]).per(18)
+    # @photos = Photo.page(params[:page]).per(18)
+    @pagy, @photos = pagy_countless(Photo.all, items:18)
+    # sleep(1)
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def edit
