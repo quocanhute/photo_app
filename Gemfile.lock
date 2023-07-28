@@ -204,6 +204,7 @@ GEM
       http (>= 4.0.0)
       rails (>= 5.2.0)
     orm_adapter (0.5.0)
+    pagy (6.0.4)
     pg (1.5.3)
     popper_js (2.11.7)
     populator (1.0.0)
@@ -344,6 +345,7 @@ DEPENDENCIES
   kaminari
   mini_magick
   noticed
+  pagy (~> 6.0)
   pg (~> 1.5)
   populator
   puma (~> 5.0)

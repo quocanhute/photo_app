@@ -192,6 +192,8 @@ img{
   }
 }
 .photo-image{
+  //width: ;
+  width: 100%;
   aspect-ratio: 2/2.5;
 }
 .profile-photo-card{
@@ -202,6 +204,7 @@ img{
     overflow: hidden;
   }
   .profile-photo{
+
     aspect-ratio: 1/1;
   }
 }

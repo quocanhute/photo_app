@@ -100,3 +100,5 @@ gem "pg", "~> 1.5"
 gem "noticed"
 
 gem 'dotenv-rails'
+
+gem 'pagy', '~> 6.0' # omit patch digit

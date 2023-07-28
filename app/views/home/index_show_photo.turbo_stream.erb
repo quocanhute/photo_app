@@ -1,0 +1,57 @@
+<%= turbo_stream.append :photos do %>
+  <% @photos.each do |photo| %>
+    <div class="col-12 col-md-6">
+      <div class="card mb-3 p-1" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-12 col-md-6">
+            <%= link_to photo_path(photo), data: { turbo_frame: "remote_modal" } do%>
+              <%= image_tag(photo.img, alt: "Photo Picture", class: "photo-image img-fluid rounded-start", id: "photo_#{photo.id}") %>
+            <% end %>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="card-body photo-card">
+              <div class="card-header">
+                <div class="user-photo-card d-flex justify-content-between align-items-center">
+                  <div class="d-flex justify-content-start align-items-center">
+                    <% if photo.user.avatar_attachment %>
+                      <%= image_tag(photo.user.avatar, alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                    <% else %>
+                      <%= image_tag('user.jpg', alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                    <% end %>
+                    <%= link_to "#{photo.user.username}", view_photos_user_path(photo.user),class: "mx-1" %>
+                  </div>
+                  <% if current_user %>
+                    <% if photo.user != current_user %>
+                      <%= render partial: 'profile/follow_button',locals: {user: photo.user} %>
+                    <% elsif current_user %>
+                      <%= link_to "Edit", edit_user_registration_path,class: "btn btn-primary text-primary border-blue bg-white" %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="card-body" style="height: 70%;">
+                <h5 class="card-title"><%= photo.title %></h5>
+                <p class="card-text"><%= photo.description %></p>
+              </div>
+              <div class="card-footer d-flex justify-content-between ">
+                <% if current_user %>
+                  <%= render "photos/private_photo", like_status: current_user.liked?(photo),photo: photo %>
+                <% else %>
+                  <%= render "photos/public_photo", photo: photo %>
+                <% end %>
+                <%= content_tag(:p,"Create at #{photo.created_at.strftime('%d/%m/%Y')}",class: "card-text") %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<%end %>
+<%= turbo_stream.replace :pagination do %>
+  <% if @pagy.next.present? %>
+    <%= turbo_frame_tag :pagination,
+                        loading: :lazy,
+                        src: photos_index_path(format: :turbo_stream, page: @pagy.next) %>
+  <% end %>
+<% end %>

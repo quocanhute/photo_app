@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: "home#index_show_photo"
+  root to: "home#index"
   get 'profile/show'
   devise_for :users,controllers:{
     registrations: 'users/registrations',
