@@ -59,11 +59,11 @@ class AlbumsController < ApplicationController
     end
   end
 
-  def delete_image_attachment
-    img = @album.images.find(params[:id_key])
-    img.purge
-    redirect_to albums_url
-  end
+  # def delete_image_attachment
+  #   img = @album.images.find(params[:id_key])
+  #   img.purge
+  #   redirect_to albums_url
+  # end
 
   def like_album
     @album = Album.find(params[:id])

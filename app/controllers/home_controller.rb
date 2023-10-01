@@ -20,6 +20,14 @@ class HomeController < ApplicationController
     end
   end
 
+  def index_show_post
+    @posts = Post.all
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
+  end
+
 
   private
 

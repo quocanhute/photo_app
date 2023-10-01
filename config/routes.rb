@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root to: "home#index"
-  get 'profile/show'
+
+  root to: "posts#index"
   devise_for :users,controllers:{
     registrations: 'users/registrations',
     sessions: 'users/sessions'
@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # action home page
   get '/photos', to: "home#index_show_photo", as: 'photos_index'
   get '/albums', to: "home#index_show_album", as: 'albums_index'
+  get '/posts', to: "home#index_show_post", as: 'posts_index'
 
   # action admin
   namespace 'admin' do
@@ -19,10 +20,11 @@ Rails.application.routes.draw do
 
   # action user
   scope '/users' do
+    resources :posts
     resources :photos
     resources :albums do
       member do
-        delete '/:id_key',to: 'albums#delete_image_attachment', as: 'delete_image'
+        # delete '/:id_key',to: 'albums#delete_image_attachment', as: 'delete_image'
       end
     end
   end
