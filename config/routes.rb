@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  root to: "posts#index"
+  root to: "home#index"
+  # get '/:locale' => 'home#index'
   devise_for :users,controllers:{
     registrations: 'users/registrations',
     sessions: 'users/sessions'
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
     resources :users
     resources :photos
     resources :albums
+
   end
 
   # action user

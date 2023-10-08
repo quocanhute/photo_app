@@ -10,6 +10,12 @@
             <%= link_to "Feeds", root_path, class: "nav-link "%>
           </div>
         <% end %>
+        <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("posts")) }") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-blog"></i>
+            <%= link_to "My Posts", posts_path, class: "nav-link " %>
+          </div>
+        <% end %>
         <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("photos")) }") do %>
           <div class="d-flex align-items-center">
             <i class="fa-solid fa-image"></i>

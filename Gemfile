@@ -102,3 +102,4 @@ gem "noticed"
 gem 'dotenv-rails'
 
 gem 'pagy', '~> 6.0' # omit patch digit
+gem 'rails-i18n'

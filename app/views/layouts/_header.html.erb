@@ -5,7 +5,7 @@
         <i class="fa-solid fa-bars"></i>
       </button>
       <div class="d-flex align-items-center col-7 col-md-8">
-        <%= link_to "Photobook", root_path, class: "navbar-brand text-white" %>
+        <%= link_to "MyBlog", root_path, class: "navbar-brand text-white" %>
         <%= render partial: "search/form", locals: {photos: [],albums: [],users: []} %>
       </div>
       <div class="d-flex align-items-center col-3 col-md-4 justify-content-end">
@@ -31,6 +31,17 @@
         <% else %>
           <%= button_to "Sign in", new_user_session_path,class: 'btn btn-outline-light my-2 my-sm-0', method: :get %>
         <% end %>
+        <ul>
+          <% I18n.available_locales.each do |locale| %>
+            <li>
+              <% if I18n.locale == locale %>
+                <%= t(locale, scope: 'locales') %>
+              <% else %>
+                <%= link_to t(locale, scope: 'locales'), url_for(locale: locale) %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </nav>
