@@ -1,0 +1,7 @@
+en:
+  user:
+    post:
+      object:
+        post: "Post"
+        posts: "Posts"
+        user_post: "My Posts"

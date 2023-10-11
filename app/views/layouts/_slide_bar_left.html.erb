@@ -13,19 +13,19 @@
         <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("posts")) }") do %>
           <div class="d-flex align-items-center">
             <i class="fa-solid fa-blog"></i>
-            <%= link_to "My Posts", posts_path, class: "nav-link " %>
+            <%= link_to t('user.post.object.user_post'), posts_path, class: "nav-link " %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("photos")) }") do %>
           <div class="d-flex align-items-center">
             <i class="fa-solid fa-image"></i>
-            <%= link_to "My Photos", photos_path, class: "nav-link " %>
+            <%= link_to t('user.photo.object.user_photo'), photos_path, class: "nav-link " %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("albums")) }") do %>
           <div class="d-flex align-items-center">
             <i class="fa-solid fa-images"></i>
-            <%= link_to "My Albums", albums_path, class: "nav-link " %>
+            <%= link_to t('user.album.object.user_album'), albums_path, class: "nav-link " %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("profile") && (path[1]==current_user.id.to_s))}") do %>
@@ -89,16 +89,22 @@
             <%= link_to "Feeds", root_path, class: "nav-link "%>
           </div>
         <% end %>
+        <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("posts")) }") do %>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-blog"></i>
+            <%= link_to t('user.post.object.user_post'), posts_path, class: "nav-link " %>
+          </div>
+        <% end %>
         <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("photos")) }") do %>
           <div class="d-flex align-items-center">
             <i class="fa-solid fa-image"></i>
-            <%= link_to "My Photos", photos_path, class: "nav-link " %>
+            <%= link_to t('user.photo.object.user_photo'), photos_path, class: "nav-link " %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("users") && path.include?("albums")) }") do %>
           <div class="d-flex align-items-center">
             <i class="fa-solid fa-images"></i>
-            <%= link_to "My Albums", albums_path, class: "nav-link " %>
+            <%= link_to t('user.album.object.user_album'), albums_path, class: "nav-link " %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("profile")) }") do %>
@@ -144,7 +150,6 @@
           </div>
         <% end %>
       </ul>
-
     <% end %>
   </div>
 </div>

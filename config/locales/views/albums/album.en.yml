@@ -1,0 +1,7 @@
+en:
+  user:
+    album:
+      object:
+        album: "Album"
+        albums: "Albums"
+        user_album: "My Albums"

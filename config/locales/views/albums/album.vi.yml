@@ -1,0 +1,7 @@
+vi:
+  user:
+    album:
+      object:
+        album: "Bộ sưu tập"
+        albums: "Bộ sưu tập"
+        user_album: "Bộ sưu tập của tôi"

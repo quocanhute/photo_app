@@ -1,0 +1,7 @@
+vi:
+  user:
+    photo:
+      object:
+        photo: "Hình ảnh"
+        photos: "Hình ảnh"
+        user_photo: "Hình ảnh của tôi"

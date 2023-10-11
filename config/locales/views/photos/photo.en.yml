@@ -1,0 +1,7 @@
+en:
+  user:
+    photo:
+      object:
+        photo: "Photo"
+        photos: "Photos"
+        user_photo: "My Photos"
