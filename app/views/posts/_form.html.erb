@@ -17,8 +17,23 @@
   </div>
 
   <div>
-    <%= form.label :detail, style: "display: block" %>
-    <%= form.text_area :detail %>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :published, style: "display: block" %>
+    <%= form.check_box :published %>
+  </div>
+
+  <div>
+    <%= form.label :published_at, style: "display: block" %>
+    <%= form.datetime_field :published_at %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
   </div>
 
   <div>

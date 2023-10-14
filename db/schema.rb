@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_05_163954) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_14_031321) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -91,9 +91,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_163954) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
-    t.text "detail"
+    t.text "description"
+    t.boolean "published"
+    t.datetime "published_at"
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -133,4 +137,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_163954) do
   add_foreign_key "likeables", "photos"
   add_foreign_key "likeables", "users"
   add_foreign_key "photos", "users"
+  add_foreign_key "posts", "users"
 end

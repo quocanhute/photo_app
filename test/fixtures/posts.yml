@@ -2,8 +2,14 @@
 
 one:
   title: MyString
-  detail: MyText
+  description: MyText
+  published: false
+  published_at: 2023-10-14 10:13:22
+  user: one
 
 two:
   title: MyString
-  detail: MyText
+  description: MyText
+  published: false
+  published_at: 2023-10-14 10:13:22
+  user: two

@@ -14,8 +14,11 @@ class PostsTest < ApplicationSystemTestCase
     visit posts_url
     click_on "New post"
 
-    fill_in "Detail", with: @post.detail
+    fill_in "Description", with: @post.description
+    check "Published" if @post.published
+    fill_in "Published at", with: @post.published_at
     fill_in "Title", with: @post.title
+    fill_in "User", with: @post.user_id
     click_on "Create Post"
 
     assert_text "Post was successfully created"
@@ -26,8 +29,11 @@ class PostsTest < ApplicationSystemTestCase
     visit post_url(@post)
     click_on "Edit this post", match: :first
 
-    fill_in "Detail", with: @post.detail
+    fill_in "Description", with: @post.description
+    check "Published" if @post.published
+    fill_in "Published at", with: @post.published_at
     fill_in "Title", with: @post.title
+    fill_in "User", with: @post.user_id
     click_on "Update Post"
 
     assert_text "Post was successfully updated"
