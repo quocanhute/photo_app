@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :posts
 
   root to: "home#index"
   # get '/:locale' => 'home#index'
@@ -23,7 +22,9 @@ Rails.application.routes.draw do
 
   # action user
   scope '/users' do
-    resources :posts
+    resources :posts do
+      resources :elements
+    end
     resources :photos
     resources :albums do
       member do

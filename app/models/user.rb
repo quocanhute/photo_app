@@ -31,6 +31,7 @@ class User < ApplicationRecord
   has_many :follower, through: :following_user, dependent: :destroy
   has_many :photos, dependent: :destroy
   has_many :albums, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   has_many :likeables, dependent: :destroy
   has_many :liked_photos, through: :likeables, source: :photo
