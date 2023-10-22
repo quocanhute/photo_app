@@ -38,10 +38,8 @@ class ElementsController < ApplicationController
     respond_to do |format|
       if @element.update(element_params)
         format.html { redirect_to edit_post_path(@element.post), notice: "Paragraph was successfully updated." }
-        # format.json { render :show, status: :ok, location: @element }
       else
         format.html { redirect_to edit_post_path(@element.post), status: :unprocessable_entity }
-        # format.json { render json: @element.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -51,8 +49,7 @@ class ElementsController < ApplicationController
     @element.destroy
 
     respond_to do |format|
-      format.html { redirect_to elements_url, notice: "Element was successfully destroyed." }
-      format.json { head :no_content }
+      format.html { redirect_to edit_post_path(@element.post), notice: "Element was successfully destroyed." }
     end
   end
 
@@ -69,6 +66,6 @@ class ElementsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def element_params
-    params.require(:element).permit(:element_type, :content)
+    params.require(:element).permit(:element_type, :content, :image)
   end
 end
