@@ -33,6 +33,10 @@ Rails.application.routes.draw do
     end
   end
 
+  # action publish post
+  post 'posts/unpublish/:id', to: 'posts#unpublish', as: 'posts_unpublish'
+  post 'posts/publish/:id', to: 'posts#publish', as: 'posts_publish'
+
   # action view profile
   get '/profile/:id', to: 'profile#show', as: 'view_profile'
   get '/profile/:id/photos', to: 'profile#show_photo', as: 'view_photos_user'

@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: %i[ index new edit create update destroy ]
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ show edit update destroy publish unpublish]
 
   # GET /posts or /posts.json
   def index
@@ -27,11 +27,9 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
-        format.json { render :show, status: :created, location: @post }
+        format.html { redirect_to edit_post_path(@post), notice: "Post was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -40,11 +38,9 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
-        format.json { render :show, status: :ok, location: @post }
+        format.html { redirect_to edit_post_path(@post), notice: "Post was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,14 +55,44 @@ class PostsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = current_user.posts.find(params[:id])
-    end
+  def publish
+    @post.update(published: true, published_at: Time.now)
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post).permit(:title, :description)
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: update_action_publish
+      end
     end
+  end
+
+  def unpublish
+    @post.update(published: false, published_at: nil)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: update_action_publish
+      end
+    end
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = current_user.posts.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.require(:post).permit(:title, :description, :header_image)
+  end
+
+  def update_action_publish
+    private_target = ".#{helpers.dom_id(@post)}_publish_post"
+    turbo_stream.replace_all(private_target,
+                             partial: 'posts/publisher_button',
+                             locals: {
+                               post: @post
+                             })
+  end
+
 end
