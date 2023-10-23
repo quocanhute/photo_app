@@ -1,2 +1,3 @@
 vi:
   hello: "Xin chào"
+  confirm_delete: "Bạn chắc chắn muốn xóa chứ?"

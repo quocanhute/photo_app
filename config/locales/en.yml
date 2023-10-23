@@ -31,3 +31,4 @@
 
 en:
   hello: "Hello world"
+  confirm_delete: "Are you sure?"
