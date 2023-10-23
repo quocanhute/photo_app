@@ -1,4 +1,7 @@
 class Element < ApplicationRecord
+  include RailsSortable::Model
+  set_sortable :sort
+
   belongs_to :post
 
   validates :element_type, inclusion: {in: ['paragraph', 'image', 'video-embed']}

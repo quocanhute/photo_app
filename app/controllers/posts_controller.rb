@@ -60,7 +60,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: update_action_publish
+        render turbo_stream: [update_action_publish,update_published_at]
       end
     end
   end
@@ -70,7 +70,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: update_action_publish
+        render turbo_stream: [update_action_publish,update_published_at]
       end
     end
   end
@@ -90,6 +90,15 @@ class PostsController < ApplicationController
     private_target = ".#{helpers.dom_id(@post)}_publish_post"
     turbo_stream.replace_all(private_target,
                              partial: 'posts/publisher_button',
+                             locals: {
+                               post: @post
+                             })
+  end
+
+  def update_published_at
+    private_target = ".#{helpers.dom_id(@post)}_published_at"
+    turbo_stream.replace_all(private_target,
+                             partial: 'posts/published_at',
                              locals: {
                                post: @post
                              })

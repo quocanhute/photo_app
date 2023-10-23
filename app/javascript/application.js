@@ -5,10 +5,15 @@ import "jquery"
 import "jquery_ujs"
 import "@popperjs/core"
 import "bootstrap"
+import "jquery-ui/widgets/sortable"
+import "rails_sortable"
 
 import "trix"
 import "@rails/actiontext"
 
+$(function() {
+  $('.sortable').railsSortable();
+});
 // console.log("test something")
 // document.addEventListener('turbolinks:load', () => {
 //   document.addEventListener('click', () => {
