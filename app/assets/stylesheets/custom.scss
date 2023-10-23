@@ -336,3 +336,9 @@ img{
     background-position: center;
   }
 }
+
+.delete-btn{
+  position: absolute;
+  right: calc(10% + 64px);
+  opacity: 0.7;
+}
