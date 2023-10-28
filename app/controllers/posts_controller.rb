@@ -38,7 +38,10 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to edit_post_path(@post), notice: "Post was successfully updated." }
+        format.html {
+          flash[:notice] = 'Post was successfully updated.'
+          redirect_to edit_post_path(@post)
+        }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end

@@ -105,3 +105,4 @@ gem 'pagy', '~> 6.0' # omit patch digit
 gem 'rails-i18n'
 gem 'jquery-ui-rails'
 gem 'rails_sortable'
+gem 'toastr-rails'

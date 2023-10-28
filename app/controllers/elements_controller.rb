@@ -37,7 +37,10 @@ class ElementsController < ApplicationController
   def update
     respond_to do |format|
       if @element.update(element_params)
-        format.html { redirect_to edit_post_path(@element.post), notice: "Paragraph was successfully updated." }
+        format.html {
+          flash[:notice] = 'Paragraph was successfully updated.'
+          redirect_to edit_post_path(@element.post)
+        }
       else
         format.html { redirect_to edit_post_path(@element.post), status: :unprocessable_entity }
       end
@@ -49,7 +52,10 @@ class ElementsController < ApplicationController
     @element.destroy
 
     respond_to do |format|
-      format.html { redirect_to edit_post_path(@element.post), notice: "Element was successfully destroyed." }
+      format.html {
+        flash[:notice] = 'Paragraph was successfully destroyed.'
+        redirect_to edit_post_path(@element.post)
+      }
     end
   end
 

@@ -29,6 +29,7 @@ class AlbumsController < ApplicationController
     if @album.save
       redirect_to albums_path, notice: "Album was successfully created."
     else
+      flash[:alert] = "Problem when create new Album."
       render :new, status: :unprocessable_entity
     end
   end
@@ -46,6 +47,7 @@ class AlbumsController < ApplicationController
     if @album.update(album_params)
       redirect_to albums_path, notice: "Album was successfully updated."
     else
+      flash[:alert] = "Problem when update this Album."
       render :edit, status: :unprocessable_entity
     end
   end
@@ -53,10 +55,9 @@ class AlbumsController < ApplicationController
   # DELETE /albums/1 or /albums/1.json
   def destroy
     @album.destroy
-
-    respond_to do |format|
-      format.html { redirect_to albums_url, notice: "Album was successfully destroyed." }
-    end
+    # flash[:notice] = 'Album was successfully destroyed.'
+    flash[:alert] = "Problem when create new Album."
+    redirect_to albums_path, notice: "Album was successfully destroyed."
   end
 
   # def delete_image_attachment

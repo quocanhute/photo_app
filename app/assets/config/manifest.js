@@ -4,3 +4,4 @@
 //= link_tree ../../../vendor/javascript .js
 //= link jquery-ui/widgets/sortable.js
 //= link rails_sortable.js
+//= link toastr.js

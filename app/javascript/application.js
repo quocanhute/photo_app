@@ -7,10 +7,16 @@ import "@popperjs/core"
 import "bootstrap"
 import "jquery-ui/widgets/sortable"
 import "rails_sortable"
+import "toastr"
 
 import "trix"
 import "@rails/actiontext"
 
+// $(document).ready(function() {
+//   // Your jQuery code goes here
+//   $('.toast').toast('show');
+// });
+// toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!')
 $(function() {
   $('.sortable').railsSortable();
 });

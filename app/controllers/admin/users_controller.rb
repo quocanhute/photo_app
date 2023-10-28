@@ -58,8 +58,7 @@ class Admin::UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to admin_users_url }
-      format.json { head :ok }
+      format.html { redirect_to admin_users_url, :notice => 'User was successfully destroyed.'  }
     end
   end
 
