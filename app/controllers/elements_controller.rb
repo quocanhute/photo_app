@@ -26,7 +26,10 @@ class ElementsController < ApplicationController
 
     respond_to do |format|
       if @element.save
-        format.html { redirect_to edit_post_path(@post) }
+        format.html {
+          flash[:notice] = 'Element was successfully created.'
+          redirect_to edit_post_path(@post)
+        }
       else
         format.html { redirect_to edit_post_path(@post), notice: @element.errors.full_messages.join(". ") << "." }
       end

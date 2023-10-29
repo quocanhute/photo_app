@@ -1,6 +1,6 @@
 <main role="main" class="col-lg-12 px-md-4 mx-auto pt-3">
   <div class="row justify-content-center col-12">
-    <%= render "layouts/static_button_page", pages: "photo" %>
+    <%= render "shared/static_button_page", pages: "photo" %>
     <div id="photoContent">
       <h1>Photos</h1>
       <%= turbo_stream_from "public_likes" %>
