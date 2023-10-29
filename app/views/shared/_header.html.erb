@@ -32,12 +32,9 @@
           <%= button_to "Sign in", new_user_session_path,class: 'btn btn-outline-light my-2 my-sm-0', method: :get %>
         <% end %>
         <ul>
-          <a href="<%= url_for(locale: "vi") %>">
-            <%= image_tag("icon/flag/vn-flag.png", alt: "Vietnam",class: "avatar-image rounded-circle") %>
-          </a>
-          <a href="<%= url_for(locale: "en") %>">
-            <%= image_tag("icon/flag/uk-flag.jpg", alt: "English",class: "avatar-image rounded-circle") %>
-          </a>
+          <%= link_to "VI", url_for(locale: "vi"), class: "text-white" %>
+          <span class="text-white">|</span>
+          <%= link_to "EN", url_for(locale: "en"), class: "text-white" %>
         </ul>
       </div>
     </div>
