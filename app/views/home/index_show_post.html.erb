@@ -3,6 +3,26 @@
     <%= render "shared/static_button_page", pages: "post" %>
     <div id="albumContent">
       <h1>Posts</h1>
+      <% @posts.each do |post| %>
+        <%= link_to post_path(post), class: 'text-decoration-none' do %>
+          <div class="card mb-3 post-card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-2">
+                  <% if post.header_image.present? %>
+                    <div class="header-img" style="background-image: url(<%= url_for(post.header_image) %>)"></div>
+                  <% end %>
+                </div>
+                <div class="col-md-10">
+                  <h5 class="card-title mb-1 text-dark"><%= post.title %></h5>
+                  <p class="text-secondary"><%= post.description %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
     </div>
   </div>
 </main>

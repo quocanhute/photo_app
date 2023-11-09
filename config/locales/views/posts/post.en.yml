@@ -2,6 +2,7 @@ en:
   user:
     post:
       object:
+        create: "Create new post"
         post: "Post"
         posts: "Posts"
         user_post: "My Posts"

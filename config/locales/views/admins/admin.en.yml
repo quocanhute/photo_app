@@ -1,0 +1,19 @@
+en:
+  admin:
+    user:
+      user_management:
+        management: "Users management"
+        create: "Create User"
+        delete: "Delete User"
+        edit: "Edit User"
+    post:
+    photo:
+      photo_management:
+        management: "Photos management"
+        delete: "Delete"
+        edit: "Edit"
+    album:
+      album_management:
+        management: "Albums management"
+        delete: "Delete"
+        edit: "Edit"

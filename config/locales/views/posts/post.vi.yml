@@ -2,6 +2,7 @@ vi:
   user:
     post:
       object:
+        create: "Tạo bài viết mới"
         post: "Bài viết"
         posts: "Bài viết"
         user_post: "Bài viết của tôi"

@@ -1,10 +1,72 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @post %>
-
+<div class="col-md-9">
+  <div class="card mb-5" data-controller="edit-element-post">
+    <div class="card-header text-end">
+      <%= render partial: 'posts/published_at',locals: {post: @post} %>
+    </div>
+    <div class="card-body pt-5">
+      <div class="sortable">
+        <% @post.elements.order(:sort).all.each_with_sortable_id do |element, sortable_id| %>
+          <div id="<%= sortable_id %>">
+            <% if element.persisted? %>
+              <% if element.paragraph? %>
+                <div class="mb-4 p-3 paragraph">
+                  <div class="paragraph-content" data-action="click->edit-element-post#clickParagraphContent">
+                    <% if element.content.present? %>
+                      <%= element.content %>
+                    <% else %>
+                      Click to add content.
+                    <% end %>
+                  </div>
+                  <div class="paragraph-form d-none">
+                    <%= form_with(model: [@post, element]) do |form| %>
+                      <%= form.rich_text_area :content %>
+                      <div class="mt-3 d-flex justify-content-between">
+                        <div>
+                          <%= form.submit "Save", class: 'btn btn-primary'%>
+                          <a href="#" class="cancel btn btn-secondary" data-action="click->edit-element-post#clickCancel">Cancel</a>
+                        </div>
+                        <%= link_to "Delete", post_element_path(@post, element), method: :delete,
+                                    class: "btn btn-danger", data: { confirm: t("confirm_delete") } %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% elsif element.image? %>
+                <div class="mb-4 p-3 image">
+                  <% if element.image.present? %>
+                    <%= image_tag(element.image) %>
+                    <%= link_to post_element_path(@post, element), method: :delete,
+                                class: "delete-btn btn btn-dark mt-2 float-end",
+                                data: { confirm: t("confirm_delete") }  do %>
+                      <i class="fa-solid fa-xmark"></i>
+                    <% end %>
+                  <% else %>
+                    <%= form_with(model: [@post, element]) do |form| %>
+                      <%= form.file_field :image %>
+                      <div class="mt-3">
+                        <%= form.submit "Save", class: 'btn btn-primary'%>
+                        <%= link_to post_element_path(@post, element), method: :delete,
+                                    class: " btn btn-danger",
+                                    data: { confirm: t("confirm_delete") }  do %>
+                          Remove
+                        <% end %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 <div>
   <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
 
   <%= button_to "Destroy this post", @post, method: :delete %>
 </div>

@@ -31,7 +31,7 @@
         <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("profile") && (path[1]==current_user.id.to_s))}") do %>
           <div class="d-flex align-items-center">
             <i class="fa-regular fa-user"></i>
-            <%= link_to "My Profile", view_photos_user_path(current_user.id), class: "nav-link " %>
+            <%= link_to t('user.profile.my_profile'), view_photos_user_path(current_user.id), class: "nav-link " %>
           </div>
         <% end %>
 
@@ -42,21 +42,21 @@
           <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("users")) }") do %>
             <div class="d-flex align-items-center">
               <i class="fa-solid fa-gear"></i>
-              <%= link_to "Users Management", admin_users_path, class: "nav-link " %>
+              <%= link_to t('admin.user.user_management.management'), admin_users_path, class: "nav-link " %>
             </div>
           <% end %>
 
           <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("photos")) }") do %>
             <div class="d-flex align-items-center">
               <i class="fa-solid fa-gear"></i>
-              <%= link_to "Photos Management", admin_photos_path, class: "nav-link " %>
+              <%= link_to t('admin.photo.photo_management.management'), admin_photos_path, class: "nav-link " %>
             </div>
           <% end %>
 
           <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("albums")) }") do %>
             <div class="d-flex align-items-center">
               <i class="fa-solid fa-gear"></i>
-              <%= link_to "Albums Management", admin_albums_path, class: "nav-link " %>
+              <%= link_to t('admin.album.album_management.management'), admin_albums_path, class: "nav-link " %>
             </div>
           <% end %>
 
@@ -110,7 +110,7 @@
         <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("profile")) }") do %>
           <div class="d-flex align-items-center">
             <i class="fa-regular fa-user"></i>
-            <%= link_to "My Profile", view_photos_user_path(current_user.id), class: "nav-link " %>
+            <%= link_to t('user.profile.my_profile'), view_photos_user_path(current_user.id), class: "nav-link " %>
           </div>
         <% end %>
 
@@ -121,21 +121,21 @@
           <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("users")) }") do %>
             <div class="d-flex align-items-center">
               <i class="fa-solid fa-gear"></i>
-              <%= link_to "Users Management", admin_users_path, class: "nav-link " %>
+              <%= link_to t('admin.user.user_management.management'), admin_users_path, class: "nav-link " %>
             </div>
           <% end %>
 
           <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("photos")) }") do %>
             <div class="d-flex align-items-center">
               <i class="fa-solid fa-gear"></i>
-              <%= link_to "Photos Management", admin_photos_path, class: "nav-link " %>
+              <%= link_to t('admin.photo.photo_management.management'), admin_photos_path, class: "nav-link " %>
             </div>
           <% end %>
 
           <%= content_tag(:li,class: "nav-item #{"active" if(path.include?("admin") && path.include?("albums")) }") do %>
             <div class="d-flex align-items-center">
               <i class="fa-solid fa-gear"></i>
-              <%= link_to "Albums Management", admin_albums_path, class: "nav-link " %>
+              <%= link_to t('admin.photo.photo_management.management'), admin_albums_path, class: "nav-link " %>
             </div>
           <% end %>
 

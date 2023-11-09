@@ -1,0 +1,19 @@
+vi:
+  admin:
+    user:
+      user_management:
+        management: "Quản lý người dùng"
+        create: "Tạo mới User"
+        delete: "Xóa User"
+        edit: "Sửa User"
+    post:
+    photo:
+      photo_management:
+        management: "Quản lý ảnh"
+        delete: "Xóa ảnh"
+        edit: "Sửa ảnh"
+    album:
+      album_management:
+        management: "Quản lý album"
+        delete: "Xóa album"
+        edit: "Sửa album"
