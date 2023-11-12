@@ -32,7 +32,7 @@
                     <% if album.user != current_user %>
                       <%= render partial: 'profile/follow_button',locals: {user: album.user} %>
                     <% elsif current_user %>
-                      <%= link_to "Edit", edit_user_registration_path,class: "btn btn-primary text-primary border-blue bg-white" %>
+                      <%= link_to "Edit", edit_album_path(album.id),data:{turbo: false},class: "btn btn-primary text-primary border-blue bg-white" %>
                     <% end %>
                   <% end %>
                 </div>

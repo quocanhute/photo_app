@@ -1,4 +1,4 @@
-<%= turbo_stream.append :photos do %>
+<%= turbo_stream.append "show_photos" do %>
   <% @photos.each do |photo| %>
     <div class="col-12 col-md-6">
       <div class="card mb-3 p-1" style="max-width: 540px;">
@@ -24,7 +24,7 @@
                     <% if photo.user != current_user %>
                       <%= render partial: 'profile/follow_button',locals: {user: photo.user} %>
                     <% elsif current_user %>
-                      <%= link_to "Edit", edit_user_registration_path,class: "btn btn-primary text-primary border-blue bg-white" %>
+                      <%= link_to "Edit", edit_photo_path(photo.id),data:{turbo: false},class: "btn btn-primary text-primary border-blue bg-white" %>
                     <% end %>
                   <% end %>
                 </div>
