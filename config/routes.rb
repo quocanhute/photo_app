@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   scope '/users' do
     resources :posts do
       resources :elements
+      resources :comments, only: [:create]
     end
     resources :photos
     resources :albums do

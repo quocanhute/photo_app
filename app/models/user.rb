@@ -6,6 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
+
+  has_many :comments
   # notifications
   has_many :notifications, as: :recipient, dependent: :destroy
   # Add the custom attribute

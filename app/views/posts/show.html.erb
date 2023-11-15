@@ -9,19 +9,36 @@
     <div class="card-body pt-5">
       <div class="sortable">
         <% @post.elements.order(:sort).all.each_with_sortable_id do |element| %>
-            <% if element.persisted? %>
-                <div class="mb-4 p-3 paragraph">
-                  <div class="paragraph-content">
-                    <% if element.content.present? %>
-                      <%= element.content %>
-                    <% else %>
-                      This post don't having content now!
-                    <% end %>
-                  </div>
+          <% if element.persisted? %>
+            <% if element.paragraph? %>
+              <div class="mb-4 p-3 paragraph">
+                <div class="paragraph-content">
+                  <% if element.content.present? %>
+                    <%= element.content %>
+                  <% else %>
+                    Still updating post....
+                  <% end %>
                 </div>
+              </div>
+            <% elsif element.image? %>
+              <div class="mb-4 p-3 image">
+                <% if element.image.present? %>
+                  <%= image_tag(element.image) %>
+                <% else %>
+                  Still updating post....
+                <% end %>
+              </div>
             <% end %>
+          <% end %>
         <% end %>
       </div>
     </div>
   </div>
 </div>
+
+<p>
+  <strong>Comments:</strong>
+
+  <%= render @post.comments.where(parent_id: nil) %>
+  <%= render partial: 'comments/form', locals: { post: @post , parent: nil} %>
+</p>
