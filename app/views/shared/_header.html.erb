@@ -17,24 +17,46 @@
             <li class="nav-item">
               <a class="nav-link text-white" href="#">Features...</a>
             </li>
+            <li class="nav-item">
+              <%= render partial: "search/form", locals: {photos: [],albums: [],users: []} %>
+            </li>
           </ul>
         </div>
-        <%= render partial: "search/form", locals: {photos: [],albums: [],users: []} %>
+
       </div>
       <div class="d-flex align-items-center col-3 col-md-4 justify-content-end">
         <% if user_signed_in? %>
           <div class="float-right">
             <ul class="nav float-right">
               <div class="dropdown d-flex align-items-center">
-                <% if current_user.avatar.attached? %>
-                  <%= image_tag(current_user.avatar, alt: "#{current_user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
-                <% end %>
                 <%= render 'layouts/notifications' %>
                 <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
-                   <%= current_user.username %></b>
+                  <% if current_user.avatar.attached? %>
+                    <%= image_tag(current_user.avatar, alt: "#{current_user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
+                  <% else %>
+                    <%= image_tag("user.jpg", alt: "#{current_user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
+                  <% end %>
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><%= link_to "My profile", view_photos_user_path(current_user.id), class: "my-2 my-sm-0 dropdown-item" %></li>
+                <ul class="dropdown-menu" style="left: 50%; width: 100%" aria-labelledby="dropdownMenuButton1">
+                  <li><%= link_to current_user.username, view_photos_user_path(current_user.id), class: "my-2 my-sm-0 dropdown-item" %></li>
+                  <hr/>
+                  <div class="d-flex align-items-center px-2">
+                    <i class="fa-solid fa-blog"></i>
+                    <%= link_to t('user.post.object.create'), new_post_path, class: "nav-link " %>
+                  </div>
+                  <div class="d-flex align-items-center px-2">
+                    <i class="fa-solid fa-blog"></i>
+                    <%= link_to t('user.post.object.user_post'), posts_path, class: "nav-link " %>
+                  </div>
+                  <div class="d-flex align-items-center px-2">
+                    <i class="fa-solid fa-image"></i>
+                    <%= link_to t('user.photo.object.user_photo'), photos_path, class: "nav-link " %>
+                  </div>
+                  <div class="d-flex align-items-center px-2">
+                    <i class="fa-solid fa-images"></i>
+                    <%= link_to t('user.album.object.user_album'), albums_path, class: "nav-link " %>
+                  </div>
+                  <hr/>
                   <li><%= link_to "Edit account", edit_user_registration_path, class: "my-2 my-sm-0 dropdown-item" %></li>
                   <li><%= link_to "Sign out", destroy_user_session_path, class: "my-2 my-sm-0 dropdown-item", method: :delete %></li>
                 </ul>

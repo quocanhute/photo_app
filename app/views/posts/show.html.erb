@@ -1,43 +1,70 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @post %>
-<div class="col-md-9">
-  <div class="card mb-5">
-    <div class="card-header text-end">
-      <%= render partial: 'posts/published_at',locals: {post: @post} %>
-    </div>
-    <div class="card-body pt-5">
-      <div class="sortable">
-        <% @post.elements.order(:sort).all.each_with_sortable_id do |element| %>
-          <% if element.persisted? %>
-            <% if element.paragraph? %>
-              <div class="mb-4 p-3 paragraph">
-                <div class="paragraph-content">
-                  <% if element.content.present? %>
-                    <%= element.content %>
-                  <% else %>
-                    Still updating post....
-                  <% end %>
-                </div>
-              </div>
-            <% elsif element.image? %>
-              <div class="mb-4 p-3 image">
-                <% if element.image.present? %>
-                  <%= image_tag(element.image) %>
-                <% else %>
-                  Still updating post....
+<div class="row">
+  <div class="col-md-9">
+    <%= render @post %>
+    <div class="col-md-12">
+      <div class="card mb-5">
+        <div class="card-header text-end">
+          <%= render partial: 'posts/published_at',locals: {post: @post} %>
+        </div>
+        <div class="card-body pt-5">
+          <div class="sortable">
+            <% @post.elements.order(:sort).all.each_with_sortable_id do |element| %>
+              <% if element.persisted? %>
+                <% if element.paragraph? %>
+                  <div class="mb-4 p-3 paragraph">
+                    <div class="paragraph-content">
+                      <% if element.content.present? %>
+                        <%= element.content %>
+                      <% else %>
+                        Still updating post....
+                      <% end %>
+                    </div>
+                  </div>
+                <% elsif element.image? %>
+                  <div class="mb-4 p-3 image">
+                    <% if element.image.present? %>
+                      <%= image_tag(element.image) %>
+                    <% else %>
+                      Still updating post....
+                    <% end %>
+                  </div>
                 <% end %>
-              </div>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="profile-card text-center shadow bg-light p-4 rounded-3">
+      <div class="profile-photo shadow">
+        <% if current_user.avatar.attached? %>
+          <%= image_tag(current_user.avatar, alt: "#{current_user.username}", class: "img-fluid") %>
+        <% else %>
+          <%= image_tag("user.jpg", alt: "#{current_user.username}", class: "img-fluid") %>
         <% end %>
+      </div>
+      <h3 class="pt-3 text-dark">Rajnish Kumar</h3>
+      <p class="text-secondary">Web Developer & Designer</p>
+      <div class="social-links">
+        <ul>
+          <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+          <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
 
+
+
 <p>
-  <strong>Comments:</strong>
+  <strong>Comments</strong>
 
   <%= render @post.comments.where(parent_id: nil) %>
   <%= render partial: 'comments/form', locals: { post: @post , parent: nil} %>
