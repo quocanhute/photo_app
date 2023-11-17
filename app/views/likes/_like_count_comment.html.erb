@@ -1,0 +1,4 @@
+<%= turbo_frame_tag "#{dom_id(comment)}_public_likes", class: "mx-1" do %>
+  <%= comment.liked_user.count %>
+<% end %>
+

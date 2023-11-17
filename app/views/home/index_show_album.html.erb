@@ -54,7 +54,7 @@
                       </div>
                       <div class="card-footer d-flex justify-content-between ">
                         <% if current_user %>
-                          <%= render "albums/private_album", album_like_status: current_user.liked?(album),album: album %>
+                          <%= render "albums/private_album", album_like_status: current_user.liked_album?(album),album: album %>
                         <% else %>
                           <%= render "albums/public_album", album: album %>
                         <% end %>

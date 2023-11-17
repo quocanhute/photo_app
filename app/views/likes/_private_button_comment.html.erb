@@ -1,0 +1,10 @@
+<%= turbo_frame_tag "#{dom_id(comment)} comment_private_likes" do %>
+  <% like_text = comment_like_status ?  "fa-solid fa-heart pink-heart" : "fa-regular fa-heart" %>
+  <div class="d-flex align-items-center">
+    <%= link_to like_comment_path(id: comment.id),data: { turbo_method: :post } do %>
+      <%= content_tag(:i,class: "#{like_text}") do %>
+      <% end %>
+    <% end %>
+    <%= render 'likes/like_count_comment', comment: comment %>
+  </div>
+<% end %>

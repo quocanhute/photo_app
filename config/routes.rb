@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   # action like
   post 'like_photo/:id', to: 'photos#like_photo', as: 'like_photo'
   post 'like_album/:id', to: 'albums#like_album', as: 'like_album'
-
+  post 'like_comment/:id', to: 'comments#like_comment', as: 'like_comment'
   # action search
   post 'search/suggestions', to: 'search#suggestions', as: 'search_suggestions'
   get 'search', to: 'search#search_all', as: 'search_all'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_15_142417) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_17_063200) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -87,6 +87,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_15_142417) do
     t.datetime "updated_at", null: false
     t.index ["album_id"], name: "index_likeablealbums_on_album_id"
     t.index ["user_id"], name: "index_likeablealbums_on_user_id"
+  end
+
+  create_table "likeablecomments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "comment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_likeablecomments_on_comment_id"
+    t.index ["user_id"], name: "index_likeablecomments_on_user_id"
   end
 
   create_table "likeables", force: :cascade do |t|
@@ -168,6 +177,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_15_142417) do
   add_foreign_key "elements", "posts"
   add_foreign_key "likeablealbums", "albums"
   add_foreign_key "likeablealbums", "users"
+  add_foreign_key "likeablecomments", "comments"
+  add_foreign_key "likeablecomments", "users"
   add_foreign_key "likeables", "photos"
   add_foreign_key "likeables", "users"
   add_foreign_key "photos", "users"

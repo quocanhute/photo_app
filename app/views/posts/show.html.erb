@@ -41,10 +41,10 @@
   <div class="col-md-3">
     <div class="profile-card text-center shadow bg-light p-4 rounded-3">
       <div class="profile-photo shadow">
-        <% if current_user.avatar.attached? %>
-          <%= image_tag(current_user.avatar, alt: "#{current_user.username}", class: "img-fluid") %>
+        <% if @post.user.avatar.attached? %>
+          <%= image_tag(@post.user.avatar, alt: "#{@post.user.username}", class: "img-fluid") %>
         <% else %>
-          <%= image_tag("user.jpg", alt: "#{current_user.username}", class: "img-fluid") %>
+          <%= image_tag("user.jpg", alt: "#{@post.user.username}", class: "img-fluid") %>
         <% end %>
       </div>
       <h3 class="pt-3 text-dark">Rajnish Kumar</h3>

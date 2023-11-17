@@ -1,17 +1,30 @@
-<article>
-  <p><%= comment.content %></p>
-  <small>by <%= comment.user.username %></small>
+<%= turbo_stream_from "comment_public_likes" %>
+<% comment_channel = current_user ? "private_comments" : "public_comments" %>
+<%= turbo_stream_from comment_channel %>
+<%= turbo_stream_from [@user_gid, 'comment_private_likes'] %>
+<%= content_tag(:div, id: comment_channel) do %>
+  <article>
+    <p><%= comment.content %></p>
+    <small>by <%= comment.user.username %></small>
+    <div class="d-flex">
+      <% if current_user %>
+        <%= render "comments/private_comment", comment_like_status: current_user.liked_comment?(comment),comment: comment %>
+      <% else %>
+        <%= render "comments/public_comment", comment: comment %>
+      <% end %>
+      <a href="#" class="comment-form-display">reply</a>
+    </div>
+    <div class="comment-form">
+      <%= render partial: 'comments/form', locals: { post: comment.post, parent: comment } %>
+    </div>
 
-  <a href="#" class="comment-form-display">reply</a>
-  <div class="comment-form">
-    <%= render partial: 'comments/form', locals: { post: comment.post, parent: comment } %>
-  </div>
+    <hr/>
+    <div class="sub-comment">
+      <%= render comment.comments %>
+    </div>
+  </article>
+<% end %>
 
-  <hr/>
-  <div class="sub-comment">
-    <%= render comment.comments %>
-  </div>
-</article>
 
 <script>
   document.querySelectorAll('.comment-form-display').forEach((el) => {
