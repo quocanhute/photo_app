@@ -6,4 +6,23 @@
       <p class="card-text"><%= post.description %></p>
     </div>
   </div>
+  <hr>
+  Upvotes: <%= post.cached_scoped_like_votes_up %>
+  <br>
+  Downvotes: <%= post.cached_scoped_like_votes_down %>
+  <br>
+  score: <%= post.cached_weighted_like_score %>
+  <br>
+  total votes: <%= post.cached_weighted_like_total %>
+  <br>
+  <hr>
+
+  <%= button_to upvote_label(post, current_user), vote_post_path(post, type: :upvote), method: :patch, style: upvote_label_styles(post, current_user) %>
+  <%= button_to downvote_label(post, current_user), vote_post_path(post, type: :downvote), method: :patch, style: downvote_label_styles(post, current_user) %>
+  <% if current_user.voted_up_on? post, vote_scope: "bookmark" %>
+    Bookmarked
+  <% else %>
+    Not bookmarked
+  <% end %>
+  <%= button_to "Bookmark", bookmark_post_path(post, type: :downvote), method: :patch %>
 </div>

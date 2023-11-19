@@ -25,6 +25,12 @@ Rails.application.routes.draw do
     resources :posts do
       resources :elements
       resources :comments, only: [:create]
+      member do
+        # patch :upvote
+        # patch :downvote
+        patch :vote
+        patch :bookmark
+      end
     end
     resources :photos
     resources :albums do

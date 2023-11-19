@@ -106,3 +106,5 @@ gem 'rails-i18n'
 gem 'jquery-ui-rails'
 gem 'rails_sortable'
 gem 'toastr-rails'
+
+gem 'acts_as_votable', "~> 0.13.2"

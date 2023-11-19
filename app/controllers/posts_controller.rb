@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: %i[ index new edit create update destroy ]
-  before_action :set_post, only: %i[ show edit update destroy publish unpublish]
+  before_action :authenticate_user!, only: %i[ index new edit create update destroy vote bookmark]
+  before_action :set_post, only: %i[ show edit update destroy publish unpublish vote bookmark]
 
   # GET /posts or /posts.json
   def index
@@ -77,6 +77,60 @@ class PostsController < ApplicationController
       end
     end
   end
+
+  def bookmark
+      @post.bookmark!(current_user)
+      respond_to do |format|
+        format.html do
+          redirect_to @post
+        end
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(@post, partial: "posts/post", locals: {post: @post})
+        end
+      end
+  end
+
+  def vote
+    case params[:type]
+    when 'upvote'
+      @post.upvote!(current_user)
+    when 'downvote'
+      @post.downvote!(current_user)
+    else
+      return redirect_to request.url, alert: "No such vote type"
+    end
+    respond_to do |format|
+      format.html do
+        redirect_to @post
+      end
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(@post, partial: "posts/post", locals: {post: @post})
+      end
+    end
+  end
+  # def upvote
+  #   @post.upvote!(current_user)
+  #   respond_to do |format|
+  #     format.html do
+  #       redirect_to @post
+  #     end
+  #     format.turbo_stream do
+  #       render turbo_stream: turbo_stream.replace(@post, partial: "posts/post", locals: {post: @post})
+  #     end
+  #   end
+  # end
+  #
+  # def downvote
+  #   @post.downvote!(current_user)
+  #   respond_to do |format|
+  #     format.html do
+  #       redirect_to @post
+  #     end
+  #     format.turbo_stream do
+  #       render turbo_stream: turbo_stream.replace(@post, partial: "posts/post", locals: {post: @post})
+  #     end
+  #   end
+  # end
 
   private
   # Use callbacks to share common setup or constraints between actions.
