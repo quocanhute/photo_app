@@ -3,7 +3,7 @@
 <%= turbo_stream_from comment_channel %>
 <%= turbo_stream_from [@user_gid, 'comment_private_likes'] %>
 <%= content_tag(:div, id: comment_channel) do %>
-  <article>
+  <article data-controller="post-comment">
     <p><%= comment.content %></p>
     <small>by <%= comment.user.username %></small>
     <div class="d-flex">
@@ -12,10 +12,11 @@
       <% else %>
         <%= render "comments/public_comment", comment: comment %>
       <% end %>
-      <a href="#" class="comment-form-display">reply</a>
     </div>
-    <div class="comment-form">
+    <a href="#" class="comment-form-display" data-action="click->post-comment#clickReplyButton">reply</a>
+    <div class="comment-form d-none">
       <%= render partial: 'comments/form', locals: { post: comment.post, parent: comment } %>
+      <a href="#" class="cancel btn btn-secondary" data-action="click->post-comment#clickCancel">Cancel</a>
     </div>
 
     <hr/>
@@ -24,13 +25,3 @@
     </div>
   </article>
 <% end %>
-
-
-<script>
-  document.querySelectorAll('.comment-form-display').forEach((el) => {
-    el.addEventListener('click' , (ev) => {
-      ev.preventDefault();
-      el.nextElementSibling.style = 'display: block;'
-    })
-  })
-</script>
