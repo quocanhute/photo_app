@@ -1,0 +1,11 @@
+<%= link_to vote_post_path(post, type: :upvote),data: { turbo_method: :patch }, style: "color: black;" do %>
+  <i class="fa-solid fa-caret-up"></i>
+<% end %>
+<br>
+<span style="color: black"><%= post.cached_weighted_like_score %></span>
+<br>
+<%= link_to vote_post_path(post, type: :downvote),data: { turbo_method: :patch }, style: "color: black" do %>
+  <i class="fa-solid fa-caret-down"></i>
+<% end %>
+<br>
+<%= button_to "Bookmark", bookmark_post_path(post, type: :downvote), method: :patch %>

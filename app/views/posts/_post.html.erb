@@ -1,28 +1,54 @@
 <div id="<%= dom_id post %>">
-  <div class="card mb-3">
-    <img src="<%= url_for(post.header_image) %>" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title"><%= post.title %></h5>
-      <p class="card-text"><%= post.description %></p>
+  <div class="row">
+    <div class="col-md-1">
+      <% if current_user %>
+        <%= render 'votable' , user: current_user, post: post%>
+      <% else %>
+        <%= render 'votable_guest',post: post%>
+      <% end %>
+    </div>
+    <div class="col-md-11">
+      <div class="card mb-3" style="border: none">
+        <img src="<%= url_for(post.header_image) %>" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"><%= post.title %></h5>
+          <p class="card-text"><%= post.description %></p>
+        </div>
+      </div>
+      <div class="card mb-5" style="border: none">
+        <div class="card-header text-end">
+          <%= render partial: 'posts/published_at',locals: {post: post} %>
+        </div>
+        <div class="card-body pt-5">
+          <div class="sortable">
+            <% post.elements.order(:sort).all.each_with_sortable_id do |element| %>
+              <% if element.persisted? %>
+                <% if element.paragraph? %>
+                  <div class="mb-4 p-3 paragraph">
+                    <div class="paragraph-content">
+                      <% if element.content.present? %>
+                        <%= element.content %>
+                      <% else %>
+                        Still updating post....
+                      <% end %>
+                    </div>
+                  </div>
+                <% elsif element.image? %>
+                  <div class="mb-4 p-3 image">
+                    <% if element.image.present? %>
+                      <%= image_tag(element.image) %>
+                    <% else %>
+                      Still updating post....
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <hr>
-  Upvotes: <%= post.cached_scoped_like_votes_up %>
-  <br>
-  Downvotes: <%= post.cached_scoped_like_votes_down %>
-  <br>
-  score: <%= post.cached_weighted_like_score %>
-  <br>
-  total votes: <%= post.cached_weighted_like_total %>
-  <br>
-  <hr>
 
-  <%= button_to upvote_label(post, current_user), vote_post_path(post, type: :upvote), method: :patch, style: upvote_label_styles(post, current_user) %>
-  <%= button_to downvote_label(post, current_user), vote_post_path(post, type: :downvote), method: :patch, style: downvote_label_styles(post, current_user) %>
-  <% if current_user.voted_up_on? post, vote_scope: "bookmark" %>
-    Bookmarked
-  <% else %>
-    Not bookmarked
-  <% end %>
-  <%= button_to "Bookmark", bookmark_post_path(post, type: :downvote), method: :patch %>
+
 </div>

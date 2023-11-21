@@ -1,35 +1,37 @@
 module PostsHelper
-  def upvote_label(post, user)
-    label_text = if user.voted_up_on? post, vote_scope: "like"
-                   "UNvote"
-                 else
-                   "UPvote"
-                 end
-    tag.span do
-      "#{post.cached_scoped_like_votes_up} #{label_text}"
+
+  def label_styles(post, user, type)
+    case type
+    when 'upvote'
+      if user.voted_up_on? post, vote_scope: "like"
+        "fa-bounce text-info"
+      else
+        "text-dark"
+      end
+    when 'downvote'
+      if user.voted_down_on? post, vote_scope: "like"
+        "fa-bounce text-danger"
+      else
+        "text-dark"
+      end
     end
   end
 
-  def downvote_label(post, user)
-    label_text = if user.voted_down_on? post, vote_scope: "like"
-                  "UNvote"
-                else
-                  "DOWNvote"
-                 end
-    tag.span do
-      "#{post.cached_scoped_like_votes_down} #{label_text}"
-    end
-  end
-
-  def upvote_label_styles(post, user)
+  def score_type(user, post)
     if user.voted_up_on? post, vote_scope: "like"
-      "background-color: grey;"
+      "text-info"
+    elsif user.voted_down_on? post, vote_scope: "like"
+      "text-danger"
+    else
+      "text-dark"
     end
   end
 
-  def downvote_label_styles(post, user)
-    if user.voted_down_on? post, vote_scope: "like"
-      "background-color: grey;"
+  def label_styles_bookmark(post, user)
+    if user.voted_up_on? post, vote_scope: "bookmark"
+      "fa-shake text-warning"
+    else
+      "text-dark"
     end
   end
 end

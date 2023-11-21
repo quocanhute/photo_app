@@ -1,0 +1,12 @@
+<div class="flex-column justify-content-center">
+  <%= link_to vote_post_path(post, type: :upvote),data: { turbo_method: :patch }, class: "item-votable" do %>
+    <i class="fa-solid fa-angles-up <%= label_styles(post, user, "upvote") %>"></i>
+  <% end %>
+  <span style="" class="item-votable <%= score_type(user,post) %>"><%= post.cached_weighted_like_score %></span>
+  <%= link_to vote_post_path(post, type: :downvote),data: { turbo_method: :patch }, class: "item-votable" do %>
+    <i class="fa-solid fa-angles-down <%= label_styles(post, user, "downvote") %>"></i>
+  <% end %>
+  <%= link_to bookmark_post_path(post, type: :downvote),data: { turbo_method: :patch }, class: "item-votable" do %>
+    <i class="fa-solid fa-check <%= label_styles_bookmark(post, user) %>"></i>
+  <% end %>
+</div>
