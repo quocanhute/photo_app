@@ -4,8 +4,18 @@
 <%= turbo_stream_from [@user_gid, 'comment_private_likes'] %>
 <%= content_tag(:div, id: comment_channel) do %>
   <article data-controller="post-comment">
-    <p><%= comment.content %></p>
-    <small>by <%= comment.user.username %></small>
+    <li class="clearfix">
+      <% if comment.user.avatar.attached? %>
+        <%= image_tag(comment.user.avatar, alt: "#{comment.user.username}", class: "avatar", id: "avatarUserHeader") %>
+      <% else %>
+        <%= image_tag("user.jpg", alt: "#{comment.user.username}", class: "avatar", id: "avatarUserHeader") %>
+      <% end %>
+      <div class="post-comments">
+        <p class="meta">Dec 18, 2014 <a href="#"><%= comment.user.username %></a> says :</p>
+        <p><%= comment.content %></p>
+      </div>
+    </li>
+
     <div class="d-flex">
       <% if current_user %>
         <%= render "comments/private_comment", comment_like_status: current_user.liked_comment?(comment),comment: comment %>
@@ -14,11 +24,9 @@
       <% end %>
     </div>
     <a href="#" class="comment-form-display" data-action="click->post-comment#clickReplyButton">reply</a>
-    <div class="comment-form d-none">
-      <%= render partial: 'comments/form', locals: { post: comment.post, parent: comment } %>
-      <a href="#" class="cancel btn btn-secondary" data-action="click->post-comment#clickCancel">Cancel</a>
+    <div class="comment-form ps-5 d-none">
+      <%= render partial: 'comments/form', locals: { post: comment.post, parent: comment , user: current_user, cancel: true} %>
     </div>
-
     <hr/>
     <div class="sub-comment">
       <%= render comment.comments %>

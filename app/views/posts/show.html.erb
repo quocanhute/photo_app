@@ -6,7 +6,7 @@
   </div>
   <div class="col-md-3">
     <div class="profile-card text-center shadow bg-light p-4 rounded-3">
-      <div class="profile-photo shadow">
+      <div class="profile-photo-post shadow">
         <% if @post.user.avatar.attached? %>
           <%= image_tag(@post.user.avatar, alt: "#{@post.user.username}", class: "img-fluid") %>
         <% else %>
@@ -27,11 +27,13 @@
   </div>
 </div>
 
+<div class="blog-comment">
+  <h3 class="text-success">Comments</h3>
 
+  <%= render partial: 'comments/form', locals: { post: @post , parent: nil, user: current_user, cancel: false} %>
 
-<p>
-  <strong>Comments</strong>
-
-  <%= render @post.comments.where(parent_id: nil) %>
-  <%= render partial: 'comments/form', locals: { post: @post , parent: nil} %>
-</p>
+  <hr/>
+  <ul class="comments">
+    <%= render @post.comments.where(parent_id: nil) %>
+  </ul>
+</div>
