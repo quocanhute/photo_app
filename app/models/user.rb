@@ -11,7 +11,7 @@ class User < ApplicationRecord
   # notifications
   has_many :notifications, as: :recipient, dependent: :destroy
   # Add the custom attribute
-  enum role: { admin: 0, user: 1 }
+  enum role: { admin: 0, user: 1, censor: 2 }
   has_one_attached :avatar
   # access the Relationship object
   has_many :followed_user, foreign_key: :follower_id, class_name: 'Relationship', dependent: :destroy

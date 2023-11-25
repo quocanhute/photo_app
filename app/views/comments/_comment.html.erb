@@ -23,10 +23,12 @@
         <%= render "comments/public_comment", comment: comment %>
       <% end %>
     </div>
-    <a href="#" class="comment-form-display" data-action="click->post-comment#clickReplyButton">reply</a>
-    <div class="comment-form ps-5 d-none">
-      <%= render partial: 'comments/form', locals: { post: comment.post, parent: comment , user: current_user, cancel: true} %>
-    </div>
+    <% if current_user %>
+      <a href="#" class="comment-form-display" data-action="click->post-comment#clickReplyButton">reply</a>
+      <div class="comment-form ps-5 d-none">
+        <%= render partial: 'comments/form', locals: { post: comment.post, parent: comment , user: current_user, cancel: true} %>
+      </div>
+    <% end %>
     <hr/>
     <div class="sub-comment">
       <%= render comment.comments %>
