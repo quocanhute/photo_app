@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_26_020516) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -55,13 +58,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
     t.boolean "is_public", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_albums_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "post_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "post_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "parent_id"
@@ -72,7 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
 
   create_table "elements", force: :cascade do |t|
     t.string "element_type"
-    t.integer "post_id", null: false
+    t.bigint "post_id", null: false
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -81,8 +84,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
   end
 
   create_table "likeablealbums", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "album_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "album_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["album_id"], name: "index_likeablealbums_on_album_id"
@@ -90,8 +93,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
   end
 
   create_table "likeablecomments", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "comment_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "comment_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["comment_id"], name: "index_likeablecomments_on_comment_id"
@@ -99,8 +102,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
   end
 
   create_table "likeables", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "photo_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "photo_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["photo_id"], name: "index_likeables_on_photo_id"
@@ -109,7 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
 
   create_table "notifications", force: :cascade do |t|
     t.string "recipient_type", null: false
-    t.integer "recipient_id", null: false
+    t.bigint "recipient_id", null: false
     t.string "type", null: false
     t.json "params"
     t.datetime "read_at"
@@ -125,7 +128,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
     t.boolean "is_public", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
@@ -134,7 +137,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
     t.text "description"
     t.boolean "published"
     t.datetime "published_at"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "cached_scoped_like_votes_total", default: 0
@@ -161,6 +164,37 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "tag_id"
+    t.string "taggable_type"
+    t.bigint "taggable_id"
+    t.string "tagger_type"
+    t.bigint "tagger_id"
+    t.string "context", limit: 128
+    t.datetime "created_at", precision: nil
+    t.string "tenant", limit: 128
+    t.index ["context"], name: "index_taggings_on_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["taggable_id", "taggable_type", "context"], name: "taggings_taggable_context_idx"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
+    t.index ["tagger_type", "tagger_id"], name: "index_taggings_on_tagger_type_and_tagger_id"
+    t.index ["tenant"], name: "index_taggings_on_tenant"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -185,9 +219,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
 
   create_table "votes", force: :cascade do |t|
     t.string "votable_type"
-    t.integer "votable_id"
+    t.bigint "votable_id"
     t.string "voter_type"
-    t.integer "voter_id"
+    t.bigint "voter_id"
     t.boolean "vote_flag"
     t.string "vote_scope"
     t.integer "vote_weight"
@@ -213,4 +247,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_155650) do
   add_foreign_key "likeables", "users"
   add_foreign_key "photos", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "taggings", "tags"
 end

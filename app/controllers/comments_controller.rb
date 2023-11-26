@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
       if @comment.save
         format.html { redirect_to post_path(params[:post_id]), notice: "Comment was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to post_path(params[:post_id]), alert: "Comment can't be blank!"}
       end
     end
   end

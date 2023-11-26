@@ -4,8 +4,6 @@ class User < ApplicationRecord
   #   text :last_name
   # end
 
-  validates :first_name, presence: true, length: { maximum: 25 }
-  validates :last_name, presence: true, length: { maximum: 25 }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -37,6 +35,9 @@ class User < ApplicationRecord
   has_many :liked_albums, through: :likeablealbums, source: :album
   has_many :likeablecomments, dependent: :destroy
   has_many :liked_comments, through: :likeablecomments, source: :comment
+
+  validates :first_name, presence: true, length: { maximum: 25 }
+  validates :last_name, presence: true, length: { maximum: 25 }
   # ============================Photo==================================
   def liked?(photo)
     liked_photos.include?(photo)

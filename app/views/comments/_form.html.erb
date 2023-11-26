@@ -8,7 +8,9 @@
   <% if !parent.nil? %>
     <input type="hidden" name="comment[parent_id]" value="<%= parent.id %>">
   <% end %>
-
+  <%# if comment.errors.any? %>
+    <%#= render "shared/error", object: comment %>
+  <%# end %>
   <fieldset>
     <div class="row">
       <div class="col-md-2">

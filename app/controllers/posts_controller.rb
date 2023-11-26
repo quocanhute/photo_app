@@ -108,29 +108,6 @@ class PostsController < ApplicationController
       end
     end
   end
-  # def upvote
-  #   @post.upvote!(current_user)
-  #   respond_to do |format|
-  #     format.html do
-  #       redirect_to @post
-  #     end
-  #     format.turbo_stream do
-  #       render turbo_stream: turbo_stream.replace(@post, partial: "posts/post", locals: {post: @post})
-  #     end
-  #   end
-  # end
-  #
-  # def downvote
-  #   @post.downvote!(current_user)
-  #   respond_to do |format|
-  #     format.html do
-  #       redirect_to @post
-  #     end
-  #     format.turbo_stream do
-  #       render turbo_stream: turbo_stream.replace(@post, partial: "posts/post", locals: {post: @post})
-  #     end
-  #   end
-  # end
 
   private
   # Use callbacks to share common setup or constraints between actions.
@@ -140,7 +117,7 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :description, :header_image)
+    params.require(:post).permit(:title, :description, :header_image, :tag_list)
   end
 
   def update_action_publish
