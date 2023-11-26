@@ -9,6 +9,9 @@
     </div>
     <div class="col-md-11">
       <div class="card mb-3" style="border: none">
+        <div class="card-header text-end">
+          <%= render partial: 'posts/published_at',locals: {post: post} %>
+        </div>
         <img src="<%= url_for(post.header_image) %>" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title"><%= post.title %></h5>
@@ -16,9 +19,6 @@
         </div>
       </div>
       <div class="card mb-5" style="border: none">
-        <div class="card-header text-end">
-          <%= render partial: 'posts/published_at',locals: {post: post} %>
-        </div>
         <div class="card-body pt-5">
           <div class="sortable">
             <% post.elements.order(:sort).all.each_with_sortable_id do |element| %>
@@ -45,6 +45,12 @@
               <% end %>
             <% end %>
           </div>
+        </div>
+        <div class="card-footer pt-5">
+          <strong>Tags:</strong>
+          <% post.tag_list.each do |t| %>
+            <%= link_to t, "#", class: "btn btn-secondary"%>
+          <% end %>
         </div>
       </div>
     </div>

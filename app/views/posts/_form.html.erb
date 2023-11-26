@@ -1,14 +1,6 @@
 <%= form_with(model: post) do |form| %>
   <% if post.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
+    <%= render "shared/error", object: post %>
   <% end %>
 
   <div class="form-group">
@@ -31,6 +23,11 @@
       <% end %>
     </div>
 
+  </div>
+
+  <div class="field">
+    <%= form.label :tag_list, "Tags (separated by commas)" %><br />
+    <%= form.text_field :tag_list, value: post.tag_list.join(","), class: 'form-control' %>
   </div>
 
   <div>

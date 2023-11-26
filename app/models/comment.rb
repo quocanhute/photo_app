@@ -5,4 +5,6 @@ class Comment < ApplicationRecord
   has_many :comments, foreign_key: :parent_id
   has_many :likeablecomments, dependent: :destroy
   has_many :liked_user, through: :likeablecomments, source: :user
+
+  validates :content, presence: true, length: { maximum: 255 }
 end
