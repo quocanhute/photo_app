@@ -56,7 +56,10 @@ class SearchController < ApplicationController
 
   private
   def set_data
-    @set_users = User.where('first_name LIKE ? OR last_name = ?', "%#{params[:query]}%", "%#{params[:query]}%")
+    # @set_users = User.where('first_name LIKE ? OR last_name = ?', "%#{params[:query]}%", "%#{params[:query]}%")
+    puts "Paramseeeee: #{params[:query]}"
+    @q_user = User.ransack(first_name_or_last_name_cont: params[:query])
+    @set_users = @q_user.result(distinct: true)
     @set_photos = Photo.where('title LIKE ? AND is_public = ?', "%#{params[:query]}%", true)
     @set_albums = Album.where('title LIKE ? AND is_public = ?', "%#{params[:query]}%", true)
     @search_blank_users = User.limit(6)
@@ -84,7 +87,7 @@ class SearchController < ApplicationController
     if params[:query].blank?
       User.limit(2)
     else
-      @set_users.limit(2)
+      @set_users
     end
   end
 end

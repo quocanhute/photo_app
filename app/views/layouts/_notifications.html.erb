@@ -8,7 +8,13 @@
     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
       <% @unread.each do |notification| %>
         <li class="dropdown-item">
-          <%= link_to notification.to_notification.message %>
+          <%= link_to notification.to_notification.message, class: "text-dark" %>
+        </li>
+      <% end %>
+      <hr/>
+      <% @unread.each do |notification| %>
+        <li class="dropdown-item">
+          <%= link_to notification.to_notification.message, class: "text-dark" %>
         </li>
       <% end %>
     </ul>

@@ -108,3 +108,5 @@ gem 'rails_sortable'
 gem 'toastr-rails'
 
 gem 'acts_as_votable', "~> 0.13.2"
+gem 'sunspot_rails'
+gem 'sunspot_solr'

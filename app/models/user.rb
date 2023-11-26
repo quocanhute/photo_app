@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  # searchable do
+  #   text :first_name
+  #   text :last_name
+  # end
+
   validates :first_name, presence: true, length: { maximum: 25 }
   validates :last_name, presence: true, length: { maximum: 25 }
   # Include default devise modules. Others available are:
@@ -87,4 +92,14 @@ class User < ApplicationRecord
       "Nothing"
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[confirmation_sent_at confirmation_token confirmed_at created_at email
+      encrypted_password failed_attempts first_name id last_name locked_at remember_created_at
+      reset_password_sent_at reset_password_token role unconfirmed_email unlock_token updated_at]
+  end
+  def self.ransackable_associations(auth_object = nil)
+    %w[albums avatar_attachment avatar_blob comments followed_user followee follower following_user likeablealbums likeablecomments likeables liked_albums liked_comments liked_photos notifications photos posts votes]
+  end
+
 end
