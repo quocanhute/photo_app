@@ -43,6 +43,7 @@ class PostsController < ApplicationController
           redirect_to edit_post_path(@post)
         }
       else
+        @element = @post.elements.build
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
