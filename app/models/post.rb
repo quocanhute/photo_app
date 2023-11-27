@@ -10,7 +10,7 @@ class Post < ApplicationRecord
   has_one_attached :header_image
 
   validates :title, presence: true, length: { maximum: 100 }
-  validates :description, presence: true, length: { maximum: 255 }
+  validates :description, presence: true
   validates :header_image, presence: true
 
   def bookmark!(user)

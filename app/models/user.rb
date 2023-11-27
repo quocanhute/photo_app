@@ -11,6 +11,8 @@ class User < ApplicationRecord
          :confirmable
   #acts as votable
   acts_as_voter
+  acts_as_taggable_on :skills
+  has_rich_text :bio
   # notifications
   has_many :notifications, as: :recipient, dependent: :destroy
   # Add the custom attribute
@@ -38,6 +40,10 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true, length: { maximum: 25 }
   validates :last_name, presence: true, length: { maximum: 25 }
+  validates :phone_number, presence: true
+  validates :birthday, presence: true
+  validates :address, presence: true
+
   # ============================Photo==================================
   def liked?(photo)
     liked_photos.include?(photo)

@@ -43,12 +43,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name,:last_name,:avatar])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name,:last_name,:avatar,:phone_number,:address,:birthday])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name,:last_name,:avatar])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name,:last_name,:avatar,:phone_number,:address,:birthday, :skill_list, :bio])
   end
 
   # The path used after sign up.
@@ -66,5 +66,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     return super if params["password"]&.present?
 
     resource.update_without_password(params.except("current_password"))
+  end
+
+  def after_update_path_for(resource)
+    if params[:profile].present?
+      flash[:notice] = I18n.t("user.profile.update_bio_successfully")
+      view_photos_user_path(resource.id)
+    else
+      flash[:notice] = I18n.t("user.profile.update_successfully")
+      edit_user_registration_path
+    end
   end
 end

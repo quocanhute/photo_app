@@ -3,3 +3,5 @@ vi:
     profile:
       my_profile: "Trang cá nhân"
       edit_account: "Sửa thông tin"
+      update_successfully: "Tài khoản được cập nhập thành công!"
+      update_bio_successfully: "Dòng trạng thái được cập nhập thành công!"

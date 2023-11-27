@@ -3,3 +3,5 @@ en:
     profile:
       my_profile: "My Profile"
       edit_account: "Edit account"
+      update_successfully: "Account successfully updated!"
+      update_bio_successfully: "Bio successfully updated!"
