@@ -35,8 +35,6 @@ class User < ApplicationRecord
   has_many :liked_photos, through: :likeables, source: :photo
   has_many :likeablealbums, dependent: :destroy
   has_many :liked_albums, through: :likeablealbums, source: :album
-  has_many :likeablecomments, dependent: :destroy
-  has_many :liked_comments, through: :likeablecomments, source: :comment
 
   validates :first_name, presence: true, length: { maximum: 25 }
   validates :last_name, presence: true, length: { maximum: 25 }
@@ -77,21 +75,6 @@ class User < ApplicationRecord
                                locals: {album: album}
   end
     # ==================================================================
-  def liked_comment?(comment)
-    liked_comments.include?(comment)
-  end
-  def like_comment(comment)
-    if liked_comments.include?(comment)
-      liked_comments.destroy(comment)
-    else
-      liked_comments << comment
-    end
-    public_target = "comment_#{comment.id}_public_likes"
-    broadcast_replace_later_to 'comment_public_likes',
-                               target: public_target,
-                               partial: 'likes/like_count_comment',
-                               locals: {comment: comment}
-  end
   def username
     if self.first_name && self.last_name
       self.first_name + " " + self.last_name

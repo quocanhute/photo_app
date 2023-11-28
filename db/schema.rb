@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_27_091608) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_28_063200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,6 +69,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_091608) do
     t.datetime "updated_at", null: false
     t.integer "parent_id"
     t.text "content"
+    t.integer "cached_scoped_like_votes_total", default: 0
+    t.integer "cached_scoped_like_votes_score", default: 0
+    t.integer "cached_scoped_like_votes_up", default: 0
+    t.integer "cached_scoped_like_votes_down", default: 0
+    t.integer "cached_weighted_like_score", default: 0
+    t.integer "cached_weighted_like_total", default: 0
+    t.float "cached_weighted_like_average", default: 0.0
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -90,15 +97,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_091608) do
     t.datetime "updated_at", null: false
     t.index ["album_id"], name: "index_likeablealbums_on_album_id"
     t.index ["user_id"], name: "index_likeablealbums_on_user_id"
-  end
-
-  create_table "likeablecomments", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "comment_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["comment_id"], name: "index_likeablecomments_on_comment_id"
-    t.index ["user_id"], name: "index_likeablecomments_on_user_id"
   end
 
   create_table "likeables", force: :cascade do |t|
@@ -244,8 +242,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_091608) do
   add_foreign_key "elements", "posts"
   add_foreign_key "likeablealbums", "albums"
   add_foreign_key "likeablealbums", "users"
-  add_foreign_key "likeablecomments", "comments"
-  add_foreign_key "likeablecomments", "users"
   add_foreign_key "likeables", "photos"
   add_foreign_key "likeables", "users"
   add_foreign_key "photos", "users"

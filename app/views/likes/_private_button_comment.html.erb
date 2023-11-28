@@ -1,10 +1,11 @@
 <%= turbo_frame_tag "#{dom_id(comment)} comment_private_likes" do %>
-  <% like_text = comment_like_status ?  "fa-solid fa-heart pink-heart" : "fa-regular fa-heart" %>
-  <div class="d-flex align-items-center">
-    <%= link_to like_comment_path(id: comment.id),data: { turbo_method: :post } do %>
-      <%= content_tag(:i,class: "#{like_text}") do %>
-      <% end %>
+  <div class="flex-column justify-content-center">
+    <%= link_to vote_post_comment_path(comment.post,comment, type: :upvote),data: { turbo_method: :patch }, class: "item-votable" do %>
+      <i class="fa-solid fa-caret-up <%= label_comment_styles(comment, user, "upvote") %>"></i>
     <% end %>
-    <%= render 'likes/like_count_comment', comment: comment %>
+    <span style="" class="item-votable <%= score_type(user,comment) %>"><%= comment.cached_weighted_like_score %></span>
+    <%= link_to vote_post_comment_path(comment.post,comment, type: :downvote),data: { turbo_method: :patch }, class: "item-votable" do %>
+      <i class="fa-solid fa-caret-down <%= label_comment_styles(comment, user, "downvote") %>"></i>
+    <% end %>
   </div>
 <% end %>
