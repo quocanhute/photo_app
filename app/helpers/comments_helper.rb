@@ -17,7 +17,7 @@ module CommentsHelper
     end
   end
 
-  def score_type(user, comment)
+  def score_comment_type(user, comment)
     if user.voted_up_on? comment, vote_scope: "like"
       "text-info"
     elsif user.voted_down_on? comment, vote_scope: "like"

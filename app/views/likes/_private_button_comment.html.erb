@@ -3,7 +3,7 @@
     <%= link_to vote_post_comment_path(comment.post,comment, type: :upvote),data: { turbo_method: :patch }, class: "item-votable" do %>
       <i class="fa-solid fa-caret-up <%= label_comment_styles(comment, user, "upvote") %>"></i>
     <% end %>
-    <span style="" class="item-votable <%= score_type(user,comment) %>"><%= comment.cached_weighted_like_score %></span>
+    <span style="" class="item-votable <%= score_comment_type(user,comment) %>"><%= comment.cached_weighted_like_score %></span>
     <%= link_to vote_post_comment_path(comment.post,comment, type: :downvote),data: { turbo_method: :patch }, class: "item-votable" do %>
       <i class="fa-solid fa-caret-down <%= label_comment_styles(comment, user, "downvote") %>"></i>
     <% end %>
