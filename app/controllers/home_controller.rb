@@ -21,7 +21,7 @@ class HomeController < ApplicationController
   end
 
   def index_show_post
-    @posts = Post.where(published: true)
+    @posts = Post.where(published: true).order(:created_at)
     respond_to do |format|
       format.html
       format.turbo_stream

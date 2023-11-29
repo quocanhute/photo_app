@@ -1,19 +1,19 @@
 <% if pages == "post" %>
   <div class="d-flex justify-content-center">
+    <button id="postButton" class="btn btn-secondary mx-1 primary-color"><%= link_to "POSTS", posts_index_path,class: "text-white"%></button>
     <button id="photoButton" class="btn primary-bg mx-1"><%= link_to "PHOTOS", photos_index_path, class: "text-white"%></button>
     <button id="albumButton" class="btn primary-bg mx-1"><%= link_to "ALBUMS", albums_index_path,class: "text-white"%></button>
-    <button id="postButton" class="btn btn-secondary mx-1 primary-color"><%= link_to "POSTS", posts_index_path,class: "text-white"%></button>
   </div>
 <% elsif pages == "photo"%>
   <div class="d-flex justify-content-center">
+    <button id="postButton" class="btn primary-bg mx-1"><%= link_to "POSTS", posts_index_path,class: "text-white"%></button>
     <button id="photoButton" class="btn btn-secondary mx-1 primary-color"><%= link_to "PHOTOS", photos_index_path, class: "text-white"%></button>
     <button id="albumButton" class="btn primary-bg mx-1"><%= link_to "ALBUMS", albums_index_path,class: "text-white"%></button>
-    <button id="postButton" class="btn primary-bg mx-1"><%= link_to "POSTS", posts_index_path,class: "text-white"%></button>
   </div>
 <% else %>
   <div class="d-flex justify-content-center">
+    <button id="postButton" class="btn primary-bg mx-1"><%= link_to "POSTS", posts_index_path,class: "text-white"%></button>
     <button id="photoButton" class="btn primary-bg mx-1"><%= link_to "PHOTOS", photos_index_path, class: "text-white"%></button>
     <button id="albumButton" class="btn btn-secondary mx-1 primary-color"><%= link_to "ALBUMS", albums_index_path,class: "text-white"%></button>
-    <button id="postButton" class="btn primary-bg mx-1"><%= link_to "POSTS", posts_index_path,class: "text-white"%></button>
   </div>
 <%end %>

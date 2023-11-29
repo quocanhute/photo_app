@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :tags
+  # resources :tags
 
   root to: "home#index"
   # get '/:locale' => 'home#index'

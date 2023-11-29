@@ -477,3 +477,14 @@ img{
   width: 200px;
   height: 200px;
 }
+// Home post
+
+.title-post-card:hover {
+  border: 2px solid #b6b6b6; /* Màu sắc và độ rộng của border */
+  background-color: #d8d8d8; /* Màu sắc của background */
+  color: #6C757D;
+}
+
+.title-post-card {
+  color: #6C757D;
+}
