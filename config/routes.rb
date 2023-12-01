@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get '/photos', to: "home#index_show_photo", as: 'photos_index'
   get '/albums', to: "home#index_show_album", as: 'albums_index'
   get '/posts', to: "home#index_show_post", as: 'posts_index'
+  post '/posts', to: "home#index_show_post"
+
 
   # action admin
   namespace 'admin' do

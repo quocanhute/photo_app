@@ -12,16 +12,20 @@ default: &default
 #development:
 #  <<: *default
 #  database: db/development.sqlite3
-
+#development:
+#  adapter: postgresql
+#  encoding: unicode
+#  pool: <%#= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#  url: <%#= ENV['DATABASE_URL_DEV'] %>
 development:
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: localhost
   timeout: 5000
-  database: finalapp_development
-  username: finalapp
-  password: 123456789
+  database: <%= ENV['DATABASE_LOCAL'] %>
+  username: <%= ENV['DATABASE_USERNAME_LOCAL'] %>
+  password: <%= ENV['DATABASE_PASSWORD_LOCAL'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

@@ -34,10 +34,13 @@
     <% end %>
   <% end %>
 <%end %>
-<%= turbo_stream.replace :pagination do %>
+
+<%= turbo_stream.update "load_more_button" do %>
   <% if @pagy.next.present? %>
-    <%= turbo_frame_tag :pagination,
-                        loading: :lazy,
-                        src: posts_index_path(format: :turbo_stream, page: @pagy.next) %>
+    <%= button_to "Load more", pagy_url_for(@pagy, @pagy.next), class: "btn btn-outline-primary btn-lg" %>
+  <% else %>
+    <span>
+      <b>Nothing to show!!! </b><i class="fa-solid fa-face-sad-cry" style="color: #fcaf3e;"></i>
+    </span>
   <% end %>
 <% end %>
