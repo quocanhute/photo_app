@@ -29,7 +29,7 @@ module PostsHelper
 
   def label_styles_bookmark(post, user)
     if user.voted_up_on? post, vote_scope: "bookmark"
-      "fa-shake text-warning"
+      "text-warning"
     else
       "text-dark"
     end

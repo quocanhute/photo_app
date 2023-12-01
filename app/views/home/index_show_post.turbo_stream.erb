@@ -11,7 +11,7 @@
           <%= link_to "#{post.user.username}", view_profile_path(post.user),data:{turbo: false},class: "mx-1" %>
         </div>
         <div class="card-body" style="background-color: #EFEFEF;">
-          <%= link_to post_path(post), class: 'text-decoration-none' do %>
+          <%= link_to post_path(post), data:{turbo: false}, class: 'text-decoration-none' do %>
             <h5 class="card-title"><%= post.title %></h5>
           <% end %>
           <p class="card-text"><%= post.description %></p>
@@ -40,7 +40,7 @@
     <%= button_to "Load more", pagy_url_for(@pagy, @pagy.next), class: "btn btn-outline-primary btn-lg" %>
   <% else %>
     <span>
-      <b>Nothing to show!!! </b><i class="fa-solid fa-face-sad-cry" style="color: #fcaf3e;"></i>
+      <b>Nothing to show!!! </b>😁
     </span>
   <% end %>
 <% end %>
