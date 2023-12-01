@@ -21,7 +21,8 @@ class HomeController < ApplicationController
   end
 
   def index_show_post
-    @posts = Post.where(published: true).order(:created_at)
+    @pagy, @posts = pagy_countless(Post.where(published: true), items:10)
+    # sleep(1)
     respond_to do |format|
       format.html
       format.turbo_stream
