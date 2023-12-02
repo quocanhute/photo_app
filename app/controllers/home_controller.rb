@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   end
 
   def index_show_photo
-    @pagy, @photos = pagy_countless(Photo.where(is_public: true), items:6)
+    @pagy, @photos = pagy_countless(Photo.where(is_public: true), items:PHOTOS_PER_PAGE)
     # sleep(1)
     respond_to do |format|
       format.html
@@ -21,7 +21,7 @@ class HomeController < ApplicationController
   end
 
   def index_show_post
-    @pagy, @posts = pagy(Post.where(published: true), items:200)
+    @pagy, @posts = pagy(Post.where(published: true), items:POSTS_PER_PAGE)
     # sleep(1)
     respond_to do |format|
       format.html # GET

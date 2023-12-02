@@ -4,12 +4,18 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.new(comment_params)
+
     respond_to do |format|
-      if @comment.save
-        format.html { redirect_to post_path(params[:post_id]), notice: "Comment was successfully created." }
+      if @comment.check_comment
+        format.html { redirect_to post_path(params[:post_id]), alert: "Bad word found!!! 😓😓😓"}
       else
-        format.html { redirect_to post_path(params[:post_id]), alert: "Comment can't be blank! 😓😓😓"}
+        if @comment.save
+          format.html { redirect_to post_path(params[:post_id]), notice: "Comment was successfully created." }
+        else
+          format.html { redirect_to post_path(params[:post_id]), alert: "Comment can't be blank! 😓😓😓"}
+        end
       end
+
     end
   end
 

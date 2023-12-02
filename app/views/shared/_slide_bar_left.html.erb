@@ -19,9 +19,9 @@
             <%= link_to "📷 #{t('user.photo.object.user_photo')}", photos_path, class: "nav-link " %>
           </div>
         <% end %>
-        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tag") )}") do %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tags") )}") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "🏷 #{t('user.tag.tags')}", "#", class: "nav-link " %>
+            <%= link_to "🏷 #{t('user.tag.tags')}", tags_path, class: "nav-link " %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("profile") && (path[1]==current_user.id.to_s))}") do %>
