@@ -1,0 +1,16 @@
+<h4 class="d-flex justify-content-between">
+  <span>Tags</span>
+</h4>
+
+<% @tags.each do |tag| %>
+  <div class="card mb-3 post-card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <h5 class="card-title mb-1 text-dark"><%= tag.name %></h5>
+          <p class="text-secondary"><%= tag.taggings_count %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
