@@ -1,0 +1,48 @@
+<%= form_for(@tag,url: tag_path,method: :patch) do |form| %>
+  <% if @tag.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
+
+      <ul>
+        <% @tag.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="form-outline mb-4 w-100">
+        <%= form.label :name %>
+        <%= form.text_field :name, class: "form-control form-control-lg", disabled: true %>
+      </div>
+      <div class="form-outline mb-4 w-100">
+        <%= form.label :detail %>
+        <%= form.text_field :detail,class: "form-control form-control-lg" %>
+      </div>
+      <div class="col-md-4">
+        <div class="profile-img" data-controller="upload-image">
+          <% if @tag.tag_image.attached? %>
+            <div class="avatar">
+              <%= image_tag(@tag.tag_image, alt: "#{@tag.name}", class: "photo-image", id: "imgPhoto",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
+            </div>
+          <%else %>
+            <div class="avatar">
+              <%= image_tag('image.jpg', class: "photo-image", id: "imgPhoto",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
+            </div>
+          <% end %>
+          <%= form.label :tag_image,"Change Photo", class: "col-6 col-form-label label-avatar" %>
+          <%= form.file_field :tag_image,
+                              class: "d-none",
+                              placeholder: 'Update picture',
+                              data:{action: 'change->upload-image#handleChange'},
+                              direct_upload: true %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<div class="col col-6 col-md-3 my-2 rounded float-left profile-card-img">
+  <div class="profile-photo-card card border-1 align-items-center justify-content-center">
+    <div class="card-body">
+      <p class="card-text"># <%= @tag.name %></p>
+      <%= link_to "Edit this tag", edit_tag_path(@tag) %>
+      <p class="card-text"><%= @tag.detail %></p>
+      <%= image_tag(@tag.tag_image, alt: "#{@tag.name}", class: "profile-photo w-100 card-img-top image_modal", id: "photo-modal") %>
+    </div>
+  </div>
+</div>
