@@ -12,25 +12,23 @@
 
   <body>
     <%= render 'shared/header' %>
-    <div class="container-fluid">
+    <main role="main" class="row col-12 col-md-8 px-md-4 mx-auto pt-3">
       <%= render 'shared/slide_bar_left' %>
-      <main role="main" class="col-12 col-md-8 px-md-4 mx-auto pt-3">
-        <%= turbo_frame_tag "remote_modal", target: "_top" %>
-        <div class="row d-flex align-items-center h-100">
-          <% if notice %>
-            <script type="text/javascript" >
-              toastr.success("<%= notice %>")
-            </script>
-          <% end %>
-          <% if alert %>
-            <script type="text/javascript" >
-              toastr.error("<%= alert %>")
-            </script>
-          <%end %>
-          <%= yield %>
-        </div>
-      </main>
+      <%= turbo_frame_tag "remote_modal", target: "_top" %>
+      <div class="row d-flex align-items-center h-100">
+        <% if notice %>
+          <script type="text/javascript" >
+            toastr.success("<%= notice %>")
+          </script>
+        <% end %>
+        <% if alert %>
+          <script type="text/javascript" >
+            toastr.error("<%= alert %>")
+          </script>
+        <%end %>
+        <%= yield %>
+      </div>
       <%= render'shared/slide_bar_right' %>
-    </div>
+    </main>
   </body>
 </html>

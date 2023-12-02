@@ -11,13 +11,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item hover-animation-nav-item">
               <%= link_to "Posts", posts_index_path,class: "nav-link text-white"%>
             </li>
-            <li class="nav-item">
+            <li class="nav-item hover-animation-nav-item">
               <a class="nav-link text-white" href="#">Features...</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item hover-animation-nav-item">
               <%= render partial: "search/form", locals: {photos: [],albums: [],users: []} %>
             </li>
           </ul>

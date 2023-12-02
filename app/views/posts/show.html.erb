@@ -11,8 +11,14 @@
           <%= image_tag("user.jpg", alt: "#{@post.user.username}", class: "img-fluid") %>
         <% end %>
       </div>
-      <h3 class="pt-3 text-dark">Rajnish Kumar</h3>
-      <p class="text-secondary">Web Developer & Designer</p>
+      <h3 class="pt-3 text-dark"><%= @post.user.username %></h3>
+      <p class="">
+        <% if @post.user.bio.present? %>
+          <%= @post.user.bio %>
+        <% else %>
+          This user sill update bio <3
+        <% end %>
+      </p>
       <div class="social-links">
         <ul>
           <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>

@@ -21,7 +21,7 @@ class HomeController < ApplicationController
   end
 
   def index_show_post
-    @pagy, @posts = pagy(Post.where(published: true), items:10)
+    @pagy, @posts = pagy(Post.where(published: true), items:200)
     # sleep(1)
     respond_to do |format|
       format.html # GET
