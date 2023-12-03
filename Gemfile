@@ -111,3 +111,4 @@ gem 'acts_as_votable', "~> 0.13.2"
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'acts-as-taggable-on', '~> 9.0'
+gem "ruby-openai", "~> 6.3"

@@ -24,6 +24,11 @@
             <%= link_to "🏷 #{t('user.tag.tags')}", tags_path, class: "nav-link " %>
           </div>
         <% end %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tags") )}") do %>
+          <div class="d-flex align-items-center">
+            <%= link_to "💬 ChatAI", chats_path, class: "nav-link " %>
+          </div>
+        <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("profile") && (path[1]==current_user.id.to_s))}") do %>
           <div class="d-flex align-items-center">
             <%= link_to "👤 #{t('user.profile.my_profile')}", view_photos_user_path(current_user.id), class: "nav-link " %>
@@ -117,6 +122,11 @@
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tag") )}") do %>
           <div class="d-flex align-items-center">
             <%= link_to "🏷 #{t('user.tag.tags')}", "#", class: "nav-link " %>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item") do %>
+          <div class="d-flex align-items-center">
+            <%= link_to "💬 ChatAI", chats_path, class: "nav-link " %>
           </div>
         <% end %>
         <% if current_user.admin? %>

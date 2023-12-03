@@ -35,6 +35,7 @@ class User < ApplicationRecord
   has_many :liked_photos, through: :likeables, source: :photo
   has_many :likeablealbums, dependent: :destroy
   has_many :liked_albums, through: :likeablealbums, source: :album
+  has_many :chats, dependent: :destroy
 
   validates :first_name, presence: true, length: { maximum: 25 }
   validates :last_name, presence: true, length: { maximum: 25 }
