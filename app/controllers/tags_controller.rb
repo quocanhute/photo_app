@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: %i[ show edit update destroy ]
   def index
-    @tags = Tag.all
+    @tags = Tag.left_joins(:taggings).group(:id, :name, :detail).order('count(taggings.id) desc')
   end
 
   def show

@@ -4,7 +4,9 @@
       <p class="card-text"># <%= @tag.name %></p>
       <%= link_to "Edit this tag", edit_tag_path(@tag) %>
       <p class="card-text"><%= @tag.detail %></p>
-      <%= image_tag(@tag.tag_image, alt: "#{@tag.name}", class: "profile-photo w-100 card-img-top image_modal", id: "photo-modal") %>
+      <% if @tag.tag_image.attached? %>
+        <%= image_tag(@tag.tag_image, alt: "#{tag.name}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
+      <% end %>
     </div>
   </div>
 </div>

@@ -21,8 +21,8 @@
                     <h5 class="card-title"><%= post.title %></h5>
                   <% end %>
                   <p class="card-text"><%= post.description %></p>
-                  <% post.tag_list.each do |t| %>
-                    <%= link_to "##{t}", "#", class: "title-post-card rounded-3 px-2 py-1"%>
+                  <% post.tags.each do |tag| %>
+                    <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
                   <% end %>
                 </div>
                 <div class="card-footer text-muted d-flex justify-content-between" style="border: none; background-color: #EFEFEF;">
