@@ -5,7 +5,9 @@
         <i class="fa-solid fa-bars"></i>
       </button>
       <div class="d-flex align-items-center col-7 col-md-8">
-        <%= link_to "MyBlog", root_path, class: "navbar-brand text-white" %>
+        <%= link_to root_path, class: "navbar-brand text-white" do %>
+          <%= image_tag("myblog-logo.png", alt: "MyBlog", class: "rounded-3", style: "height: 40px") %>
+        <% end %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon text-white"></span>
         </button>
@@ -55,13 +57,13 @@
                   </div>
                   <hr/>
                   <li><%= link_to "Edit account", edit_user_registration_path, class: "my-2 my-sm-0 dropdown-item" %></li>
-                  <li><%= link_to "Sign out", destroy_user_session_path, class: "my-2 my-sm-0 dropdown-item", method: :delete %></li>
+                  <li><%= button_to "Sign out", destroy_user_session_path, class: "my-2 my-sm-0 dropdown-item", method: :delete %></li>
                 </ul>
               </div>
             </ul>
           </div>
         <% else %>
-          <%= button_to "Sign in", new_user_session_path,class: 'btn btn-outline-light my-2 my-sm-0', method: :get %>
+          <%= link_to "Sign in", new_user_session_path,class: 'btn btn-outline-light my-2 my-sm-0', method: :get %>
         <% end %>
         <ul>
           <%= link_to "🇻🇳", url_for(locale: "vi"), class: "text-white" %>

@@ -1,37 +1,45 @@
 <div class="sidebar-left pt-5 col-2 d-none d-md-block ">
-  <div class="sidebar-sticky pt-3">
-    <% path = URI.parse(request.original_url).path.split('/').reject(&:empty?)  %>
-
+  <div class="sidebar-sticky pt-4">
     <% if user_signed_in? %>
       <ul class="nav flex-column px-3">
-        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if( (path.blank? || path.include?("photos")||path.include?("albums")) && !path.include?("users") && !path.include?("admin") && !path.include?("profile")) }") do %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.blank?) }") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "🐧 #{t('home')}", root_path, class: "nav-link "%>
+            <%= link_to "🐧 #{t('home')}", root_path, class: "nav-link text-black"%>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("posts") && !path.include?("users")) }") do %>
+          <div class="d-flex align-items-center">
+            <%= link_to "📰 #{t('user.post.object.posts')}", posts_index_path, class: "nav-link text-black" %>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("photos") && !path.include?("users")) && !path.include?("profile") && !path.include?("admin") }") do %>
+          <div class="d-flex align-items-center">
+            <%= link_to "🏔 #{t('user.photo.object.photos')}", photos_index_path, class: "nav-link text-black" %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("users") && path.include?("posts")) }") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "🖋 #{t('user.post.object.user_post')}", posts_path, class: "nav-link " %>
+            <%= link_to "🖋 #{t('user.post.object.user_post')}", posts_path, class: "nav-link text-black" %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("users") && path.include?("photos")) }") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "📷 #{t('user.photo.object.user_photo')}", photos_path, class: "nav-link " %>
+            <%= link_to "📷 #{t('user.photo.object.user_photo')}", photos_path, class: "nav-link text-black" %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tags") )}") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "🏷 #{t('user.tag.tags')}", tags_path, class: "nav-link " %>
-          </div>
-        <% end %>
-        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tags") )}") do %>
-          <div class="d-flex align-items-center">
-            <%= link_to "💬 ChatAI", chats_path, class: "nav-link " %>
+            <%= link_to "🏷 #{t('user.tag.tags')}", tags_path, class: "nav-link text-black" %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("profile") && (path[1]==current_user.id.to_s))}") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "👤 #{t('user.profile.my_profile')}", view_photos_user_path(current_user.id), class: "nav-link " %>
+            <%= link_to "👤 #{t('user.profile.my_profile')}", view_photos_user_path(current_user.id), class: "nav-link text-black" %>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item") do %>
+          <div class="d-flex align-items-center">
+            <%= link_to "💬 ChatAI", chats_path, class: "nav-link text-black" %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "nav-item mt-3") do %>
@@ -63,13 +71,13 @@
           <h3 class="nav-title"> Admin</h3>
           <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("admin") && path.include?("users")) }") do %>
             <div class="d-flex align-items-center">
-              <%= link_to "⚙ #{t('admin.user.user_management.management')}", admin_users_path, class: "nav-link " %>
+              <%= link_to "⚙ #{t('admin.user.user_management.management')}", admin_users_path, class: "nav-link text-black" %>
             </div>
           <% end %>
 
           <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("admin") && path.include?("photos")) }") do %>
             <div class="d-flex align-items-center">
-              <%= link_to "⚙ #{t('admin.photo.photo_management.management')}", admin_photos_path, class: "nav-link " %>
+              <%= link_to "⚙ #{t('admin.photo.photo_management.management')}", admin_photos_path, class: "nav-link text-black" %>
             </div>
           <% end %>
         <% end %>
@@ -78,12 +86,12 @@
       <ul class="nav flex-column px-3">
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if( (path.blank? || path.include?("photos")||path.include?("albums")) && !path.include?("users") && !path.include?("admin")) }") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "🐧 #{t('home')}", root_path, class: "nav-link "%>
+            <%= link_to "🐧 #{t('home')}", root_path, class: "nav-link text-black"%>
           </div>
         <% end %>
-        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tag") )}") do %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tags") )}") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "🏷 #{t('user.tag.tags')}", tags_path, class: "nav-link " %>
+            <%= link_to "🏷 #{t('user.tag.tags')}", tags_path, class: "nav-link text-black" %>
           </div>
         <% end %>
       </ul>
@@ -99,34 +107,44 @@
   <div class="offcanvas-body">
     <% if user_signed_in? %>
       <ul class="nav flex-column px-3">
-        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if( (path.blank? || path.include?("photos")||path.include?("albums")) && !path.include?("users") && !path.include?("admin") && !path.include?("profile")) }") do %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.blank?) }") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "🐧 #{t('home')}", root_path, class: "nav-link "%>
+            <%= link_to "🐧 #{t('home')}", root_path, class: "nav-link text-black"%>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("posts") && !path.include?("users")) }") do %>
+          <div class="d-flex align-items-center">
+            <%= link_to "📰 #{t('user.post.object.posts')}", posts_index_path, class: "nav-link text-black" %>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("photos") && !path.include?("users")) && !path.include?("profile") && !path.include?("admin") }") do %>
+          <div class="d-flex align-items-center">
+            <%= link_to "🏔 #{t('user.photo.object.photos')}", photos_index_path, class: "nav-link text-black" %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("users") && path.include?("posts")) }") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "🖋 #{t('user.post.object.user_post')}", posts_path, class: "nav-link " %>
+            <%= link_to "🖋 #{t('user.post.object.user_post')}", posts_path, class: "nav-link text-black" %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("users") && path.include?("photos")) }") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "📷 #{t('user.photo.object.user_photo')}", photos_path, class: "nav-link " %>
+            <%= link_to "📷 #{t('user.photo.object.user_photo')}", photos_path, class: "nav-link text-black" %>
+          </div>
+        <% end %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tags") )}") do %>
+          <div class="d-flex align-items-center">
+            <%= link_to "🏷 #{t('user.tag.tags')}", tags_path, class: "nav-link text-black" %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("profile") && (path[1]==current_user.id.to_s))}") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "👤 #{t('user.profile.my_profile')}", view_photos_user_path(current_user.id), class: "nav-link " %>
-          </div>
-        <% end %>
-        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tag") )}") do %>
-          <div class="d-flex align-items-center">
-            <%= link_to "🏷 #{t('user.tag.tags')}", "#", class: "nav-link " %>
+            <%= link_to "👤 #{t('user.profile.my_profile')}", view_photos_user_path(current_user.id), class: "nav-link text-black" %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "💬 ChatAI", chats_path, class: "nav-link " %>
+            <%= link_to "💬 ChatAI", chats_path, class: "nav-link text-black" %>
           </div>
         <% end %>
         <% if current_user.admin? %>
@@ -135,13 +153,13 @@
           <h3 class="nav-title"> Admin</h3>
           <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("admin") && path.include?("users")) }") do %>
             <div class="d-flex align-items-center">
-              <%= link_to "⚙ #{t('admin.user.user_management.management')}", admin_users_path, class: "nav-link " %>
+              <%= link_to "⚙ #{t('admin.user.user_management.management')}", admin_users_path, class: "nav-link text-black" %>
             </div>
           <% end %>
 
           <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("admin") && path.include?("photos")) }") do %>
             <div class="d-flex align-items-center">
-              <%= link_to "⚙ #{t('admin.photo.photo_management.management')}", admin_photos_path, class: "nav-link " %>
+              <%= link_to "⚙ #{t('admin.photo.photo_management.management')}", admin_photos_path, class: "nav-link text-black" %>
             </div>
           <% end %>
         <% end %>
@@ -150,12 +168,12 @@
       <ul class="nav flex-column px-3">
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if( (path.blank? || path.include?("photos")||path.include?("albums")) && !path.include?("users") && !path.include?("admin")) }") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "🐧 #{t('home')}", root_path, class: "nav-link "%>
+            <%= link_to "🐧 #{t('home')}", root_path, class: "nav-link text-black"%>
           </div>
         <% end %>
-        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tag") )}") do %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("tags") )}") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "🏷 #{t('user.tag.tags')}", "#", class: "nav-link " %>
+            <%= link_to "🏷 #{t('user.tag.tags')}", "#", class: "nav-link text-black" %>
           </div>
         <% end %>
       </ul>

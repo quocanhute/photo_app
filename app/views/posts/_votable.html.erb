@@ -1,4 +1,4 @@
-<div class="flex-column justify-content-center">
+<div class="d-flex flex-column justify-content-center">
   <%= link_to vote_post_path(post, type: :upvote),data: { turbo_method: :patch }, class: "item-votable" do %>
     <i class="fa-solid fa-angles-up <%= label_styles(post, user, "upvote") %>"></i>
   <% end %>

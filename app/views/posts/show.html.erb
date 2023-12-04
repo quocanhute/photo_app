@@ -1,45 +1,26 @@
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-12">
     <%= render @post %>
   </div>
-  <div class="col-md-3">
-    <div class="profile-card text-center shadow bg-light p-4 rounded-3">
-      <div class="profile-photo-post shadow">
-        <% if @post.user.avatar.attached? %>
-          <%= image_tag(@post.user.avatar, alt: "#{@post.user.username}", class: "img-fluid") %>
-        <% else %>
-          <%= image_tag("user.jpg", alt: "#{@post.user.username}", class: "img-fluid") %>
-        <% end %>
-      </div>
-      <h3 class="pt-3 text-dark"><%= @post.user.username %></h3>
-      <p class="">
-        <% if @post.user.bio.present? %>
-          <%= @post.user.bio %>
-        <% else %>
-          This user sill update bio <3
-        <% end %>
-      </p>
-      <div class="social-links">
-        <ul>
-          <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-          <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+
 </div>
 
 <div class="blog-comment">
-  <h3 class="text-success">Comments</h3>
-
+  <h3 class="text-success">Comments:</h3>
   <% if current_user %>
     <%= render partial: 'comments/form', locals: { post: @post , parent: nil, user: current_user, cancel: false} %>
   <% end %>
 
   <hr/>
-  <ul class="comments">
-    <%= render @post.comments.where(parent_id: nil) %>
-  </ul>
+  <div class="d-flex justify-content-center mb-5">
+    <% if @post.comments.count > 0 %>
+      <ul class="comments">
+        <%= render @post.comments.where(parent_id: nil) %>
+      </ul>
+    <% else %>
+      No comments here!!! 😢😢😢
+    <% end %>
+  </div>
+
+
 </div>

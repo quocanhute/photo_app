@@ -1,7 +1,7 @@
-<h4 class="d-flex justify-content-between">
-  <span>Posts</span>
+<div class="d-flex justify-content-between mb-2">
+  <h4>My Posts</h4>
   <%= link_to "New post", new_post_path, class: 'btn btn-primary' %>
-</h4>
+</div>
 
 <% @posts.each do |post| %>
   <%= link_to edit_post_path(post), class: 'text-decoration-none' do %>

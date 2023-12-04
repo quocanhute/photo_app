@@ -9,11 +9,11 @@
     <%= javascript_importmap_tags %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
-
+  <% path = URI.parse(request.original_url).path.split('/').reject(&:empty?)  %>
   <body>
     <%= render 'shared/header' %>
     <main role="main" class="row col-12 col-md-8 px-md-4 mx-auto pt-3">
-      <%= render 'shared/slide_bar_left' %>
+      <%= render 'shared/slide_bar_left', path: path %>
       <%= turbo_frame_tag "remote_modal", target: "_top" %>
       <div class="row d-flex align-items-center h-100">
         <% if notice %>
@@ -29,6 +29,7 @@
         <%= yield %>
       </div>
       <%= render'shared/slide_bar_right' %>
+
     </main>
   </body>
 </html>

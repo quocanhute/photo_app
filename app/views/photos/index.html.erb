@@ -1,5 +1,6 @@
-<main>
-  <%= render "profile/user", user: current_user %>
-  <%= link_to "New photo", new_photo_path %>
-  <%= render "layouts/photo_card", photos: @photos %>
-</main>
+<div class="d-flex justify-content-between">
+  <h4>My Photos</h4>
+  <%= link_to "New photo", new_photo_path, class: 'btn btn-primary' %>
+</div>
+
+<%= render "layouts/photo_card", photos: @photos %>
