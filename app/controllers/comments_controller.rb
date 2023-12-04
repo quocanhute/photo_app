@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.new(comment_params)
 
     respond_to do |format|
-      if @comment.check_comment
+      if @comment.check_comment == true
         format.html { redirect_to post_path(params[:post_id]), alert: "Bad word found!!! 😓😓😓"}
       else
         if @comment.save

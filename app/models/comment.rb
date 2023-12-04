@@ -31,17 +31,16 @@ class Comment < ApplicationRecord
   private
   # split string from fields in case it has multiple words
   def split_strings(string)
-    string.split(' ').each do|s|
+    string.split(' ').each do |s|
       bad = bad_word_list_check(s)
-      unless bad == false
-        errors[:base] << "Invalid comment"
+      if bad
+        return bad
       end
     end
   end
 
   # checks if the word is in the bad word list
   def bad_word_list_check(word)
-    bad = BAD_WORDS.include?(word)
-    return bad
+    BAD_WORDS.include?(word)
   end
 end

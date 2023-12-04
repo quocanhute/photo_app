@@ -14,7 +14,7 @@
   <hr/>
   <div class="d-flex justify-content-center mb-5">
     <% if @post.comments.count > 0 %>
-      <ul class="comments">
+      <ul class="comments w-100">
         <%= render @post.comments.where(parent_id: nil) %>
       </ul>
     <% else %>
