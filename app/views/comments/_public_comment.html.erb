@@ -1,10 +1,10 @@
 <div id="<%= dom_id comment %>">
   <div class="flex-column justify-content-center">
-    <%= link_to vote_post_comment_path(comment.post,comment, type: :upvote),data: { turbo_method: :patch }, class: "item-votable text-dark" do %>
+    <%= link_to vote_post_comment_path(comment.post,comment, type: :upvote),data: { turbo_method: :patch }, class: "item-votable-comment text-dark" do %>
       <i class="fa-solid fa-caret-up"></i>
     <% end %>
-    <span style="" class="item-votable"><%= comment.cached_weighted_like_score %></span>
-    <%= link_to vote_post_comment_path(comment.post,comment, type: :downvote),data: { turbo_method: :patch }, class: "item-votable text-dark" do %>
+    <span style="" class="item-votable-comment"><%= comment.cached_weighted_like_score %></span>
+    <%= link_to vote_post_comment_path(comment.post,comment, type: :downvote),data: { turbo_method: :patch }, class: "item-votable-comment text-dark" do %>
       <i class="fa-solid fa-caret-down"></i>
     <% end %>
   </div>

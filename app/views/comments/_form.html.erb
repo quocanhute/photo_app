@@ -3,30 +3,25 @@
 <% else %>
   <% style = "d-none" %>
 <% end %>
-<form action="<%= post_comments_path(post) %>" method="post">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <% if !parent.nil? %>
-    <input type="hidden" name="comment[parent_id]" value="<%= parent.id %>">
-  <% end %>
-  <%# if comment.errors.any? %>
-    <%#= render "shared/error", object: comment %>
-  <%# end %>
-  <fieldset>
-    <div class="row">
-      <div class="col-md-2">
-        <% if user.avatar.attached? %>
-          <%= image_tag(user.avatar, alt: "#{user.username}", class: "avatar") %>
-        <% else %>
-          <%= image_tag("user.jpg", alt: "#{user.username}", class: "avatar") %>
-        <% end %>
-      </div>
-      <div class="form-group col-md-10">
-        <textarea name="comment[content]" class="form-control" id="message" placeholder="Your message" required=""></textarea>
-      </div>
-    </div>
-  </fieldset>
-  <div class="d-flex">
-    <button type="submit" class="btn primary-bg text-white pull-right">Comment</button>
-    <a href="#" class="cancel btn btn-secondary <%= style %>" data-action="click->post-comment#clickCancel">Cancel</a>
+<div class="d-flex">
+  <div class="col-md-2 d-flex justify-content-center">
+    <% if user.avatar.attached? %>
+      <%= image_tag(user.avatar, alt: "#{user.username}", class: "avatar") %>
+    <% else %>
+      <%= image_tag("user.jpg", alt: "#{user.username}", class: "avatar") %>
+    <% end %>
   </div>
-</form>
+  <%= form_for(post.comments.create,url: post_comments_path(post), html: {class: "col-md-10", method: :post }) do |form| %>
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <% if !parent.nil? %>
+      <input type="hidden" name="comment[parent_id]" value="<%= parent.id %>">
+    <% end %>
+    <div class="input-group mb-3 d-flex">
+      <div style="flex-grow: 1">
+        <%= form.text_field :content, placeholder: "Send a message", class: "form-control" %>
+      </div>
+      <button class="btn btn-outline-secondary" type="submit" id="button-addon2" ><i class="fa-regular fa-paper-plane"></i></button>
+      <a href="#" class="cancel btn btn-outline-secondary <%= style %>" data-action="click->post-comment#clickCancel">⛔</a>
+    </div>
+  <% end %>
+</div>

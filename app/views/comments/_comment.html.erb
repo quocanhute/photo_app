@@ -11,20 +11,26 @@
         <%= image_tag("user.jpg", alt: "#{comment.user.username}", class: "avatar", id: "avatarUserHeader") %>
       <% end %>
       <div class="post-comments">
-        <p class="meta">Dec 18, 2014 <a href="#"><%= comment.user.username %></a> says :</p>
+        <p class="meta">Comment <%= time_ago_in_words(comment.updated_at) %> <%= link_to comment.user.username, view_profile_path(comment.user) %> says :</p>
+        <% if current_user == comment.user %>
+          <div class="button-group float-end">
+            <%= button_to "Delete", [@post, comment], class: "btn btn-danger", method: :delete %>
+          </div>
+        <% end %>
         <p><%= comment.content %></p>
       </div>
     </li>
 
     <div class="d-flex">
-      <% if current_user %>
-        <%= render "comments/private_comment",comment: comment %>
-      <% else %>
+      <% unless current_user %>
         <%= render "comments/public_comment", comment: comment %>
       <% end %>
     </div>
     <% if current_user %>
-      <a href="#" class="comment-form-display" data-action="click->post-comment#clickReplyButton">reply</a>
+      <div class="d-flex">
+        <%= render "comments/private_comment",comment: comment %>
+        <a href="#" class="comment-form-display btn btn-outline-secondary mx-2" data-action="click->post-comment#clickReplyButton">reply</a>
+      </div>
       <div class="comment-form ps-5 d-none">
         <%= render partial: 'comments/form', locals: { post: comment.post, parent: comment , user: current_user, cancel: true} %>
       </div>

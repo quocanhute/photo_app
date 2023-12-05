@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   scope '/users' do
     resources :posts do
       resources :elements
-      resources :comments, only: [:create] do
+      resources :comments, only: [:create, :destroy] do
         member do
           patch :vote
         end

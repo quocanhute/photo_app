@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update destroy vote]
   before_action :set_comment, only: %i[update destroy vote]
+  before_action :set_post, only: %i[destroy]
 
   def create
     @comment = current_user.comments.new(comment_params)
@@ -16,6 +17,18 @@ class CommentsController < ApplicationController
         end
       end
 
+    end
+  end
+
+  def destroy
+    @comment = @post.comments.find(params[:id])
+    @comment.destroy
+
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'Comment was successfully destroyed.'
+        redirect_to post_path(@post)
+      }
     end
   end
 
@@ -39,6 +52,10 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def set_post
+    @post = Post.find(params[:post_id])
+  end
 
   def set_comment
     @comment = Comment.find(params[:id])
