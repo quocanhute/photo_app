@@ -11,7 +11,6 @@ class User < ApplicationRecord
          :confirmable
   #acts as votable
   acts_as_voter
-  acts_as_taggable_on :skills
   has_rich_text :bio
   # notifications
   has_many :notifications, as: :recipient, dependent: :destroy
@@ -36,6 +35,8 @@ class User < ApplicationRecord
   has_many :liked_photos, through: :likeables, source: :photo
   has_many :likeablealbums, dependent: :destroy
   has_many :liked_albums, through: :likeablealbums, source: :album
+  has_many :user_tags, dependent: :destroy
+  has_many :tags, through: :user_tags, source: :tag
   has_many :chats, dependent: :destroy
 
   validates :first_name, presence: true, length: { maximum: 25 }
@@ -43,6 +44,19 @@ class User < ApplicationRecord
   validates :phone_number, presence: true
   validates :birthday, presence: true
   validates :address, presence: true
+
+
+  def tag_added?(tag)
+    tags.include?(tag)
+  end
+
+  def add_tag(tag)
+    if tags.include?(tag)
+      tags.destroy(tag)
+    else
+      tags << tag
+    end
+  end
 
   # ============================Photo==================================
   def liked?(photo)
@@ -78,11 +92,7 @@ class User < ApplicationRecord
   end
     # ==================================================================
   def username
-    if self.first_name && self.last_name
-      self.first_name + " " + self.last_name
-    else
-      "Nothing"
-    end
+    self.first_name + " " + self.last_name
   end
 
   def self.ransackable_attributes(auth_object = nil)

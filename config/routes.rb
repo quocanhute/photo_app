@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  resources :chats
-  resources :tags
-
   root to: "home#index"
   # get '/:locale' => 'home#index'
   devise_for :users,controllers:{
@@ -45,6 +42,13 @@ Rails.application.routes.draw do
       member do
         # delete '/:id_key',to: 'albums#delete_image_attachment', as: 'delete_image'
       end
+    end
+  end
+
+  resources :chats
+  resources :tags do
+    member do
+      post :added_tag
     end
   end
 
