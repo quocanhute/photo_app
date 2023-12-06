@@ -1,58 +1,82 @@
-<div class="d-flex justify-content-center pt-5">
-  <div class="col-md-12 d-flex justify-content-center flex-column align-items-center rounded-3 position-relative" style="background-color: #EFEFEF">
-    <% if user.avatar.attached? %>
-      <%= image_tag(user.avatar, alt: "#{user.username}", class: "avatar-profile rounded-circle") %>
-    <% else %>
-      <%= image_tag("user.jpg", alt: "#{user.username}", class: "avatar-profile rounded-circle") %>
-    <% end %>
-    <h3 class="mb-3"><%= user.username %></h3>
-    <div class="row mb-3" data-controller="edit-bio-user">
-      <% if user != current_user %>
-        <div class="paragraph-content">
-          <% if user.bio.present? %>
-            <%= user.bio %>
-          <% else %>
-            This user sill update bio <3
-          <% end %>
-        </div>
-      <% elsif current_user %>
-        <div class="paragraph-content" data-action="click->edit-bio-user#clickParagraphBio">
-          <% if user.bio.present? %>
-            <%= user.bio %>
-          <% else %>
-            Click to add content.
-          <% end %>
-        </div>
-        <div class="paragraph-form d-none">
-          <%= form_for(user,url: user_registration_path, html: { method: :patch }) do |form| %>
-            <%= hidden_field_tag 'profile', true %>
-            <%= form.rich_text_area :bio %>
-            <div class="mt-3 d-flex justify-content-between">
-              <div>
-                <%= form.submit "Save", class: 'btn btn-primary'%>
-                <a href="#" class="cancel btn btn-secondary" data-action="click->edit-bio-user#clickCancel">Cancel</a>
-              </div>
+<div class="pt-5">
+  <div class="row w-100 mb-4">
+    <div class="col-md-12 " >
+      <div class="d-flex justify-content-center flex-column align-items-center rounded-3 position-relative" style="background-color: #EFEFEF">
+        <% if user.avatar.attached? %>
+          <%= image_tag(user.avatar, alt: "#{user.username}", class: "avatar-profile rounded-circle") %>
+        <% else %>
+          <%= image_tag("user.jpg", alt: "#{user.username}", class: "avatar-profile rounded-circle") %>
+        <% end %>
+        <h2 class="mb-3"><%= user.username %></h2>
+        <div class="row mb-3" data-controller="edit-bio-user">
+          <% if user != current_user %>
+            <div class="paragraph-content">
+              <% if user.bio.present? %>
+                <%= user.bio %>
+              <% else %>
+                This user sill update bio 😘😘😘
+              <% end %>
+            </div>
+          <% elsif current_user %>
+            <div class="paragraph-content" data-action="click->edit-bio-user#clickParagraphBio">
+            <% if user.bio.present? %>
+              <%= user.bio %>
+            <% else %>
+              Click to add bio.
+            <% end %>
+            </div>
+            <div class="paragraph-form d-none">
+              <%= form_for(user,url: user_registration_path, html: { method: :patch }) do |form| %>
+                <%= hidden_field_tag 'profile', true %>
+                <%= form.rich_text_area :bio %>
+                <div class="mt-3 d-flex justify-content-between">
+                  <div>
+                    <%= form.submit "Save", class: 'btn btn-primary'%>
+                    <a href="#" class="cancel btn btn-secondary" data-action="click->edit-bio-user#clickCancel">Cancel</a>
+                  </div>
+                </div>
+              <% end %>
             </div>
           <% end %>
         </div>
-      <% end %>
-    </div>
-    <div class="d-flex mb-5">
-      <span class="mx-2"><i class="fa-solid fa-cake-candles"></i> Joined on <%= user.created_at.to_date %></span>
-      <span class="mx-2"><i class="fa-solid fa-envelope"></i> <%= user.email %></span>
-      <span class="mx-2"><i class="fa-solid fa-location-dot"></i> <%= user.address?? user.address : "404 not found address 😢😢😢" %></span>
-    </div>
-    <% if current_user %>
-      <div class="d-flex position-absolute" style="top: 10px;right: 10px">
-        <% if user != current_user %>
-          <%= render partial: 'profile/follow_button',locals: {user: user} %>
-        <% elsif current_user %>
-          <%= link_to edit_user_registration_path,class: "btn btn-outline-primary text-primary border-blue" do %>
-            <span>Edit Profile</span>
-          <% end %>
+        <div class="d-flex mb-5">
+          <span class="mx-2"><i class="fa-solid fa-cake-candles"></i> Joined on <%= user.created_at.to_date %></span>
+          <span class="mx-2"><i class="fa-solid fa-envelope"></i> <%= user.email %></span>
+          <span class="mx-2"><i class="fa-solid fa-location-dot"></i> <%= user.address?? user.address : "404 not found address 😢😢😢" %></span>
+        </div>
+        <% if current_user %>
+          <div class="d-flex position-absolute" style="top: 10px;right: 10px">
+            <% if user != current_user %>
+              <%= render partial: 'profile/follow_button',locals: {user: user} %>
+            <% elsif current_user %>
+              <%= link_to edit_user_registration_path,class: "btn btn-outline-primary text-primary border-blue" do %>
+                <span>Edit Profile</span>
+              <% end %>
+            <% end %>
+          </div>
         <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
+  <div class="row w-100 ">
+      <div class="col-md-3">
+        <div class="d-flex flex-column px-3 py-3 rounded-3" style="background-color: #EFEFEF">
+          <% if user != current_user %>
+            <h5 class="text-secondary">📰</i> <%= "#{pluralize(user.posts.where(published: true).count, "post")} published"%></h5> 
+            <h5 class="text-secondary">🗨️ <%= "#{pluralize(user.comments.count, "comment")} written"%></h5> 
+            <h5 class="text-secondary">🏷 <%= "#{pluralize(user.tags.count, "tag")} followed"%></h5> 
+          <% elsif current_user %>
+            <h5 class="text-secondary">📰 <%= "#{pluralize(user.posts.count, "post")} written"%></h5> 
+            <h5 class="text-secondary">🗨️ <%= "#{pluralize(user.comments.count, "comment")} written"%></h5> 
+            <h5 class="text-secondary">🏷 <%= "#{pluralize(user.tags.count, "tag")} followed"%></h5> 
+          <% end %>
 
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="d-flex flex-column rounded-3" style="background-color: #EFEFEF">
+          asdasdasdsadasd
+        </div>
+      </div>
+  </div>
 </div>
