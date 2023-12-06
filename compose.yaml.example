@@ -38,13 +38,13 @@ services:
       - postgres
       - redis
     environment:
-      OPENAI_ACCESS_TOKEN: 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
-      CLOUDINARY_NAME: dvpu5diow
-      CLOUDINARY_API_KEY: 134112357191927
-      CLOUDINARY_API_SECRET: LS7qimDZBQAd1SChJmnVeTj01k8
-      MAILER_DOMAIN: gmail.com
-      MAILER_USER_NAME: quocanh10a2
-      MAILER_PASSWORD: klsbhncmbrmamtgc
+      OPENAI_ACCESS_TOKEN:
+      CLOUDINARY_NAME:
+      CLOUDINARY_API_KEY:
+      CLOUDINARY_API_SECRET:
+      MAILER_DOMAIN:
+      MAILER_USER_NAME:
+      MAILER_PASSWORD:
       MAILER_HOST: 127.0.0.1:3000
       DB_HOST: postgres
       DB_NAME: myappdb
