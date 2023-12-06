@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # PostgreSQL service
+  postgres:
+    image: postgres:14.2-alpine
+    container_name: myapp-postgres-db
+    environment:
+      POSTGRES_DB: myappdb
+      POSTGRES_USER: my_user
+      POSTGRES_PASSWORD: ILoveDoingKnowBe4Training
+    ports:
+      - "5432:5432"
+    networks:
+      - myapp-network
+
+  # Redis service
+  redis:
+    image: redis:latest
+    container_name: myapp-redis-db
+    ports:
+      - "6379:6379"
+    networks:
+      - myapp-network
+
+  # Ruby on Rails application service
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: myapp:latest
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      OPENAI_ACCESS_TOKEN: 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
+      CLOUDINARY_NAME: dvpu5diow
+      CLOUDINARY_API_KEY: 134112357191927
+      CLOUDINARY_API_SECRET: LS7qimDZBQAd1SChJmnVeTj01k8
+      MAILER_DOMAIN: gmail.com
+      MAILER_USER_NAME: quocanh10a2
+      MAILER_PASSWORD: klsbhncmbrmamtgc
+      MAILER_HOST: 127.0.0.1:3000
+      DB_HOST: postgres
+      DB_NAME: myappdb
+      DB_USERNAME: my_user
+      DB_PASSWORD: ILoveDoingKnowBe4Training
+      REDIS_URL: redis://redis:6379/12
+    networks:
+      - myapp-network
+
+networks:
+  myapp-network:
+    driver: bridge
