@@ -1,63 +1,56 @@
-<div class="row mb-5">
-  <div class="col-md-4">
-    <% if user.avatar.blob %>
-      <%= image_tag(user.avatar, alt: "Profile Picture", class: "rounded-circle", id: "avatar",style: 'height:250px;width:250px') %>
-    <%else %>
-      <%= image_tag('user.jpg', class: "photo-image rounded-circle", id: "avatar",style: 'height:250px;width:250px') %>
+<div class="d-flex justify-content-center pt-5">
+  <div class="col-md-12 d-flex justify-content-center flex-column align-items-center rounded-3 position-relative" style="background-color: #EFEFEF">
+    <% if user.avatar.attached? %>
+      <%= image_tag(user.avatar, alt: "#{user.username}", class: "avatar-profile rounded-circle") %>
+    <% else %>
+      <%= image_tag("user.jpg", alt: "#{user.username}", class: "avatar-profile rounded-circle") %>
     <% end %>
-  </div>
-  <div class="col-md-8 d-flex flex-column justify-content-center">
-    <div class=" d-flex flex-column ">
-      <div class="d-flex">
-        <% if user != current_user %>
-          <%= render partial: 'profile/follow_button',locals: {user: user} %>
-        <% elsif current_user %>
-          <%= link_to "Edit Profile", edit_user_registration_path,class: "btn btn-primary text-primary border-blue bg-white" %>
-      <% end %>
-        <span><i class="fa-solid fa-gear btn btn-lg"></i></span>
-      </div>
-    </div>
-    <div>
-      <h1 class="fw-bold"><%= user.username %></h1>
-    </div>
-    <div class="fs-2">
-      <%= link_to pluralize(user.photos.count, "Photo") , view_photos_user_path(user) %> |
-      <%= link_to pluralize(user.albums.count, "Album"), view_albums_user_path(user) %>|
-      <%= link_to " #{user.followee.count} Following" , view_followee_user_path(user) %>|
-      <a href="<%= view_follower_user_path(user) %>"><%= render 'profile/follower_count', user: user %></a>
-    </div>
-  </div>
-</div>
-<div class="row mb-5" data-controller="edit-bio-user">
-  <h1>Biooooo</h1>
-  <% if user != current_user %>
-    <div class="paragraph-content">
-      <% if user.bio.present? %>
-        <%= user.bio %>
-      <% else %>
-        This user sill update bio <3
-      <% end %>
-    </div>
-  <% elsif current_user %>
-    <div class="paragraph-content" data-action="click->edit-bio-user#clickParagraphBio">
-      <% if user.bio.present? %>
-        <%= user.bio %>
-      <% else %>
-        Click to add content.
-      <% end %>
-    </div>
-    <div class="paragraph-form d-none">
-      <%= form_for(user,url: user_registration_path, html: { method: :patch }) do |form| %>
-        <%= hidden_field_tag 'profile', true %>
-        <%= form.rich_text_area :bio %>
-        <div class="mt-3 d-flex justify-content-between">
-          <div>
-            <%= form.submit "Save", class: 'btn btn-primary'%>
-            <a href="#" class="cancel btn btn-secondary" data-action="click->edit-bio-user#clickCancel">Cancel</a>
-          </div>
+    <h3 class="mb-3"><%= user.username %></h3>
+    <div class="row mb-3" data-controller="edit-bio-user">
+      <% if user != current_user %>
+        <div class="paragraph-content">
+          <% if user.bio.present? %>
+            <%= user.bio %>
+          <% else %>
+            This user sill update bio <3
+          <% end %>
+        </div>
+      <% elsif current_user %>
+        <div class="paragraph-content" data-action="click->edit-bio-user#clickParagraphBio">
+          <% if user.bio.present? %>
+            <%= user.bio %>
+          <% else %>
+            Click to add content.
+          <% end %>
+        </div>
+        <div class="paragraph-form d-none">
+          <%= form_for(user,url: user_registration_path, html: { method: :patch }) do |form| %>
+            <%= hidden_field_tag 'profile', true %>
+            <%= form.rich_text_area :bio %>
+            <div class="mt-3 d-flex justify-content-between">
+              <div>
+                <%= form.submit "Save", class: 'btn btn-primary'%>
+                <a href="#" class="cancel btn btn-secondary" data-action="click->edit-bio-user#clickCancel">Cancel</a>
+              </div>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
-  <% end %>
+    <div class="d-flex mb-5">
+      <span class="mx-1"><i class="fa-solid fa-cake-candles"></i> Joined on <%= user.created_at.to_date %></span>
+      <span class="mx-1"><i class="fa-solid fa-envelope"></i> <%= user.email %></span>
+      <span class="mx-1"><i class="fa-solid fa-location-dot"></i> <%= user.address %></span>
+    </div>
+    <div class="d-flex position-absolute" style="top: 10px;right: 10px">
+      <% if user != current_user %>
+        <%= render partial: 'profile/follow_button',locals: {user: user} %>
+      <% elsif current_user %>
+        <%= link_to edit_user_registration_path,class: "btn btn-outline-primary text-primary border-blue" do %>
+          <span>Edit Profile</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
 </div>
-<hr/>
