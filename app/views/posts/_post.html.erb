@@ -46,10 +46,10 @@
             <% end %>
           </div>
         </div>
-        <div class="card-footer pt-5">
+        <div class="card-footer pt-3 pb-3">
           <strong>Tags:</strong>
-          <% post.tag_list.each do |t| %>
-            <%= link_to t, "#", class: "btn btn-secondary"%>
+          <% post.tags.each do |tag| %>
+            <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
           <% end %>
         </div>
       </div>
