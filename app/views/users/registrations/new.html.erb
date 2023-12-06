@@ -39,6 +39,10 @@
           </div>
 
           <div class="form-outline mb-4 w-100">
+            <%= f.label :sex %>
+            <%= f.select :sex, User.sexes.keys ,class: "form-control form-control-lg"%>
+          </div>
+          <div class="form-outline mb-4 w-100">
             <%= f.label :phone_number, class: "" %><br />
             <%= f.text_field :phone_number, autofocus: true, autocomplete: "phone_number", class: "form-control form-control-lg" %>
           </div>
