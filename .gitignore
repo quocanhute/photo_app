@@ -18,3 +18,4 @@
 .env
 dump.rdb
 compose.yaml
+.idea
