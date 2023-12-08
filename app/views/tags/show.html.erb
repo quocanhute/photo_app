@@ -1,12 +1,45 @@
-<div class="col col-6 col-md-3 my-2 rounded float-left profile-card-img">
-  <div class="profile-photo-card card border-1 align-items-center justify-content-center">
-    <div class="card-body">
-      <p class="card-text"># <%= @tag.name %></p>
-      <%= link_to "Edit this tag", edit_tag_path(@tag) %>
-      <p class="card-text"><%= @tag.detail %></p>
-      <% if @tag.tag_image.attached? %>
-        <%= image_tag(@tag.tag_image, alt: "#{tag.name}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
-      <% end %>
+<div class="">
+  <div class="row w-100 mb-4">
+    <div class="col-md-12 " >
+      <div class="d-flex justify-content-center flex-column align-items-center rounded-3 position-relative" style="background-color: #EFEFEF">
+        <div class="d-flex justify-content-between w-100 px-3 pt-3">
+          <div class="d-flex">
+            <% if @tag.tag_image.attached? %>
+              <%= image_tag(@tag.tag_image, alt: "#{@tag.name}", class: "tag-image") %>
+            <% end %>
+            <h2><%= @tag.name %></h2>
+          </div>
+          <div class="d-flex">
+            <% if current_user %>
+              <%= render 'tags/added_button', tag: @tag, added_status: current_user.tag_added?(@tag) %>
+            <% end %>
+            <div class="ms-2">
+              <% if current_user.admin? %>
+                <%= link_to "Edit tag", edit_tag_path(@tag), class: "btn btn-outline-primary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <p class="mb-3"><%= @tag.detail %></p>
+      </div>
+    </div>
+  </div>
+  <div class="row w-100 ">
+    <div class="col-md-9">
+      <h4>Posts with tag</h4>
+      <div class="d-flex flex-column rounded-3">
+        <%= render "posts/all_post_card", posts: @posts %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <h4>Who to follow</h4>
+      <div class="d-flex flex-column px-3 py-3">
+        <% @tag.users.each do |user| %>
+          <%= user.username %>
+          <hr/>
+          <br>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

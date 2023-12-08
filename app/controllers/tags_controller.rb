@@ -5,6 +5,7 @@ class TagsController < ApplicationController
   end
 
   def show
+    @posts = Post.where(published: true).tagged_with(@tag.name)
   end
 
   def edit
