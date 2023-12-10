@@ -1,11 +1,15 @@
 class Chat < ApplicationRecord
   belongs_to :user
 
+  has_many :messages, dependent: :destroy
+
   attr_accessor :message
 
   def message=(message)
+    self.history = { 'prompt' => message, 'history' => [] } if history.blank?
+
     messages = [
-      { 'role' => 'system', 'content' => message}
+      { 'role' => 'system', 'content' => history['prompt'] }
     ]
 
     q_and_a.each do |question, answer|
@@ -25,7 +29,10 @@ class Chat < ApplicationRecord
       }
     )
 
+    self.history['history'] << response_raw
+
     Rails.logger.debug response_raw
+
     response = JSON.parse(response_raw.to_json, object_class: OpenStruct)
 
     self.q_and_a << [message, response.choices[0].message.content]

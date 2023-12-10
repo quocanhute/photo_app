@@ -1,0 +1,10 @@
+<div id="<%= dom_id(message) %>_messages">
+  <div class="row mb-2">
+    <div class="col-1 text-card">
+      <%= raw icon_for(message) %>
+    </div>
+    <div class="col-11">
+      <%= simple_format message.content %>
+    </div>
+  </div>
+</div>

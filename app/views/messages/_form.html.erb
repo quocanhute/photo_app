@@ -1,0 +1,8 @@
+<div id="<%= dom_id(chat) %>_message_form">
+  <%= form_with(model: Message.new, url: [chat, chat.messages.new]) do |form| %>
+    <div class="input-group mb-3">
+      <%= form.text_field :content, placeholder: "Send a message", class: "form-control" %>
+      <button class="btn btn-outline-secondary" type="submit" id="button-addon2" ><i class="fa-regular fa-paper-plane"></i></button>
+    </div>
+  <% end %>
+</div>

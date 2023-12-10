@@ -41,7 +41,9 @@ Rails.application.routes.draw do
     resources :albums
   end
 
-  resources :chats
+  resources :chats do
+    resources :messages
+  end
   resources :tags do
     member do
       post :added_tag
