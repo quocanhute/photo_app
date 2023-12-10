@@ -24,25 +24,21 @@ Rails.application.routes.draw do
   # action user
   scope '/users' do
     resources :posts do
+      member do
+        patch :vote
+        patch :bookmark
+        post :unpublish
+        post :publish
+      end
       resources :elements
       resources :comments, only: [:create, :destroy] do
         member do
           patch :vote
         end
       end
-      member do
-        # patch :upvote
-        # patch :downvote
-        patch :vote
-        patch :bookmark
-      end
     end
     resources :photos
-    resources :albums do
-      member do
-        # delete '/:id_key',to: 'albums#delete_image_attachment', as: 'delete_image'
-      end
-    end
+    resources :albums
   end
 
   resources :chats
@@ -51,21 +47,23 @@ Rails.application.routes.draw do
       post :added_tag
     end
   end
+  resources :profile, only:  [:show] do
+    member do
+      post :follow
+      delete :unfollow
+    end
+  end
+  resources :dashboard do
+    collection do
+      # get :user_followers
+      get :following_tags
+      get :following_users
+    end
+  end
 
-  # action publish post
-  post 'posts/unpublish/:id', to: 'posts#unpublish', as: 'posts_unpublish'
-  post 'posts/publish/:id', to: 'posts#publish', as: 'posts_publish'
-
-  # action view profile
-  get '/profile/:id', to: 'profile#show', as: 'view_profile'
-  get '/profile/:id/photos', to: 'profile#show_photo', as: 'view_photos_user'
   get '/profile/:id/albums', to: 'profile#show_album', as: 'view_albums_user'
   get '/profile/:id/follower', to: 'profile#show_follower_user', as: 'view_follower_user'
   get '/profile/:id/followee', to: 'profile#show_followee_user', as: 'view_followee_user'
-
-  # action follow
-  post 'profile/follow/:id', to: 'profile#follow', as: 'profile_follow'
-  delete 'profile/unfollow/:id', to: 'profile#unfollow', as: 'profile_unfollow'
 
   # action like
   post 'like_photo/:id', to: 'photos#like_photo', as: 'like_photo'

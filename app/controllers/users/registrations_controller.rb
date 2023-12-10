@@ -71,7 +71,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_update_path_for(resource)
     if params[:profile].present?
       flash[:notice] = I18n.t("user.profile.update_bio_successfully")
-      view_photos_user_path(resource.id)
+      profile_path(resource.id)
     else
       flash[:notice] = I18n.t("user.profile.update_successfully")
       edit_user_registration_path

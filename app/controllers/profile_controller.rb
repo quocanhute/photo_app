@@ -5,12 +5,12 @@ class ProfileController < ApplicationController
   def show
     if current_user
       if params[:id].to_f == current_user.id
-        @photos = current_user.photos.page(params[:page]).per(8)
+        @posts = @user.posts
       else
-        @photos = @user.photos.where(is_public: true ).page(params[:page]).per(8)
+        @posts = @user.posts.where(published: true)
       end
     else
-      @photos = @user.photos.where(is_public: true ).page(params[:page]).per(8)
+      @posts = @user.posts.where(published: true)
     end
   end
 

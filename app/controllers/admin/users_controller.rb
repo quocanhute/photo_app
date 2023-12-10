@@ -24,7 +24,7 @@ class Admin::UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to view_profile_path(@user), :notice => 'User was successfully created.' }
+        format.html { redirect_to profile_path(@user), :notice => 'User was successfully created.' }
       else
         format.html { redirect_to new_admin_user_path, :alert => @user.errors.full_messages.join(', ') }
       end
@@ -36,7 +36,7 @@ class Admin::UsersController < ApplicationController
     if params[:user][:password].blank?
       respond_to do |format|
         if @user.update(user_params_without_password)
-          format.html { redirect_to view_profile_path(@user), :notice => 'User was successfully updated.' }
+          format.html { redirect_to profile_path(@user), :notice => 'User was successfully updated.' }
         else
           format.html { redirect_to edit_admin_user_path(@user), :alert => @user.errors.full_messages.join(', ') }
         end
@@ -45,7 +45,7 @@ class Admin::UsersController < ApplicationController
     else
       respond_to do |format|
         if @user.update(user_params_with_password)
-          format.html { redirect_to view_profile_path(@user), :notice => 'User was successfully updated.' }
+          format.html { redirect_to profile_path(@user), :notice => 'User was successfully updated.' }
         else
           format.html { redirect_to edit_admin_user_path(@user), :alert => @user.errors.full_messages.join(', ') }
         end
