@@ -11,7 +11,7 @@
         <%= image_tag("user.jpg", alt: "#{comment.user.username}", class: "avatar", id: "avatarUserHeader") %>
       <% end %>
       <div class="post-comments">
-        <p class="meta">Comment <%= time_ago_in_words(comment.updated_at) %> <%= link_to comment.user.username, view_profile_path(comment.user) %> says :</p>
+        <p class="meta">Comment <%= time_ago_in_words(comment.updated_at) %> <%= link_to comment.user.username, profile_path(comment.user) %> says :</p>
         <% if current_user == comment.user %>
           <div class="button-group float-end">
             <%= button_to "Delete", [@post, comment], class: "btn btn-danger", method: :delete %>

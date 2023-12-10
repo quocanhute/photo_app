@@ -1,16 +1,13 @@
-<div class="col-md-6 col-lg-3 item">
-  <div class="card-user-detail border rounded py-2 my-2">
+<div class="col-lg-4" >
+  <div class="card-user-detail border rounded mb-4 d-flex flex-column justify-content-center align-items-center"  style="background-color: #EFEFEF">
     <% if user.avatar.blob %>
-      <%= image_tag(user.avatar, alt: "Profile Picture", class: "avatar-user rounded-circle", id: "avatar") %>
+      <%= image_tag(user.avatar, alt: "Profile Picture", class: "avatar-user rounded-circle my-3", id: "avatar") %>
     <%else %>
-      <%= image_tag('user.jpg', class: "avatar-user rounded-circle", id: "avatar") %>
+      <%= image_tag('user.jpg', class: "avatar-user rounded-circle my-3", id: "avatar") %>
     <% end %>
-    <%= link_to(view_profile_path(user)) do %>
-      <%= content_tag(:h3, user.last_name, class: "name text-center") %>
+    <%= link_to(profile_path(user)) do %>
+      <%= content_tag(:h4, user.last_name, class: "name text-center my-2") %>
     <% end %>
-    <%= content_tag(:p, user.role, class: "title text-center") %>
-    <%= content_tag(:p, "#{pluralize(user.photos.count, "photo")}", class: "description text-center") %>
-    <%= content_tag(:p, "#{pluralize(user.albums.count, "album")} ", class: "description text-center") %>
-    <%= render partial: 'profile/follow_button',locals: {user: user} %>
+    <span class="my-2">@<%= user.last_name.downcase %></span>
   </div>
 </div>

@@ -1,0 +1,18 @@
+<%= content_tag(:div, class: "col-lg-4 my-2 rounded", style: "height: 175px") do %>
+  <div class="card mb-2 h-100" style="border: none;">
+    <div class="card-header d-flex justify-content-between" style="border: none; background-color: #EFEFEF;">
+      <%= link_to "@_#{tag.name}", tag_path(tag),data:{turbo: false},class: "mx-1" %>
+      <%= "#{pluralize(Post.tagged_with(tag.name).count, "post")}" %>
+    </div>
+    <div class="card-body" style="background-color: #EFEFEF;">
+      <p class="card-text"><%= tag.detail %></p>
+    </div>
+    <div class="card-footer text-muted d-flex align-items-center justify-content-between" style="border: none; background-color: #EFEFEF;">
+      <div>
+        <% if tag.tag_image.attached? %>
+          <%= image_tag(tag.tag_image, alt: "#{tag.name}", class: "tag-image") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -7,11 +7,11 @@
         <% else %>
           <%= image_tag("user.jpg", alt: "#{post.user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
         <% end %>
-        <%= link_to "#{post.user.username}", view_profile_path(post.user),data:{turbo: false},class: "mx-1" %>
+        <%= link_to "#{post.user.username}", profile_path(post.user),data:{turbo: false},class: "mx-1 text-dark" %>
       </div>
       <div class="card-body" style="background-color: #EFEFEF;">
-        <%= link_to post_path(post), data:{turbo: false}, class: 'text-decoration-none' do %>
-          <h5 class="card-title"><%= post.title %></h5>
+        <%= link_to post_path(post), data:{turbo: false}, class: 'text-decoration-none text-dark' do %>
+          <h3 class="card-title"><%= post.title %></h3>
         <% end %>
         <p class="card-text"><%= post.description %></p>
         <% post.tags.each do |tag| %>

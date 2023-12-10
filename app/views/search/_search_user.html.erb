@@ -9,7 +9,7 @@
           <%else %>
             <%= image_tag('user.jpg', class: "avatar-user rounded-circle", id: "avatar") %>
           <% end %>
-          <%= link_to(view_profile_path(user)) do %>
+          <%= link_to(profile_path(user)) do %>
             <%= content_tag(:h3, user.last_name, class: "name text-center") %>
           <% end %>
           <%= content_tag(:p, user.role, class: "title text-center") %>

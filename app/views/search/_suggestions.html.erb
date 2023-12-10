@@ -8,7 +8,7 @@
         <% else %>
           <%= image_tag("user.jpg", alt: "#{user.username}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
         <% end %>
-        <%= link_to user.username, view_photos_user_path(user),class: "suggestion-title" %>
+        <%= link_to user.username, profile_path(user),class: "suggestion-title" %>
       </div>
     <% end %>
   <hr/>
