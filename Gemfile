@@ -45,6 +45,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "image_processing", "~> 1.2"
 gem "bootsnap", require: false
 gem "devise"
+gem 'foreman'
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
