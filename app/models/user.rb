@@ -12,20 +12,16 @@ class User < ApplicationRecord
   #acts as votable
   acts_as_voter
   has_rich_text :bio
-  # notifications
-  has_many :notifications, as: :recipient, dependent: :destroy
   # Add the custom attribute
   enum role: { admin: 0, user: 1, censor: 2 }
   enum sex: { male: 0, female: 1 }
   has_one_attached :avatar
   # access the Relationship object
   has_many :followed_user, foreign_key: :follower_id, class_name: 'Relationship', dependent: :destroy
-  # access the user through the relationship object
   has_many :followee, through: :followed_user, dependent: :destroy
-  # access the Relationship object
   has_many :following_user, foreign_key: :followee_id, class_name: 'Relationship', dependent: :destroy
-  # access the user through the relationship object
   has_many :follower, through: :following_user, dependent: :destroy
+
   has_many :photos, dependent: :destroy
   has_many :albums, dependent: :destroy
   has_many :posts, dependent: :destroy
@@ -101,7 +97,7 @@ class User < ApplicationRecord
       reset_password_sent_at reset_password_token role unconfirmed_email unlock_token updated_at]
   end
   def self.ransackable_associations(auth_object = nil)
-    %w[albums avatar_attachment avatar_blob comments followed_user followee follower following_user likeablealbums likeablecomments likeables liked_albums liked_comments liked_photos notifications photos posts votes]
+    %w[albums avatar_attachment avatar_blob comments followed_user followee follower following_user likeablealbums likeablecomments likeables liked_albums liked_comments liked_photos photos posts votes]
   end
 
 end

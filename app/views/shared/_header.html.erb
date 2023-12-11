@@ -32,7 +32,6 @@
             <ul class="nav float-right">
               <div class="dropdown d-flex align-items-center">
                 <%= link_to t('user.post.object.create'), new_post_path, class: 'btn btn-outline-light mx-2' %>
-                <%= render 'layouts/notifications' %>
                 <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
                   <% if current_user.avatar.attached? %>
                     <%= image_tag(current_user.avatar, alt: "#{current_user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
