@@ -13,6 +13,10 @@ class DashboardController < ApplicationController
     @tags = current_user.tags
   end
 
+  def posts_bookmark
+    @posts = Post.bookmarked_by_user(current_user)
+  end
+
   private
 
 end

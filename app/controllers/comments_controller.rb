@@ -5,16 +5,18 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.new(comment_params)
-
+    message = "#{current_user.username} comment in your post #{@post.title.truncate(10)}"
     respond_to do |format|
       if @comment.check_comment == true
         format.html { redirect_to post_path(params[:post_id]), alert: "Bad word found!!! 😓😓😓"}
       else
-        if @comment.save
-          create_notification(@comment,@post)
-          format.html { redirect_to post_path(params[:post_id]), notice: "Comment was successfully created." }
-        else
-          format.html { redirect_to post_path(params[:post_id]), alert: "Comment can't be blank! 😓😓😓"}
+        ActiveRecord::Base.transaction do
+          if @comment.save
+            create_notification(@comment,@post,message)
+            format.html { redirect_to post_path(params[:post_id]), notice: "Comment was successfully created." }
+          else
+            format.html { redirect_to post_path(params[:post_id]), alert: "Comment can't be blank! 😓😓😓"}
+          end
         end
       end
 
@@ -76,14 +78,14 @@ class CommentsController < ApplicationController
                          })
   end
 
-  def create_notification(comment,post)
+  def create_notification(comment,post,message)
     # Tạo Notification cho comment
     Notification.create(
       sender: current_user,
       receiver: post.user,
       object: comment,
       as_read: false,
-      content: "#{current_user.username} comment in your post #{post.title.truncate(10)}"
+      content: message
     )
   end
 end
