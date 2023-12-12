@@ -1,0 +1,24 @@
+<div class="d-flex flex-column px-3 py-3 rounded-3" style="background-color: #EFEFEF">
+  <ul class="nav flex-column px-3">
+    <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(page == "index") }") do %>
+      <div class="d-flex align-items-center">
+        <%= link_to "Followers", dashboard_index_path, class: "nav-link text-black"%>
+      </div>
+    <% end %>
+    <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(page == "followee") }") do %>
+      <div class="d-flex align-items-center">
+        <%= link_to "Following users", following_users_dashboard_index_path, class: "nav-link text-black" %>
+      </div>
+    <% end %>
+    <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(page == "tags") }") do %>
+      <div class="d-flex align-items-center">
+        <%= link_to "Following tags", following_tags_dashboard_index_path, class: "nav-link text-black" %>
+      </div>
+    <% end %>
+    <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(page == "posts") }") do %>
+      <div class="d-flex align-items-center">
+        <%= link_to "Posts bookmark", posts_bookmark_dashboard_index_path, class: "nav-link text-black" %>
+      </div>
+    <% end %>
+  </ul>
+</div>

@@ -2,17 +2,15 @@
   <h2>Dashboard</h2>
   <div class="row w-100 ">
     <div class="col-md-3">
-      <%= render "dashboard/dashboard_menu", page: "followee" %>
+      <%= render "dashboard/dashboard_menu", page: "posts" %>
     </div>
     <div class="col-md-9">
       <div class="d-flex row">
-        <% if @followee.count > 0  %>
-          <% @followee.each do |user| %>
-            <%= render "profile/user_card", user: user %>
-          <% end %>
+        <% if @posts.count > 0  %>
+          <%= render "posts/all_post_card", posts: @posts %>
         <% else %>
           <div class="d-flex justify-content-center align-items-center">
-            <b>You don't follow any users! 😢😢😢</b>
+            <b>You don't bookmark any posts! 😢😢😢</b>
           </div>
         <% end %>
       </div>

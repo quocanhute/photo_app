@@ -60,6 +60,7 @@ Rails.application.routes.draw do
       # get :user_followers
       get :following_tags
       get :following_users
+      get :posts_bookmark
     end
   end
 

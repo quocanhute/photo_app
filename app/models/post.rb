@@ -39,4 +39,9 @@ class Post < ApplicationRecord
       downvote_by user, vote_scope: "like"
     end
   end
+
+  def self.bookmarked_by_user(user)
+    joins(:votes_for)
+      .where(votes: { voter_id: user.id, vote_scope: 'bookmark', votable_type: 'Post' })
+  end
 end
