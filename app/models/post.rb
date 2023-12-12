@@ -3,7 +3,9 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :elements, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :commented_users, through: :comments, source: :user
   has_many :tags
+  has_many :notifications, as: :object
 
   acts_as_votable
   acts_as_taggable_on :tags

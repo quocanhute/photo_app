@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_11_143450) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_12_013008) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -124,6 +124,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_143450) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "sender_id", null: false
+    t.bigint "receiver_id", null: false
+    t.string "object_type", null: false
+    t.bigint "object_id", null: false
+    t.text "content"
+    t.boolean "as_read"
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["object_type", "object_id"], name: "index_notifications_on_object"
+    t.index ["receiver_id"], name: "index_notifications_on_receiver_id"
+    t.index ["sender_id"], name: "index_notifications_on_sender_id"
   end
 
   create_table "photos", force: :cascade do |t|
@@ -263,6 +278,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_143450) do
   add_foreign_key "likeables", "photos"
   add_foreign_key "likeables", "users"
   add_foreign_key "messages", "chats"
+  add_foreign_key "notifications", "users", column: "receiver_id"
+  add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "photos", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "taggings", "tags"

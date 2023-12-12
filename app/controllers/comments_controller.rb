@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update destroy vote]
   before_action :set_comment, only: %i[update destroy vote]
-  before_action :set_post, only: %i[destroy]
+  before_action :set_post, only: %i[destroy create]
 
   def create
     @comment = current_user.comments.new(comment_params)
@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to post_path(params[:post_id]), alert: "Bad word found!!! 😓😓😓"}
       else
         if @comment.save
+          create_notification(@comment,@post)
           format.html { redirect_to post_path(params[:post_id]), notice: "Comment was successfully created." }
         else
           format.html { redirect_to post_path(params[:post_id]), alert: "Comment can't be blank! 😓😓😓"}
@@ -73,5 +74,16 @@ class CommentsController < ApplicationController
                            comment: @comment,
                            user: current_user
                          })
+  end
+
+  def create_notification(comment,post)
+    # Tạo Notification cho comment
+    Notification.create(
+      sender: current_user,
+      receiver: post.user,
+      object: comment,
+      as_read: false,
+      content: "#{current_user.username} comment in your post #{post.title.truncate(10)}"
+    )
   end
 end
