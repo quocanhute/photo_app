@@ -1,11 +1,11 @@
-<li class="nav-item dropdown hover-animation-nav-item">
+<li class="nav-item dropdown " style="font-size: 19px;">
   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="badge rounded-pill bg-danger">
       <%= user.received_notifications.count >= 9 ? "9+" : user.received_notifications.count %> <i class="fa-solid fa-bell"></i>
     </span>
   </a>
   <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
-    <% user.received_notifications.each do |notification| %>
+    <% user.received_notifications.limit(9).each do |notification| %>
       <li class="dropdown-item">
         <%= link_to notification.content, "#", data:{turbo: false}, class: "text-dark" %>
       </li>

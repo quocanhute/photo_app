@@ -5,14 +5,22 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.new(comment_params)
-    message = "#{current_user.username} comment in your post #{@post.title.truncate(10)}"
     respond_to do |format|
       if @comment.check_comment == true
         format.html { redirect_to post_path(params[:post_id]), alert: "Bad word found!!! 😓😓😓"}
       else
         ActiveRecord::Base.transaction do
           if @comment.save
-            create_notification(@comment,@post,message)
+            if params[:reply].present?
+            #   do noti for comment's user
+              message = "#{current_user.username} reply your comment in #{@post.title.truncate(10)}"
+              create_notification_for_comment(@comment.parent,message)
+            else
+              if current_user != @comment.post.user
+                message = "#{current_user.username} comment in your post #{@post.title.truncate(10)}"
+                create_notification_for_post(@comment,@post,message)
+              end
+            end
             format.html { redirect_to post_path(params[:post_id]), notice: "Comment was successfully created." }
           else
             format.html { redirect_to post_path(params[:post_id]), alert: "Comment can't be blank! 😓😓😓"}
@@ -78,11 +86,22 @@ class CommentsController < ApplicationController
                          })
   end
 
-  def create_notification(comment,post,message)
+  def create_notification_for_post(comment,post,message)
     # Tạo Notification cho comment
     Notification.create(
       sender: current_user,
       receiver: post.user,
+      object: comment,
+      as_read: false,
+      content: message
+    )
+  end
+
+  def create_notification_for_comment(comment,message)
+    # Tạo Notification cho comment
+    Notification.create(
+      sender: current_user,
+      receiver: comment.user,
       object: comment,
       as_read: false,
       content: message

@@ -7,11 +7,12 @@ class Notification < ApplicationRecord
   scope :read, -> { where(as_read: true) }
 
   after_create_commit { broadcast_notifications }
+  after_update_commit { broadcast_notifications }
 
   private
 
   def broadcast_notifications
-    broadcast_replace_to "notifications_#{receiver.id}",
+    broadcast_update_to "notifications_#{receiver.id}",
                          target: "notifications_#{receiver.id}",
                          partial: 'shared/notifications',
                          locals: {user: receiver}

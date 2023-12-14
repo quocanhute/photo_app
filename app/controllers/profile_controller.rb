@@ -47,7 +47,11 @@ class ProfileController < ApplicationController
   end
 
   def follow
-    Relationship.create_or_find_by(follower_id: current_user.id, followee_id: @user.id)
+    ActiveRecord::Base.transaction do
+      Relationship.create_or_find_by(follower_id: current_user.id, followee_id: @user.id)
+      message = "#{current_user.username} is following you"
+      create_notification_follow(@user,message)
+    end
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [update_action_follow,update_count_follower]
@@ -57,7 +61,12 @@ class ProfileController < ApplicationController
 
 
   def unfollow
-    current_user.followed_user.where(follower_id: current_user.id, followee_id: @user.id).destroy_all
+    ActiveRecord::Base.transaction do
+      current_user.followed_user.where(follower_id: current_user.id, followee_id: @user.id).destroy_all
+      message = "#{current_user.username} unfollow you"
+      create_notification_follow(@user,message)
+    end
+
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [update_action_follow,update_count_follower]
@@ -88,5 +97,27 @@ class ProfileController < ApplicationController
   end
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def create_notification_follow(followee,message)
+    # Tạo Notification cho comment
+    Notification.create(
+      sender: current_user,
+      receiver: followee,
+      object: current_user,
+      as_read: false,
+      content: message
+    )
+  end
+
+  def create_notification_unfollow(followee,message)
+    # Tạo Notification cho comment
+    Notification.create(
+      sender: current_user,
+      receiver: followee,
+      object: current_user,
+      as_read: false,
+      content: message
+    )
   end
 end
