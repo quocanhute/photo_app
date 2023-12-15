@@ -1,0 +1,26 @@
+<% comments.each do |comment| %>
+  <div class="row w-100 ">
+    <div class="col-md-1">
+      <div class="d-flex flex-column">
+        <% if comment.user.avatar.attached? %>
+          <%= image_tag(comment.user.avatar, alt: "#{comment.user.username}", class: "avatar", id: "avatarUserHeader") %>
+        <% else %>
+          <%= image_tag("user.jpg", alt: "#{comment.user.username}", class: "avatar", id: "avatarUserHeader") %>
+        <% end %>
+        <%= render "comments/public_comment", comment: comment %>
+      </div>
+    </div>
+    <div class="col-md-11">
+      <div class="post-comments">
+        <p class="meta">Comment <%= time_ago_in_words(comment.updated_at) %> <%= link_to comment.user.username, profile_path(comment.user) %> says :</p>
+        <p><%= comment.content %></p>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix d-flex">
+  </div>
+  <hr/>
+  <div class="sub-comment">
+    <%= render "comments/comments_for_guest", comments: comment.comments %>
+  </div>
+<% end %>

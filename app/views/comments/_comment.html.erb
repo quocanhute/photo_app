@@ -12,11 +12,7 @@
           <% else %>
             <%= image_tag("user.jpg", alt: "#{comment.user.username}", class: "avatar", id: "avatarUserHeader") %>
           <% end %>
-          <% if current_user %>
-            <%= render "comments/private_comment",comment: comment %>
-          <% else%>
-            <%= render "comments/public_comment", comment: comment %>
-          <% end %>
+          <%= render "comments/private_comment",comment: comment %>
         </div>
       </div>
       <div class="col-md-11">
@@ -33,15 +29,12 @@
     </div>
     <div class="clearfix d-flex">
     </div>
-
-    <% if current_user %>
-      <% if current_user != comment.user  %>
-        <a href="#" class="comment-form-display mx-2" data-action="click->post-comment#clickReplyButton">Reply this comment</a>
-      <% end %>
-      <div class="comment-form ps-5 d-none">
-        <%= render partial: 'comments/form', locals: { post: comment.post, parent: comment , user: current_user, cancel: true} %>
-      </div>
+    <% if current_user != comment.user  %>
+      <a href="#" class="comment-form-display mx-2" data-action="click->post-comment#clickReplyButton">Reply this comment</a>
     <% end %>
+    <div class="comment-form ps-5 d-none">
+      <%= render partial: 'comments/form', locals: { post: comment.post, parent: comment , user: current_user, cancel: true} %>
+    </div>
     <hr/>
     <div class="sub-comment">
       <%= render comment.comments %>

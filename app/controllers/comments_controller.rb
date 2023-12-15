@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
                 create_notification_for_post(@comment,@post,message)
               end
             end
-            format.html { redirect_to post_path(params[:post_id]), notice: "Comment was successfully created." }
+            format.turbo_stream
           else
             format.html { redirect_to post_path(params[:post_id]), alert: "Comment can't be blank! 😓😓😓"}
           end
