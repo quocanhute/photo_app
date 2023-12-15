@@ -24,7 +24,7 @@ class User < ApplicationRecord
   # access the Notification object
   has_many :sent_notifications, class_name: 'Notification', foreign_key: 'sender_id'
   has_many :received_notifications, class_name: 'Notification', foreign_key: 'receiver_id'
-  has_many :notifications, as: :object
+  has_many :notifications, as: :object, dependent: :destroy
 
   has_many :photos, dependent: :destroy
   has_many :albums, dependent: :destroy

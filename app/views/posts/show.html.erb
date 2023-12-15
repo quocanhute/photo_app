@@ -14,15 +14,15 @@
   <hr/>
   <div class="d-flex justify-content-center mb-5">
     <% if current_user %>
-      <% if @post.comments.count > 0 %>
-        <ul class="comments w-100">
-          <turbo-frame id="post-comments_<%= @post.id %>">
-              <%= render "comments/comments", post: @post %>
-          </turbo-frame>
-        </ul>
-      <% else %>
-        No comments here!!! 😢😢😢
-      <% end %>
+      <ul class="comments w-100">
+        <turbo-frame id="post-comments_<%= @post.id %>">
+          <% if @post.comments.count > 0 %>
+            <%= render "comments/comments", post: @post %>
+          <% else %>
+            <b>No comments here!!! 😢😢😢</b>
+          <% end %>
+        </turbo-frame>
+      </ul>
     <% else %>
       <% if @post.comments.count > 0 %>
         <ul class="comments w-100">

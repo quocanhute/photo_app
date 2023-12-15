@@ -61,7 +61,10 @@ class PostsController < ApplicationController
 
   def publish
     @post.update(published: true, published_at: Time.now)
-
+    @post.user.follower.each do |user|
+      message = "User #{@post.user.username} just creating a new posts"
+      create_notification_for_follower(@post,@post.user,user,message)
+    end
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [update_action_publish,update_published_at]
@@ -137,6 +140,17 @@ class PostsController < ApplicationController
                              locals: {
                                post: @post
                              })
+  end
+
+  def create_notification_for_follower(post,followee,follower,message)
+    # Tạo Notification cho comment
+    Notification.create(
+      sender: followee,
+      receiver: follower,
+      object: post,
+      as_read: false,
+      content: message
+    )
   end
 
 end

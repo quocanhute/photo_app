@@ -8,6 +8,8 @@ class NotificationController < ApplicationController
       redirect_to post_path(@notification.object.post)
     when "User"
       redirect_to profile_path(@notification.object)
+    when "Post"
+      redirect_to post_path(@notification.object)
     else
     end
   end
