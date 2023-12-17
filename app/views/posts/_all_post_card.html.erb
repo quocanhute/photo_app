@@ -1,13 +1,18 @@
 <% posts.each do |post| %>
   <%= content_tag(:div) do %>
     <div class="card mb-2" style="border: none;">
-      <div class="card-header" style="border: none; background-color: #EFEFEF;">
-        <% if post.user.avatar.attached? %>
-          <%= image_tag(post.user.avatar, alt: "#{post.user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
-        <% else %>
-          <%= image_tag("user.jpg", alt: "#{post.user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
-        <% end %>
-        <%= link_to "#{post.user.username}", profile_path(post.user),data:{turbo: false},class: "mx-1 text-dark" %>
+      <div class="card-header d-flex justify-content-between align-items-center" style="border: none; background-color: #EFEFEF;">
+        <div>
+          <% if post.user.avatar.attached? %>
+            <%= image_tag(post.user.avatar, alt: "#{post.user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
+          <% else %>
+            <%= image_tag("user.jpg", alt: "#{post.user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
+          <% end %>
+          <%= link_to "#{post.user.username}", profile_path(post.user),data:{turbo: false},class: "mx-1 text-dark" %>
+        </div>
+        <div>
+          <b>Created</b> <%= time_ago_in_words(post.created_at) %> ago
+        </div>
       </div>
       <div class="card-body" style="background-color: #EFEFEF;">
         <%= link_to post_path(post), data:{turbo: false}, class: 'text-decoration-none text-dark' do %>
@@ -24,9 +29,7 @@
           <span style="" class="text-dark"><i class="fa-solid fa-comment-dots"></i> <%= post.comments.count %> Comments</span>
         </div>
         <% if current_user %>
-          <%= link_to bookmark_post_path(post, type: :downvote),data: { turbo_method: :patch }, class: "" do %>
-            <i class="fa-solid fa-bookmark <%= label_styles_bookmark(post, current_user) %>"></i>
-          <% end %>
+          <i class="fa-solid fa-bookmark <%= label_styles_bookmark(post, current_user) %>"></i>
         <% end %>
       </div>
     </div>

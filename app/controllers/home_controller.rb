@@ -21,7 +21,14 @@ class HomeController < ApplicationController
   end
 
   def index_show_post
-    @pagy, @posts = pagy(Post.where(published: true), items:POSTS_PER_PAGE)
+    case params[:index]
+    when "top"
+      @pagy, @posts = pagy(Post.where(published: true).order(cached_weighted_like_score: :desc), items: POSTS_PER_PAGE)
+    when "oldest"
+      @pagy, @posts = pagy(Post.where(published: true).order(created_at: :asc), items: POSTS_PER_PAGE)
+    when "newest"
+      @pagy, @posts = pagy(Post.where(published: true).order(created_at: :desc), items: POSTS_PER_PAGE)
+    end
     # sleep(1)
     respond_to do |format|
       format.html # GET
