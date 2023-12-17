@@ -11,18 +11,10 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <div class="col-6">
-      <div class="form-outline mb-4 w-100">
-        <%= form.label :name %>
-        <%= form.text_field :name, class: "form-control form-control-lg", disabled: true %>
-      </div>
-      <div class="form-outline mb-4 w-100">
-        <%= form.label :detail %>
-        <%= form.text_field :detail,class: "form-control form-control-lg" %>
-      </div>
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-6 d-flex flex-column align-items-center border border-secondary rounded py-4 px-4">
       <div class="col-md-4">
-        <div class="profile-img" data-controller="upload-image">
+        <div class="profile-img border-bottom border-secondary rounded" data-controller="upload-image">
           <% if @tag.tag_image.attached? %>
             <div class="avatar">
               <%= image_tag(@tag.tag_image, alt: "#{@tag.name}", class: "photo-image", id: "imgPhoto",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
@@ -40,9 +32,18 @@
                               direct_upload: true %>
         </div>
       </div>
+      <div class="form-outline mb-4 w-100">
+        <%= form.label :name %>
+        <%= form.text_field :name, class: "form-control form-control-lg", disabled: true %>
+      </div>
+      <div class="form-outline mb-4 w-100">
+        <%= form.label :detail %>
+        <%= form.text_field :detail,class: "form-control form-control-lg" %>
+      </div>
+      <div class="actions">
+        <%= form.submit 'Update Tag', class: "btn btn-primary" %>
+      </div>
     </div>
   </div>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+
 <% end %>
