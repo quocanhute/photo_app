@@ -61,9 +61,12 @@ class PostsController < ApplicationController
 
   def publish
     @post.update(published: true, published_at: Time.now)
-    @post.user.follower.each do |user|
-      message = "User #{@post.user.username} just creating a new posts"
-      create_notification_for_follower(@post,@post.user,user,message)
+    unless @post.already_published
+      @post.update(already_published: true)
+      @post.user.follower.each do |user|
+        message = "User #{@post.user.username} just creating a new posts"
+        create_notification_for_follower(@post,@post.user,user,message)
+      end
     end
     respond_to do |format|
       format.turbo_stream do
