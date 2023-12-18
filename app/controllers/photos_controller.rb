@@ -72,7 +72,7 @@ class PhotosController < ApplicationController
 
 
   def photo_params
-    params.require(:photo).permit(:title, :url, :img, :description, :is_public)
+    params.require(:photo).permit(:title, :url, :img, :video, :description, :is_public)
   end
   
   def check_photo_ownership

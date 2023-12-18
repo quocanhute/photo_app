@@ -14,11 +14,13 @@ class Photo < ApplicationRecord
   has_many :likeables,dependent: :destroy
   has_many :likes, through: :likeables, source: :user
   belongs_to :user
-  has_one_attached :img
+  has_one_attached :img, dependent: :destroy
+  has_one_attached :video
 
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true, length: { maximum: 255 }
   validates :img, presence: true
+  validates :video, presence: true
 
 
   def broadcast_new_photo

@@ -1,9 +1,8 @@
-<h1>Editing photo</h1>
-<hr/>
-<%= render "form", photo: @photo %>
-
-<hr/>
-<div>
-  <%= link_to "Back to photos", photos_path,class: "btn btn-primary" %>
+<div class="d-flex mb-2 justify-content-between">
+  <%= link_to "Back to photos", photos_path,class: "btn btn-secondary" %>
   <%= button_to "Delete this photos", photo_path(@photo), :method => :delete,  data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
 </div>
+<hr/>
+<%= render "form", photo: @photo %>
+<hr/>
+
