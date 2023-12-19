@@ -13,8 +13,6 @@
             <%= content_tag(:h3, user.last_name, class: "name text-center") %>
           <% end %>
           <%= content_tag(:p, user.role, class: "title text-center") %>
-          <%= content_tag(:p, "#{pluralize(user.photos.count, "photo")}", class: "description text-center") %>
-          <%= content_tag(:p, "#{pluralize(user.albums.count, "album")} ", class: "description text-center") %>
           <%= render partial: 'profile/follow_button',locals: {user: user} %>
         </div>
       </div>
@@ -23,5 +21,4 @@
   <% else %>
     <h3 class="col-12">Nothing users to show!!!</h3>
   <% end %>
-
 </div>

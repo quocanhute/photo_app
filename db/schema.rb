@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_19_014999) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_19_200000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,16 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_19_014999) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "albums", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.boolean "is_public", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_albums_on_user_id"
-  end
-
   create_table "chats", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.json "history"
@@ -99,24 +89,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_19_014999) do
     t.index ["post_id"], name: "index_elements_on_post_id"
   end
 
-  create_table "likeablealbums", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "album_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["album_id"], name: "index_likeablealbums_on_album_id"
-    t.index ["user_id"], name: "index_likeablealbums_on_user_id"
-  end
-
-  create_table "likeables", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "photo_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["photo_id"], name: "index_likeables_on_photo_id"
-    t.index ["user_id"], name: "index_likeables_on_user_id"
-  end
-
   create_table "messages", force: :cascade do |t|
     t.bigint "chat_id", null: false
     t.string "role"
@@ -139,16 +111,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_19_014999) do
     t.index ["object_type", "object_id"], name: "index_notifications_on_object"
     t.index ["receiver_id"], name: "index_notifications_on_receiver_id"
     t.index ["sender_id"], name: "index_notifications_on_sender_id"
-  end
-
-  create_table "photos", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.boolean "is_public", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -295,19 +257,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_19_014999) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "albums", "users"
   add_foreign_key "chats", "users"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "elements", "posts"
-  add_foreign_key "likeablealbums", "albums"
-  add_foreign_key "likeablealbums", "users"
-  add_foreign_key "likeables", "photos"
-  add_foreign_key "likeables", "users"
   add_foreign_key "messages", "chats"
   add_foreign_key "notifications", "users", column: "receiver_id"
   add_foreign_key "notifications", "users", column: "sender_id"
-  add_foreign_key "photos", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "taggings", "tags"
   add_foreign_key "user_tags", "tags"

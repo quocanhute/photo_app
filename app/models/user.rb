@@ -26,17 +26,10 @@ class User < ApplicationRecord
   has_many :received_notifications, class_name: 'Notification', foreign_key: 'receiver_id'
   has_many :notifications, as: :object, dependent: :destroy
 
-  has_many :photos, dependent: :destroy
-  has_many :albums, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :videos, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-
-  has_many :likeables, dependent: :destroy
-  has_many :liked_photos, through: :likeables, source: :photo
-  has_many :likeablealbums, dependent: :destroy
-  has_many :liked_albums, through: :likeablealbums, source: :album
   has_many :user_tags, dependent: :destroy
   has_many :tags, through: :user_tags, source: :tag
   has_many :chats, dependent: :destroy
@@ -60,38 +53,6 @@ class User < ApplicationRecord
     end
   end
 
-  # ============================Photo==================================
-  def liked?(photo)
-    liked_photos.include?(photo)
-  end
-  def like(photo)
-    if liked_photos.include?(photo)
-      liked_photos.destroy(photo)
-    else
-      liked_photos << photo
-    end
-    public_target = "photo_#{photo.id}_public_likes"
-    broadcast_replace_later_to 'public_likes',
-                               target: public_target,
-                               partial: 'likes/like_count',
-                               locals: {photo: photo}
-  end
-    # ============================Album==================================
-  def liked_album?(album)
-    liked_albums.include?(album)
-  end
-  def like_album(album)
-    if liked_albums.include?(album)
-      liked_albums.destroy(album)
-    else
-      liked_albums << album
-    end
-    public_target = "album_#{album.id}_public_likes"
-    broadcast_replace_later_to 'album_public_likes',
-                               target: public_target,
-                               partial: 'likes/like_count_album',
-                               locals: {album: album}
-  end
     # ==================================================================
   def username
     self.first_name + " " + self.last_name

@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   }
 
   # action home page
-  get '/photos', to: "home#index_show_photo", as: 'photos_index'
   get '/posts', to: "home#index_show_post", as: 'posts_index'
   post '/posts', to: "home#index_show_post", as: 'get_post_index_pagy'
   get '/videos', to: "home#index_show_video", as: 'videos_index'
@@ -16,9 +15,6 @@ Rails.application.routes.draw do
   # action admin
   namespace 'admin' do
     resources :users
-    resources :photos
-    resources :albums
-
   end
 
   # action user
@@ -45,8 +41,6 @@ Rails.application.routes.draw do
         post :publish
       end
     end
-    resources :photos
-    resources :albums
   end
 
   resources :chats do
@@ -72,19 +66,10 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/profile/:id/albums', to: 'profile#show_album', as: 'view_albums_user'
-  get '/profile/:id/follower', to: 'profile#show_follower_user', as: 'view_follower_user'
-  get '/profile/:id/followee', to: 'profile#show_followee_user', as: 'view_followee_user'
-
-  # action like
-  post 'like_photo/:id', to: 'photos#like_photo', as: 'like_photo'
-  post 'like_album/:id', to: 'albums#like_album', as: 'like_album'
   # action search
   post 'search/suggestions', to: 'search#suggestions', as: 'search_suggestions'
   get 'search', to: 'search#search_all', as: 'search_all'
   get 'show_all_user_search', to: 'search#show_all_user_search', as: :show_all_user_search
-  get 'show_all_photo_search', to: 'search#show_all_photo_search', as: :show_all_photo_search
-  get 'show_all_album_search', to: 'search#show_all_album_search', as: :show_all_album_search
 
   # View Object Notification
   get '/notification/:id', to: 'notification#view_object', as: 'view_object'

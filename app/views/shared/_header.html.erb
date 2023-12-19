@@ -20,7 +20,7 @@
               <a class="nav-link text-white" href="#">Features...</a>
             </li>
             <li class="nav-item hover-animation-nav-item">
-              <%= render partial: "search/form", locals: {photos: [],albums: [],users: []} %>
+              <%= render partial: "search/form", locals: {users: []} %>
             </li>
           </ul>
         </div>
@@ -51,7 +51,7 @@
                   <hr/>
                   <li><%= link_to "Dashboard", dashboard_index_path, class: "my-2 my-sm-0 dropdown-item" %></li>
                   <li><%= link_to t('user.post.object.user_post'), posts_path, class: "my-2 my-sm-0 dropdown-item" %></li>
-                  <li><%= link_to t('user.photo.object.user_photo'), photos_path, class: "my-2 my-sm-0 dropdown-item" %></li>
+                  <li><%= link_to "My Videos", videos_path, class: "my-2 my-sm-0 dropdown-item" %></li>
 
                   <hr/>
                   <li><%= link_to "Edit account", edit_user_registration_path, class: "my-2 my-sm-0 dropdown-item" %></li>
