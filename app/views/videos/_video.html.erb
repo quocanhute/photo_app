@@ -1,0 +1,37 @@
+<div id="<%= dom_id video %>">
+  <div class="row">
+    <div class="col-md-1">
+      <% if current_user %>
+        <%= render 'votable' , user: current_user, video: video %>
+      <% else %>
+        <%= render 'votable_guest',video: video%>
+      <% end %>
+    </div>
+    <div class="col-md-11">
+      <div class="card mb-3" style="border: none">
+        <div class="card-header text-end">
+          <%= render partial: 'videos/published_at',locals: {video: video} %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= video.title %></h5>
+          <p class="card-text"><%= video.description %></p>
+        </div>
+      </div>
+      <div class="card mb-5" style="border: none">
+        <div class="card-body pt-5">
+          <div class="video">
+            <%= video_tag url_for(video.video), style: 'width:100%', controls: true, autoplay: true,loop: true %>
+          </div>
+        </div>
+        <div class="card-footer pt-3 pb-3">
+          <strong>Tags:</strong>
+          <% video.tags.each do |tag| %>
+            <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

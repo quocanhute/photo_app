@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: %i[ index new edit create update destroy vote bookmark]
   before_action :set_post, only: %i[ show edit update destroy publish unpublish vote bookmark]
+  before_action :check_post_ownership, only: [:edit, :update, :destroy]
 
   # GET /posts or /posts.json
   def index
@@ -154,6 +155,14 @@ class PostsController < ApplicationController
       as_read: false,
       content: message
     )
+  end
+
+  def check_post_ownership
+    post = Post.find_by(id: params[:id])
+    if post && post.user_id == current_user.id
+    else
+      redirect_to root_path, alert: 'Access denied.'
+    end
   end
 
 end

@@ -1,0 +1,21 @@
+<div class="row row-cols-4 d-flex align-items-center">
+  <% videos.each do |video| %>
+    <div class="col col-6 col-md-3 my-2 rounded float-left profile-card-img">
+      <div class="profile-photo-card card border-0 align-items-center justify-content-center">
+        <%= image_tag(video.header_image, alt: "#{video.title}", class: "profile-photo w-100 card-img-top", id: "avatar",style: 'height:300px;width:300px') %>
+        <div class="card-body">
+          <p class="card-text"><%= video.title %></p>
+        </div>
+        <% unless video.published? %>
+          <i class="border-white fa-solid fa-lock private-photo"></i>
+        <% end %>
+        <%= link_to "Edit",edit_video_path(video),class: "card-link-edit btn btn-lg btn-primary" %>
+        <%= link_to "View", video_path(video),class: "card-link-view btn btn-lg btn-primary" %>
+      </div>
+    </div>
+
+  <% end %>
+  <%= paginate videos, theme: 'bootstrap-5',
+               pagination_class: "pagination-sm flex-wrap justify-content-center",
+               nav_class: "d-inline-block col-12" %>
+</div>

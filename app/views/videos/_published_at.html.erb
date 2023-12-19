@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "#{dom_id(video)}_published_at" ,class: "#{dom_id(video)}_published_at" do %>
+  <% if video.published? %>
+    <b>Published</b> <%= time_ago_in_words(video.published_at) %> ago
+  <% else %>
+    <b>Unpublished</b>
+  <% end %>
+<% end %>

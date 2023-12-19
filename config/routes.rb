@@ -37,6 +37,14 @@ Rails.application.routes.draw do
         end
       end
     end
+    resources :videos do
+      member do
+        patch :vote
+        patch :bookmark
+        post :unpublish
+        post :publish
+      end
+    end
     resources :photos
     resources :albums
   end

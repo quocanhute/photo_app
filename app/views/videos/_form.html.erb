@@ -1,0 +1,70 @@
+<%= form_with(model: video, class: "mb-2") do |form| %>
+  <% if video.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(video.errors.count, "error") %> prohibited this photo from being saved:</h2>
+
+      <ul>
+        <% video.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-3 border border-2 rounded-2 mb-2">
+      <div class="form-outline mb-4 w-100">
+        <%= form.label :title %>
+        <%= form.text_field :title,class: "form-control form-control-lg" %>
+      </div>
+      <div class="form-outline mb-4 w-100">
+        <%= form.label :description %>
+        <%= form.text_area :description,class: "form-control form-control-lg" %>
+      </div>
+      <div class="form-outline mb-4 w-100">
+        <%= form.label :tag_list, "Tags (separated by commas)" %><br />
+        <%= form.text_field :tag_list, value: video.tag_list.join(","), class: 'form-control' %>
+      </div>
+      <% if video.id? %>
+        <%= render partial: 'videos/publisher_button',locals: {video: video} %>
+      <% end %>
+      <div class="mb-2 mt-2">
+        <div class="profile-img" data-controller="upload-image">
+          <% if video.header_image.attached? %>
+            <div class="avatar">
+              <%= image_tag(video.header_image, alt: "#{video.title}", class: "photo-image", id: "imgPhoto",style: 'width: 100%;height:150px',data: { target: 'upload-image.avatar'}) %>
+            </div>
+          <%else %>
+            <div class="avatar">
+              <%= image_tag('image.jpg', class: "photo-image", id: "imgPhoto",style: 'width: 100%;height:150px',data: { target: 'upload-image.avatar'}) %>
+            </div>
+          <% end %>
+          <%= form.label :header_image,"Change header photo", class: "col-8 col-form-label label-avatar" %>
+          <%= form.file_field :header_image,
+                              class: "d-none",
+                              placeholder: 'Update picture',
+                              data:{action: 'change->upload-image#handleChange'},
+                              direct_upload: true %>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-9">
+      <div class="">
+        <% if video.video.attached? %>
+          <div class="video">
+            <%= video_tag url_for(video.video), style: 'width:100%', controls: true, autoplay: true,loop: true %>
+          </div>
+          <%= form.file_field :video %>
+        <% else %>
+          <h3>Add your video</h3>
+          <%= form.file_field :video %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary"%>
+  </div>
+<% end %>

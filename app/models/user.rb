@@ -29,7 +29,9 @@ class User < ApplicationRecord
   has_many :photos, dependent: :destroy
   has_many :albums, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :videos, dependent: :destroy
   has_many :comments, dependent: :destroy
+
 
   has_many :likeables, dependent: :destroy
   has_many :liked_photos, through: :likeables, source: :photo

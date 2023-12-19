@@ -1,0 +1,12 @@
+<div class="d-flex flex-column justify-content-center">
+  <%= link_to vote_video_path(video, type: :upvote),data: { turbo_method: :patch }, class: "item-votable text-dark" do %>
+    <i class="fa-solid fa-angles-up"></i>
+  <% end %>
+  <span style="" class="item-votable text-dark"><%= video.cached_weighted_like_score %></span>
+  <%= link_to vote_video_path(video, type: :downvote),data: { turbo_method: :patch }, class: "item-votable text-dark" do %>
+    <i class="fa-solid fa-angles-down"></i>
+  <% end %>
+  <%= link_to bookmark_video_path(video, type: :downvote),data: { turbo_method: :patch }, class: "item-votable text-dark" do %>
+    <i class="fa-solid fa-marker"></i>
+  <% end %>
+</div>

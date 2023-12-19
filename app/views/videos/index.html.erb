@@ -1,0 +1,6 @@
+<div class="d-flex justify-content-between mb-2">
+  <h2>My Videos</h2>
+  <%= link_to "New video", new_video_path, class: 'btn btn-primary' %>
+</div>
+
+<%= render "videos/video_card", videos: @videos %>
