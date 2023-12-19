@@ -8,10 +8,10 @@ Rails.application.routes.draw do
 
   # action home page
   get '/photos', to: "home#index_show_photo", as: 'photos_index'
-  get '/albums', to: "home#index_show_album", as: 'albums_index'
   get '/posts', to: "home#index_show_post", as: 'posts_index'
   post '/posts', to: "home#index_show_post", as: 'get_post_index_pagy'
-
+  get '/videos', to: "home#index_show_video", as: 'videos_index'
+  post '/videos', to: "home#index_show_video", as: 'get_video_index_pagy'
 
   # action admin
   namespace 'admin' do

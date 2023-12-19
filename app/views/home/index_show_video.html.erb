@@ -1,0 +1,25 @@
+<main role="main" class="col-lg-12 px-md-4 mx-auto pt-3">
+  <div class="row justify-content-center col-12">
+    <div id="photoContent">
+      <h1>Videos</h1>
+      <%= turbo_stream_from "public_likes" %>
+      <% photo_channel = current_user ? "private_photos" : "public_photos" %>
+      <%= turbo_stream_from photo_channel %>
+      <%= turbo_stream_from [@user_gid, 'private_likes'] %>
+      <%= content_tag(:div, id: photo_channel) do %>
+        <%= turbo_frame_tag :videos ,class: "row row-col-2" do %>
+          <%= render "videos/all_video_card", videos: @videos %>
+        <%end %>
+      <% end %>
+      <div id="load_more_button_video" class="d-flex justify-content-center mb-5">
+        <% if @pagy.next.present? %>
+          <%= button_to "Load more", pagy_url_for(@pagy, @pagy.next), class: "btn btn-outline-primary btn-lg" %>
+        <% else %>
+          <span>
+            <b>There are all videos!!! 😁</b>
+          </span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>

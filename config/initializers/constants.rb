@@ -2,7 +2,8 @@
 PHOTOS_PER_PAGE = 6
 # Posts per page
 POSTS_PER_PAGE = 10
-
+# Videos per page
+VIDEOS_PER_PAGE = 6
 # Bad words
 BAD_WORDS = ['2g1c', '2 girls 1 cup', 'acrotomophilia', 'alabama hot pocket', 'alaskan pipeline',
              'anal', 'anilingus', 'anus', 'apeshit', 'arsehole', 'ass', 'asshole', 'assmunch', 'auto erotic',

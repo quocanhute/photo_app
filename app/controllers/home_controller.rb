@@ -11,8 +11,8 @@ class HomeController < ApplicationController
     end
   end
 
-  def index_show_album
-    @pagy, @albums = pagy_countless(Album.where(is_public: true), items:6)
+  def index_show_video
+    @pagy, @videos = pagy_countless(Video.where(published: true), items:VIDEOS_PER_PAGE)
     # sleep(1)
     respond_to do |format|
       format.html

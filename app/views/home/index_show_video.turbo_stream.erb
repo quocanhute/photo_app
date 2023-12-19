@@ -1,0 +1,13 @@
+<%= turbo_stream.append :videos do %>
+  <%= render "videos/all_video_card", videos: @videos %>
+<%end %>
+
+<%= turbo_stream.update "load_more_button_video" do %>
+  <% if @pagy.next.present? %>
+    <%= button_to "Load more", pagy_url_for(@pagy, @pagy.next), class: "btn btn-outline-primary btn-lg" %>
+  <% else %>
+    <span>
+      <b>Nothing to show!!! 😁</b>
+    </span>
+  <% end %>
+<% end %>

@@ -1,0 +1,55 @@
+<% videos.each do |video| %>
+  <div class="col-12 col-md-6">
+    <div class="card mb-3 p-1" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-12 col-md-6">
+          <%= link_to video_path(video), data:{turbo: false} do%>
+            <%= image_tag(video.header_image, alt: "Video Picture", class: "photo-image img-fluid rounded-start", id: "video_#{video.id}") %>
+          <% end %>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card-body photo-card">
+            <div class="card-header">
+              <div class="user-photo-card d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-start align-items-center">
+                  <% if video.user.avatar_attachment %>
+                    <%= image_tag(video.user.avatar, alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                  <% else %>
+                    <%= image_tag('user.jpg', alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                  <% end %>
+                  <%= link_to "#{video.user.username}", profile_path(video.user),data:{turbo: false},class: "mx-1" %>
+                </div>
+                <% if current_user %>
+                  <% if video.user != current_user %>
+                    <%= render partial: 'profile/follow_button',locals: {user: video.user} %>
+                  <% elsif current_user %>
+                    <%= link_to "Edit", edit_video_path(video.id),data:{turbo: false},class: "btn btn-primary text-primary border-blue bg-white" %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <div class="card-body" style="height: 67%;">
+              <h5 class="card-title"><%= video.title %></h5>
+              <p class="card-text"><%= video.description %></p>
+              <% video.tags.each do |tag| %>
+                <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
+              <% end %>
+            </div>
+            <div class="card-footer text-muted d-flex flex-column justify-content-between" style="border: none; background-color: #EFEFEF;">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <span style="" class="text-dark"><i class="fa-solid fa-star"></i> <%= video.cached_weighted_like_score %> Points</span>
+                  <!--                <span style="" class="text-dark"><i class="fa-solid fa-comment-dots"></i> <%#= video.comments.count %> Comments</span>-->
+                </div>
+                <% if current_user %>
+                  <i class="fa-solid fa-bookmark <%= label_styles_bookmark(video, current_user) %>"></i>
+                <% end %>
+              </div>
+              <%= content_tag(:p,"Create at #{video.created_at.strftime('%d/%m/%Y')}",class: "card-text") %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

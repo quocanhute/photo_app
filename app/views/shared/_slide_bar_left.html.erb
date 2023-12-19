@@ -14,7 +14,7 @@
         <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("videos") && !path.include?("users")) && !path.include?("profile") && !path.include?("admin") }") do %>
           <div class="d-flex align-items-center">
-            <%= link_to "📹 Videos", photos_index_path, class: "nav-link text-black" %>
+            <%= link_to "📹 Videos", videos_index_path, class: "nav-link text-black" %>
           </div>
         <% end %>
         <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("users") && path.include?("posts") && (path.size < 3)) }") do %>

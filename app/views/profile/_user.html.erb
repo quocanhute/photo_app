@@ -68,11 +68,13 @@
       <div class="col-md-3">
         <div class="d-flex flex-column px-3 py-3 rounded-3" style="background-color: #EFEFEF">
           <% if user != current_user %>
-            <h5 class="text-secondary">📰</i> <%= "#{pluralize(user.posts.where(published: true).count, "post")} published"%></h5> 
+            <h5 class="text-secondary">📰</i> <%= "#{pluralize(user.posts.where(published: true).count, "post")} published"%></h5>
+            <h5 class="text-secondary">📹</i> <%= "#{pluralize(user.videos.where(published: true).count, "video")} published"%></h5>
             <h5 class="text-secondary">🗨️ <%= "#{pluralize(user.comments.count, "comment")} written"%></h5> 
             <h5 class="text-secondary">🏷 <%= "#{pluralize(user.tags.count, "tag")} followed"%></h5> 
           <% elsif current_user %>
-            <h5 class="text-secondary">📰 <%= "#{pluralize(user.posts.count, "post")} written"%></h5> 
+            <h5 class="text-secondary">📰 <%= "#{pluralize(user.posts.count, "post")} written"%></h5>
+            <h5 class="text-secondary">📹 <%= "#{pluralize(user.videos.count, "video")} written"%></h5>
             <h5 class="text-secondary">🗨️ <%= "#{pluralize(user.comments.count, "comment")} written"%></h5> 
             <h5 class="text-secondary">🏷 <%= "#{pluralize(user.tags.count, "tag")} followed"%></h5> 
           <% end %>
