@@ -29,6 +29,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :videos, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :vcomments, dependent: :destroy
 
   has_many :user_tags, dependent: :destroy
   has_many :tags, through: :user_tags, source: :tag
@@ -64,7 +65,7 @@ class User < ApplicationRecord
       reset_password_sent_at reset_password_token role unconfirmed_email unlock_token updated_at]
   end
   def self.ransackable_associations(auth_object = nil)
-    %w[albums avatar_attachment avatar_blob comments followed_user followee follower following_user likeablealbums likeablecomments likeables liked_albums liked_comments liked_photos photos posts votes]
+    %w[avatar_attachment avatar_blob comments followed_user followee follower following_user liked_comments posts votes videos]
   end
 
 end

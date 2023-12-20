@@ -4,3 +4,35 @@
   </div>
 
 </div>
+
+<div class="blog-comment">
+  <h3 class="text-success">Comments:</h3>
+  <% if current_user %>
+    <%= render partial: 'vcomments/form', locals: { video: @video , parent: nil, user: current_user, cancel: false} %>
+  <% end %>
+
+  <hr/>
+  <div class="d-flex justify-content-center mb-5">
+    <% if current_user %>
+      <ul class="comments w-100">
+        <turbo-frame id="video-comments_<%= @video.id %>">
+          <% if @video.vcomments.count > 0 %>
+            <%= render "vcomments/vcomments", video: @video %>
+          <% else %>
+            <b>No comments here!!! 😢😢😢</b>
+          <% end %>
+        </turbo-frame>
+      </ul>
+    <% else %>
+      <% if @video.vcomments.count > 0 %>
+        <ul class="comments w-100">
+          <%= render "vcomments/vcomments_for_guest" , vcomments: @video.vcomments.where(parent_id: nil) %>
+        </ul>
+      <% else %>
+        No comments here!!! 😢😢😢
+      <% end %>
+    <% end %>
+  </div>
+
+
+</div>

@@ -3,6 +3,7 @@ class Video < ApplicationRecord
   belongs_to :user
   has_one_attached :header_image, dependent: :destroy
   has_one_attached :video, dependent: :destroy
+  has_many :vcomments, dependent: :destroy
   has_many :tags
   has_many :notifications, as: :object, dependent: :destroy
 

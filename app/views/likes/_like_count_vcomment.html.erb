@@ -1,0 +1,4 @@
+<%= turbo_frame_tag "#{dom_id(vcomment)}_public_likes", class: "mx-1" do %>
+  <%= vcomment.cached_weighted_like_score %>
+<% end %>
+

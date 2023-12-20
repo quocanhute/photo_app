@@ -10,7 +10,10 @@ class NotificationController < ApplicationController
       redirect_to profile_path(@notification.object)
     when "Post"
       redirect_to post_path(@notification.object)
-    else
+    when "Video"
+      redirect_to video_path(@notification.object)
+    when "Vcomment"
+      redirect_to video_path(@notification.object)
     end
   end
 

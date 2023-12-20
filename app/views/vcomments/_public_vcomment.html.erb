@@ -1,0 +1,11 @@
+<div id="<%= dom_id vcomment %>">
+  <div class="flex-column justify-content-center">
+    <%= link_to vote_video_vcomment_path(vcomment.video,vcomment, type: :upvote),data: { turbo_method: :patch }, class: "item-votable-comment text-dark" do %>
+      <i class="fa-solid fa-caret-up"></i>
+    <% end %>
+    <span style="" class="item-votable-comment"><%= vcomment.cached_weighted_like_score %></span>
+    <%= link_to vote_video_vcomment_path(vcomment.video,vcomment, type: :downvote),data: { turbo_method: :patch }, class: "item-votable-comment text-dark" do %>
+      <i class="fa-solid fa-caret-down"></i>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,3 @@
+<% video.vcomments.where(parent_id: nil).each do |vcomment| %>
+  <%= render "vcomments/vcomment", vcomment: vcomment %>
+<% end %>

@@ -40,6 +40,11 @@ Rails.application.routes.draw do
         post :unpublish
         post :publish
       end
+      resources :vcomments, only: [:create, :destroy] do
+        member do
+          patch :vote
+        end
+      end
     end
   end
 

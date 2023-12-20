@@ -1,0 +1,26 @@
+<% vcomments.each do |vcomment| %>
+  <div class="row w-100 ">
+    <div class="col-md-1">
+      <div class="d-flex flex-column">
+        <% if vcomment.user.avatar.attached? %>
+          <%= image_tag(vcomment.user.avatar, alt: "#{vcomment.user.username}", class: "avatar", id: "avatarUserHeader") %>
+        <% else %>
+          <%= image_tag("user.jpg", alt: "#{vcomment.user.username}", class: "avatar", id: "avatarUserHeader") %>
+        <% end %>
+        <%= render "comments/public_comment", vcomment: vcomment %>
+      </div>
+    </div>
+    <div class="col-md-11">
+      <div class="post-comments">
+        <p class="meta">Comment <%= time_ago_in_words(vcomment.updated_at) %> <%= link_to vcomment.user.username, profile_path(vcomment.user) %> says :</p>
+        <p><%= vcomment.content %></p>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix d-flex">
+  </div>
+  <hr/>
+  <div class="sub-comment">
+    <%= render "vcomments/vcomments_for_guest", vcomments: vcomment.comments %>
+  </div>
+<% end %>

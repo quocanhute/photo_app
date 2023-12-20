@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_19_200000) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_20_214948) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -213,6 +213,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_19_200000) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vcomments", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "video_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "parent_id"
+    t.integer "cached_scoped_like_votes_total", default: 0
+    t.integer "cached_scoped_like_votes_score", default: 0
+    t.integer "cached_scoped_like_votes_up", default: 0
+    t.integer "cached_scoped_like_votes_down", default: 0
+    t.integer "cached_weighted_like_score", default: 0
+    t.integer "cached_weighted_like_total", default: 0
+    t.float "cached_weighted_like_average", default: 0.0
+    t.index ["user_id"], name: "index_vcomments_on_user_id"
+    t.index ["video_id"], name: "index_vcomments_on_video_id"
+  end
+
   create_table "videos", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -268,5 +286,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_19_200000) do
   add_foreign_key "taggings", "tags"
   add_foreign_key "user_tags", "tags"
   add_foreign_key "user_tags", "users"
+  add_foreign_key "vcomments", "users"
+  add_foreign_key "vcomments", "videos"
   add_foreign_key "videos", "users"
 end

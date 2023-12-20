@@ -1,0 +1,43 @@
+<%= turbo_stream_from "vcomment_public_likes" %>
+<% vcomment_channel = current_user ? "private_vcomments" : "public_vcomments" %>
+<%= turbo_stream_from vcomment_channel %>
+<%= turbo_stream_from [@user_gid, 'vcomment_private_likes'] %>
+<%= content_tag(:div, id: vcomment_channel) do %>
+  <div data-controller="post-comment">
+    <div class="row w-100 ">
+      <div class="col-md-1">
+        <div class="d-flex flex-column">
+          <% if vcomment.user.avatar.attached? %>
+            <%= image_tag(vcomment.user.avatar, alt: "#{vcomment.user.username}", class: "avatar", id: "avatarUserHeader") %>
+          <% else %>
+            <%= image_tag("user.jpg", alt: "#{vcomment.user.username}", class: "avatar", id: "avatarUserHeader") %>
+          <% end %>
+          <%= render "vcomments/private_vcomment",vcomment: vcomment %>
+        </div>
+      </div>
+      <div class="col-md-11">
+        <div class="post-comments">
+          <p class="meta">Comment <%= time_ago_in_words(vcomment.updated_at) %> <%= link_to vcomment.user.username, profile_path(vcomment.user) %> says :</p>
+          <% if current_user == vcomment.user %>
+            <div class="button-group float-end">
+              <%= button_to "Delete", [@video, vcomment], class: "btn btn-danger", method: :delete %>
+            </div>
+          <% end %>
+          <p><%= vcomment.content %></p>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix d-flex">
+    </div>
+    <% if current_user != vcomment.user  %>
+      <a href="#" class="comment-form-display mx-2" data-action="click->post-comment#clickReplyButton">Reply this comment</a>
+    <% end %>
+    <div class="comment-form ps-5 d-none">
+      <%= render partial: 'vcomments/form', locals: { video: vcomment.video, parent: vcomment , user: current_user, cancel: true} %>
+    </div>
+    <hr/>
+    <div class="sub-comment">
+      <%= render vcomment.vcomments %>
+    </div>
+  </div>
+<% end %>

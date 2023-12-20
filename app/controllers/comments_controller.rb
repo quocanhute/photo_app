@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
           if @comment.save
             if params[:reply].present?
             #   do noti for comment's user
-              message = "#{current_user.username} reply your comment in #{@post.title.truncate(10)}"
+              message = "#{current_user.username} reply your comment in post #{@post.title.truncate(10)}"
               create_notification_for_comment(@comment.parent,message)
             else
               if current_user != @comment.post.user

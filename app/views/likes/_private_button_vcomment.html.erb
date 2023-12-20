@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "#{dom_id(vcomment)} vcomment_private_likes" do %>
+  <div class="flex-column justify-content-center">
+    <%= link_to vote_video_vcomment_path(vcomment.video,vcomment, type: :upvote),data: { turbo_method: :patch }, class: "item-votable-comment" do %>
+      <i class="fa-solid fa-caret-up <%= label_vcomment_styles(vcomment, user, "upvote") %>"></i>
+    <% end %>
+    <span style="" class="item-votable-comment <%= score_vcomment_type(user,vcomment) %>"><%= vcomment.cached_weighted_like_score %></span>
+    <%= link_to vote_video_vcomment_path(vcomment.video,vcomment, type: :downvote),data: { turbo_method: :patch }, class: "item-votable-comment" do %>
+      <i class="fa-solid fa-caret-down <%= label_vcomment_styles(vcomment, user, "downvote") %>"></i>
+    <% end %>
+  </div>
+<% end %>
