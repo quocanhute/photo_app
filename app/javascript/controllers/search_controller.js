@@ -12,6 +12,13 @@ export default class extends Controller {
         this.hideSuggestions();
       }
     });
+
+    const select = new Choices(this.list_tagsTarget, {
+      removeItemButton: true,
+      maxItemCount:5,
+      searchResultLimit:5,
+      renderChoiceLimit:5
+    });
   }
 
   suggestions() {

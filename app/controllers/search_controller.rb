@@ -45,9 +45,9 @@ class SearchController < ApplicationController
     @q_post = Post.ransack(title_or_description_cont: params[:query])
     @set_users = @q_user.result(distinct: true)
     if params[:tag_ids].present?
-      @set_posts = @q_post.result(distinct: true).joins(:tags).where(tags: { id: params[:tag_ids] }).distinct
+      @set_posts = @q_post.result(distinct: true).joins(:tags).where(tags: { id: params[:tag_ids] }).where(published: true).distinct
     else
-      @set_posts = @q_post.result(distinct: true).distinct
+      @set_posts = @q_post.result(distinct: true).where(published: true).distinct
     end
     @search_blank_users = User.limit(6)
     @search_blank_posts = Post.limit(6)

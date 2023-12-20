@@ -3,7 +3,7 @@
   action: "keyup->search#suggestions",
   suggestions_url: search_suggestions_path,
 }) do |form| %>
-  <div class="position-relative d-flex">
+  <div class="position-relative d-flex" style="width: 500px">
     <%= form.text_field :query,
                         data: {
                           search_target: "input",
@@ -15,7 +15,10 @@
     <ul class="dropdown-menu" style="left: -20%; width: 540px" aria-labelledby="dropdownMenuButton1">
       <div class="d-flex w-100" >
         <div class="col-md-12">
-          <select id="choices-multiple-remove-button" data-search-target="list_tags" placeholder="Select upto 5 tags" multiple>
+          <select id="choices-multiple-remove-button"
+                  data-search-target="list_tags"
+                  placeholder="Select upto 5 tags"
+                  multiple>
             <% Tag.all.each do |tag| %>
               <%= content_tag(:option,value: tag.id) do %>
                 <%= tag.name %>
@@ -26,7 +29,7 @@
       </div>
     </ul>
     <div class="d-flex">
-      <%= form.submit "Search", class: "btn btn-outline-light mx-2" %>
+      <%= form.submit "🔎", class: "btn btn-outline-light mx-2" %>
 
     </div>
     <div id="suggestions" class="position-absolute w-100 top-100"
