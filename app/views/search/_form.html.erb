@@ -11,12 +11,27 @@
                         },
                         class: "form-control mr-sm-2",
                         placeholder: "Type something....", autocomplete: "off" %>
+    <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"></a>
+    <ul class="dropdown-menu" style="left: -20%; width: 540px" aria-labelledby="dropdownMenuButton1">
+      <div class="d-flex w-100" >
+        <div class="col-md-12">
+          <select id="choices-multiple-remove-button" data-search-target="list_tags" placeholder="Select upto 5 tags" multiple>
+            <% Tag.all.each do |tag| %>
+              <%= content_tag(:option,value: tag.id) do %>
+                <%= tag.name %>
+              <% end %>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </ul>
     <div class="d-flex">
       <%= form.submit "Search", class: "btn btn-outline-light mx-2" %>
+
     </div>
     <div id="suggestions" class="position-absolute w-100 top-100"
          data-search-target="suggestions" data-action="mousedown->search#childClicked">
-      <%= render partial: "search/suggestions", locals: { users: users } %>
+      <%= render partial: "search/suggestions", locals: { users: users, posts: posts } %>
     </div>
   </div>
 <% end %>

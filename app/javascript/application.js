@@ -8,6 +8,7 @@ import "bootstrap"
 import "jquery-ui/widgets/sortable"
 import "rails_sortable"
 import "toastr"
+import "choices"
 
 import "trix"
 import "@rails/actiontext"
@@ -20,21 +21,14 @@ import "@rails/actiontext"
 $(function() {
   $('.sortable').railsSortable();
 });
-// console.log("test something")
-// document.addEventListener('turbolinks:load', () => {
-//   document.addEventListener('click', () => {
-//     console.log("something")
-//     let element = event.target.closest('.paragraph-content')
-//     if (!element) return;
-//
-//     element.classList.add('d-none')
-//     element.nextElementSibling.classList.remove('d-none')
-//   })
-//
-//   document.addEventListener('click', () => {
-//     if (!event.target.matches('.cancel')) return;
-//     let element = event.target.closest('.paragraph-form')
-//     element.classList.add('d-none')
-//     element.previousElementSibling.classList.remove('d-none')
-//   })
-// })
+$(document).ready(function(){
+
+  var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+    removeItemButton: true,
+    maxItemCount:5,
+    searchResultLimit:5,
+    renderChoiceLimit:5
+  });
+
+
+});

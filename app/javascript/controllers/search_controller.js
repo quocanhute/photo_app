@@ -1,8 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
+import "choices"
 
 // Connects to data-controller="search"
 export default class extends Controller {
-  static targets = ["input", "suggestions"];
+  static targets = ["input", "suggestions","list_tags"];
 
   connect() {
     document.addEventListener("click", (event) => {
@@ -13,16 +14,18 @@ export default class extends Controller {
   }
 
   suggestions() {
+    const selectedTagIds = Array.from(this.list_tagsTarget.selectedOptions).map(option => option.value);// Get an array of selected values
+
+    // Handle change event on the select
     const query = this.inputTarget.value;
     const url = this.element.dataset.suggestionsUrl;
-
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
-      this.requestSuggestions(query, url);
+      this.requestSuggestions(query,selectedTagIds, url);
     }, 250);
   }
 
-  requestSuggestions(query, url) {
+  requestSuggestions(query,selectedTagIds, url) {
     if (query.length === 0) {
       this.hideSuggestions();
       return;
@@ -36,7 +39,7 @@ export default class extends Controller {
         "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")
             .content,
       },
-      body: JSON.stringify({ query: query }),
+      body: JSON.stringify({ query: query, tag_ids: selectedTagIds }),
     }).then((response) => {
       response.text().then((html) => {
         document.body.insertAdjacentHTML("beforeend", html);

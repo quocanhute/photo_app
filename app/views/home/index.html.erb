@@ -5,10 +5,21 @@
           <h1>Welcome to MyBlog</h1>
           <h2>Posts, videos and photos can be shared with this app.</h2>
           <%= image_tag("hero-img.png", alt: "Hero Imgs") %>
-          <%= link_to "Get Started", posts_index_path, class: "btn-get-started scrollto"%>
-
+          <%= link_to "Get Started", posts_index_path(index: "top"), class: "btn-get-started scrollto"%>
+          <div class="row d-flex justify-content-center w-100">
+            <div class="col-md-6">
+              <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" multiple>
+                <% Tag.all.each do |tag| %>
+                  <%= content_tag(:option,value: tag.id) do %>
+                    <%= tag.name %>
+                  <% end %>
+                <% end %>
+              </select>
+            </div>
+          </div>
         </div>
       </section>
     </div>
   </div>
 </main>
+

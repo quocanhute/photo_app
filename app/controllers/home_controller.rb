@@ -19,6 +19,8 @@ class HomeController < ApplicationController
       @pagy, @posts = pagy(Post.where(published: true).order(created_at: :asc), items: POSTS_PER_PAGE)
     when "newest"
       @pagy, @posts = pagy(Post.where(published: true).order(created_at: :desc), items: POSTS_PER_PAGE)
+    else
+      @pagy, @posts = pagy(Post.where(published: true), items: POSTS_PER_PAGE)
     end
     # sleep(1)
     respond_to do |format|
