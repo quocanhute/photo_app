@@ -1,33 +1,40 @@
 <div class="position-absolute w-100 rounded overflow-hidden suggestion">
-  <% if users.any? %>
-    <h5>Users suggest</h5>
-    <% users.each do |user| %>
-      <div class="p-2  d-flex align-items-center border">
-        <% if user.avatar.attached? %>
-          <%= image_tag(user.avatar, alt: "#{user.username}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
-        <% else %>
-          <%= image_tag("user.jpg", alt: "#{user.username}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
-        <% end %>
-        <%= link_to user.username, profile_path(user),class: "suggestion-title" %>
-      </div>
-    <% end %>
-    <hr/>
-  <% end %>
-  <% if posts.any? %>
-    <h5>Posts suggest</h5>
-    <% posts.each do |post| %>
-      <div class="p-2  d-flex flex-column align-items-center border">
-        <div class="d-flex">
-          <%= image_tag(post.header_image, alt: "#{post.title}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
-          <%= link_to post.title, post_path(post),class: "suggestion-title" %>
-        </div>
-        <div>
-          <% post.tags.each do |tag| %>
-            <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
+  <% if users.any? || posts.any? %>
+    <% if users.any? %>
+      <h5>Users suggest</h5>
+      <% users.each do |user| %>
+        <div class="p-2  d-flex align-items-center border">
+          <% if user.avatar.attached? %>
+            <%= image_tag(user.avatar, alt: "#{user.username}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
+          <% else %>
+            <%= image_tag("user.jpg", alt: "#{user.username}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
           <% end %>
+          <%= link_to user.username, profile_path(user),class: "suggestion-title" %>
         </div>
-      </div>
+      <% end %>
+      <hr/>
     <% end %>
-    <hr/>
+    <% if posts.any? %>
+      <h5>Posts suggest</h5>
+      <% posts.each do |post| %>
+        <div class="p-2  d-flex flex-column align-items-center border">
+          <div class="d-flex">
+            <%= image_tag(post.header_image, alt: "#{post.title}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
+            <%= link_to post.title, post_path(post),class: "suggestion-title" %>
+          </div>
+          <div>
+            <% post.tags.each do |tag| %>
+              <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <hr/>
+    <% end %>
+  <% else %>
+    <b class="mx-2 my-2">
+      Nothing to found!
+    </b>
   <% end %>
+
 </div>

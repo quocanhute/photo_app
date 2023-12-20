@@ -9,8 +9,31 @@
     </div>
     <div class="col-md-11">
       <div class="card mb-3" style="border: none">
-        <div class="card-header text-end">
-          <%= render partial: 'posts/published_at',locals: {post: post} %>
+        <div class="card-header flex-column text-start">
+          <div class="d-flex justify-content-between ">
+            <div class="d-flex">
+              <div class="d-flex justify-content-start align-items-center">
+                <% if post.user.avatar_attachment %>
+                  <%= image_tag(post.user.avatar, alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                <% else %>
+                  <%= image_tag('user.jpg', alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                <% end %>
+                <%= link_to "#{post.user.username}", profile_path(post.user),data:{turbo: false},class: "mx-1" %>
+              </div>
+              <% if current_user %>
+                <% if post.user != current_user %>
+                  <%= render partial: 'profile/follow_button',locals: {user: post.user} %>
+                <% end %>
+              <% end %>
+            </div>
+            <%= render partial: 'posts/published_at',locals: {post: post} %>
+          </div>
+          <div class="mt-2">
+            <strong>Tags:</strong>
+            <% post.tags.each do |tag| %>
+              <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
+            <% end %>
+          </div>
         </div>
         <img src="<%= url_for(post.header_image) %>" class="card-img-top" alt="...">
         <div class="card-body">
@@ -47,10 +70,6 @@
           </div>
         </div>
         <div class="card-footer pt-3 pb-3">
-          <strong>Tags:</strong>
-          <% post.tags.each do |tag| %>
-            <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
-          <% end %>
         </div>
       </div>
     </div>

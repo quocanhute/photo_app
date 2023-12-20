@@ -6,6 +6,7 @@ export default class extends Controller {
   static targets = ["input", "suggestions","list_tags"];
 
   connect() {
+    this.hideSuggestions();
     document.addEventListener("click", (event) => {
       if (!this.element.contains(event.target)) {
         this.hideSuggestions();

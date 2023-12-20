@@ -9,7 +9,22 @@
     </div>
     <div class="col-md-11">
       <div class="card mb-3" style="border: none">
-        <div class="card-header text-end">
+        <div class="card-header d-flex justify-content-between text-end">
+          <div class="d-flex">
+            <div class="d-flex justify-content-start align-items-center">
+              <% if video.user.avatar_attachment %>
+                <%= image_tag(video.user.avatar, alt: "User Avatar", class: "avatar-image rounded-circle") %>
+              <% else %>
+                <%= image_tag('user.jpg', alt: "User Avatar", class: "avatar-image rounded-circle") %>
+              <% end %>
+              <%= link_to "#{video.user.username}", profile_path(video.user),data:{turbo: false},class: "mx-1" %>
+            </div>
+            <% if current_user %>
+              <% if video.user != current_user %>
+                <%= render partial: 'profile/follow_button',locals: {user: video.user} %>
+              <% end %>
+            <% end %>
+          </div>
           <%= render partial: 'videos/published_at',locals: {video: video} %>
         </div>
         <div class="card-body">

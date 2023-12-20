@@ -38,12 +38,17 @@ class SearchController < ApplicationController
 
   private
   def set_data
-    tag_ids = params[:tag_ids] || []
+
+
     # @set_users = User.where('first_name LIKE ? OR last_name = ?', "%#{params[:query]}%", "%#{params[:query]}%")
     @q_user = User.ransack(first_name_or_last_name_cont: params[:query])
     @q_post = Post.ransack(title_or_description_cont: params[:query])
     @set_users = @q_user.result(distinct: true)
-    @set_posts = @q_post.result(distinct: true).joins(:tags).where(tags: { id: tag_ids }).distinct
+    if params[:tag_ids].present?
+      @set_posts = @q_post.result(distinct: true).joins(:tags).where(tags: { id: params[:tag_ids] }).distinct
+    else
+      @set_posts = @q_post.result(distinct: true).distinct
+    end
     @search_blank_users = User.limit(6)
     @search_blank_posts = Post.limit(6)
   end

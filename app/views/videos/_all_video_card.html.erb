@@ -38,8 +38,8 @@
             <div class="card-footer text-muted d-flex flex-column justify-content-between" style="border: none; background-color: #EFEFEF;">
               <div class="d-flex justify-content-between">
                 <div>
-                  <span style="" class="text-dark"><i class="fa-solid fa-star"></i> <%= video.cached_weighted_like_score %> Points</span>
-                  <!--                <span style="" class="text-dark"><i class="fa-solid fa-comment-dots"></i> <%#= video.comments.count %> Comments</span>-->
+                  <span style="" class="text-dark">️🏅 <%= video.cached_weighted_like_score %> Points</span>
+                  <span style="" class="text-dark">💬 <%= video.vcomments.count %> Comments</span>
                 </div>
                 <% if current_user %>
                   <i class="fa-solid fa-bookmark <%= label_styles_bookmark(video, current_user) %>"></i>

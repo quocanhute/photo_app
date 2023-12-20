@@ -25,8 +25,8 @@
       </div>
       <div class="card-footer text-muted d-flex justify-content-between" style="border: none; background-color: #EFEFEF;">
         <div>
-          <span style="" class="text-dark"><i class="fa-solid fa-star"></i> <%= post.cached_weighted_like_score %> Points</span>
-          <span style="" class="text-dark"><i class="fa-solid fa-comment-dots"></i> <%= post.comments.count %> Comments</span>
+          <span style="" class="text-dark">️🏅 <%= post.cached_weighted_like_score %> Points</span>
+          <span style="" class="text-dark">💬 <%= post.comments.count %> Comments</span>
         </div>
         <% if current_user %>
           <i class="fa-solid fa-bookmark <%= label_styles_bookmark(post, current_user) %>"></i>
