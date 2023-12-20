@@ -1,7 +1,7 @@
 <li class="nav-item dropdown " style="font-size: 19px;">
   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="badge rounded-pill bg-danger">
-      <%= user.received_notifications.where(as_read: false).count >= 9 ? "9+" : user.received_notifications.where(as_read: false).count %> <i class="fa-solid fa-bell"></i>
+      <%= user.received_notifications.where(as_read: false).count >= 9 ? "9+" : user.received_notifications.where(as_read: false).count %> 📩
     </span>
   </a>
   <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">

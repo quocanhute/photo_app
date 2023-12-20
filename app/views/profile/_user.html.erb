@@ -40,9 +40,9 @@
           <% end %>
         </div>
         <div class="d-flex mb-1">
-          <span class="mx-2"><i class="fa-solid fa-cake-candles"></i> Joined on <%= user.created_at.to_date %></span>
-          <span class="mx-2"><i class="fa-solid fa-envelope"></i> <%= user.email %></span>
-          <span class="mx-2"><i class="fa-solid fa-location-dot"></i> <%= user.address?? user.address : "404 not found address 😢😢😢" %></span>
+          <span class="mx-2">🎂 Joined on <%= user.created_at.to_date %></span>
+          <span class="mx-2">📨 <%= user.email %></span>
+          <span class="mx-2">🌏 <%= user.address?? user.address : "404 not found address 😢😢😢" %></span>
         </div>
         <div class="d-flex mb-5">
           <% user.tags.each do |tag| %>

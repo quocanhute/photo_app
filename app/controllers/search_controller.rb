@@ -3,8 +3,6 @@ class SearchController < ApplicationController
   def suggestions
     @users = search_for_users
     @posts = search_for_posts
-    puts "heareeeeee"
-    puts params[:tag_ids]
 
     respond_to do |format|
       format.turbo_stream do

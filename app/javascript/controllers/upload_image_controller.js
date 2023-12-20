@@ -10,14 +10,23 @@ export default class extends Controller {
   handleChange(event) {
     try {
       const file = event.target.files[0];
-      const reader = new FileReader();
+      if (file) {
+        const maxSize = 5 * 1024 * 1024; // 5 MB
+        if (file.size > maxSize) {
+          toastr.error("File size exceeds the limit of 5MB.", "ERROR");
+          event.target.value = ""; // Clear the file input
+          return;
+        }
 
-      reader.onload = (e) => {
-        this.avatarTarget.src = e.target.result;
-      };
+        const reader = new FileReader();
 
-      reader.readAsDataURL(file);
-      toastr.success('Image was uploaded successfully!', 'SUCCESS')
+        reader.onload = (e) => {
+          this.avatarTarget.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+        toastr.success("Image was uploaded successfully!", "SUCCESS");
+      }
     }
     catch (err){
       toastr.error(err.message, 'ERROR')

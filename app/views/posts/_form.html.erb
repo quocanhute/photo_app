@@ -13,19 +13,28 @@
     <%= form.text_area :description, class: 'form-control' %>
   </div>
 
-  <div class="form-group mb-2">
-    <%= form.label :header_image, style: "display: block" %>
-    <%= form.file_field :header_image, class: 'form-control' %>
-    <div class="mt-1">
-      <small>Current image:</small>
-      <% if post.header_image.present? %>
-        <%= image_tag(post.header_image, width: '100%') %>
-      <% end %>
+  <div class="form-group mt-3 mb-3">
+    <div class="profile-img">
+      <div data-controller="upload-image">
+        <div class="avatar">
+          <% if post.header_image.attached? %>
+            <%= image_tag(post.header_image, alt: "#{post.title}", class: "avatar-image", id: "avatarUser",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
+          <%else %>
+            <%= image_tag('image.jpg', class: "avatar-image", id: "avatarUser",style: 'height:150px;width:150px',data: { target: 'upload-image.avatar'}) %>
+          <% end %>
+        </div>
+        <%= form.label :header_image,"Change Photo", class: "col-6 col-form-label label-avatar" %>
+        <%= form.file_field :header_image,
+                            class: "d-none",
+                            placeholder: 'Update picture',
+                            data:{action: 'change->upload-image#handleChange'},
+                            accept: 'image/*',
+                            direct_upload: true %>
+      </div>
     </div>
-
   </div>
 
-  <div class="field">
+  <div class="field mb-2">
     <%= form.label :tag_list, "Tags (separated by commas)" %><br />
     <%= form.text_field :tag_list, value: post.tag_list.join(","), class: 'form-control' %>
   </div>
