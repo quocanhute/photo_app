@@ -3,25 +3,61 @@ class HomeController < ApplicationController
   end
 
   def index_show_video
-    @pagy, @videos = pagy_countless(Video.where(published: true), items:VIDEOS_PER_PAGE)
+    data_video = set_data_video
+    if current_user
+      case params[:index]
+      when "top"
+        @pagy, @videos = pagy(data_video.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).distinct.order(cached_weighted_like_score: :desc,total_views: :desc), items: VIDEOS_PER_PAGE)
+      when "oldest"
+        @pagy, @videos = pagy(data_video.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).distinct.order(created_at: :asc,total_views: :desc), items: VIDEOS_PER_PAGE)
+      when "newest"
+        @pagy, @videos = pagy(data_video.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).distinct.order(created_at: :desc,total_views: :desc), items: VIDEOS_PER_PAGE)
+      else
+        @pagy, @videos = pagy(data_video.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).order(total_views: :desc).distinct, items: VIDEOS_PER_PAGE)
+      end
+    else
+      case params[:index]
+      when "top"
+        @pagy, @videos = pagy(data_video.where(published: true).distinct.order(cached_weighted_like_score: :desc,total_views: :desc), items: VIDEOS_PER_PAGE)
+      when "oldest"
+        @pagy, @videos = pagy(data_video.where(published: true).distinct.order(created_at: :asc,total_views: :desc), items: VIDEOS_PER_PAGE)
+      when "newest"
+        @pagy, @videos = pagy(data_video.where(published: true).distinct.order(created_at: :desc,total_views: :desc), items: VIDEOS_PER_PAGE)
+      else
+        @pagy, @videos = pagy(data_video.where(published: true).order(total_views: :desc).distinct, items: VIDEOS_PER_PAGE)
+      end
+    end
     # sleep(1)
     respond_to do |format|
-      format.html
-      format.turbo_stream
+      format.html # GET
+      format.turbo_stream # POST
     end
   end
 
   def index_show_post
     data_post = set_data_post
-    case params[:index]
-    when "top"
-      @pagy, @posts = pagy(data_post.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).distinct.order(cached_weighted_like_score: :desc), items: POSTS_PER_PAGE)
-    when "oldest"
-      @pagy, @posts = pagy(data_post.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).distinct.order(created_at: :asc), items: POSTS_PER_PAGE)
-    when "newest"
-      @pagy, @posts = pagy(data_post.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).distinct.order(created_at: :desc), items: POSTS_PER_PAGE)
+    if current_user
+      case params[:index]
+      when "top"
+        @pagy, @posts = pagy(data_post.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).distinct.order(cached_weighted_like_score: :desc,total_views: :desc), items: POSTS_PER_PAGE)
+      when "oldest"
+        @pagy, @posts = pagy(data_post.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).distinct.order(created_at: :asc,total_views: :desc), items: POSTS_PER_PAGE)
+      when "newest"
+        @pagy, @posts = pagy(data_post.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).distinct.order(created_at: :desc,total_views: :desc), items: POSTS_PER_PAGE)
+      else
+        @pagy, @posts = pagy(data_post.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).order(total_views: :desc).distinct, items: POSTS_PER_PAGE)
+      end
     else
-      @pagy, @posts = pagy(data_post.joins(:tags).where(tags: { id: current_user.tags }).where(published: true).distinct, items: POSTS_PER_PAGE)
+      case params[:index]
+      when "top"
+        @pagy, @posts = pagy(data_post.where(published: true).distinct.order(cached_weighted_like_score: :desc,total_views: :desc), items: POSTS_PER_PAGE)
+      when "oldest"
+        @pagy, @posts = pagy(data_post.where(published: true).distinct.order(created_at: :asc,total_views: :desc), items: POSTS_PER_PAGE)
+      when "newest"
+        @pagy, @posts = pagy(data_post.where(published: true).distinct.order(created_at: :desc,total_views: :desc), items: POSTS_PER_PAGE)
+      else
+        @pagy, @posts = pagy(data_post.where(published: true).order(total_views: :desc).distinct, items: POSTS_PER_PAGE)
+      end
     end
     # sleep(1)
     respond_to do |format|
@@ -38,6 +74,14 @@ class HomeController < ApplicationController
       Post.ransack(title_or_description_cont: params[:query]).result(distinct: true)
     else
       Post
+    end
+  end
+
+  def set_data_video
+    if params[:query].present?
+      Video.ransack(title_or_description_cont: params[:query]).result(distinct: true)
+    else
+      Video
     end
   end
 end

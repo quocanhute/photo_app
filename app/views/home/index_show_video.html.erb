@@ -1,16 +1,28 @@
 <main role="main" class="col-lg-12 px-md-4 mx-auto pt-3">
   <div class="row justify-content-center col-12">
-    <div id="photoContent">
-      <h1>Videos</h1>
-      <%= turbo_stream_from "public_likes" %>
-      <% photo_channel = current_user ? "private_photos" : "public_photos" %>
-      <%= turbo_stream_from photo_channel %>
-      <%= turbo_stream_from [@user_gid, 'private_likes'] %>
-      <%= content_tag(:div, id: photo_channel) do %>
-        <%= turbo_frame_tag :videos ,class: "row row-col-2" do %>
-          <%= render "videos/all_video_card", videos: @videos %>
-        <%end %>
-      <% end %>
+    <div id="videoContent">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1>Videos</h1>
+        <%= form_with(url: videos_index_path, method: :get, class: "form-inline my-2 my-lg-0 d-flex") do |form| %>
+          <div class="position-relative d-flex">
+            <%= hidden_field_tag 'index', params[:index].to_s %>
+            <%= form.text_field :query,
+                                class: "form-control mr-sm-2",
+                                placeholder: "Search your video ....", autocomplete: "off" %>
+            <div class="d-flex">
+              <%= form.submit "🔦", class: "btn btn-outline-primary mx-2" %>
+            </div>
+          </div>
+        <% end %>
+        <div class="d-flex">
+          <button class="<%= params[:index] == "top" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "TOP", videos_index_path(index: "top"),class: "text-white"%></button>
+          <button class="<%= params[:index] == "oldest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "OLDEST", videos_index_path(index: "oldest"), class: "text-white"%></button>
+          <button class="<%= params[:index] == "newest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "NEWEST", videos_index_path(index: "newest"), class: "text-white"%></button>
+        </div>
+      </div>
+      <%= turbo_frame_tag :videos ,class: "row row-col-2" do %>
+        <%= render "videos/all_video_card", videos: @videos %>
+      <%end %>
       <div id="load_more_button_video" class="d-flex justify-content-center mb-5">
         <% if @pagy.next.present? %>
           <%= button_to "Load more", pagy_url_for(@pagy, @pagy.next), class: "btn btn-outline-primary btn-lg" %>

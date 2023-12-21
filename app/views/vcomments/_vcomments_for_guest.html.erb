@@ -7,7 +7,7 @@
         <% else %>
           <%= image_tag("user.jpg", alt: "#{vcomment.user.username}", class: "avatar", id: "avatarUserHeader") %>
         <% end %>
-        <%= render "comments/public_comment", vcomment: vcomment %>
+        <%= render "vcomments/public_vcomment", vcomment: vcomment %>
       </div>
     </div>
     <div class="col-md-11">
@@ -21,6 +21,6 @@
   </div>
   <hr/>
   <div class="sub-comment">
-    <%= render "vcomments/vcomments_for_guest", vcomments: vcomment.comments %>
+    <%= render "vcomments/vcomments_for_guest", vcomments: vcomment.vcomments %>
   </div>
 <% end %>

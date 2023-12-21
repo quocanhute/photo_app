@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-  before_action :set_tag, only: %i[ show edit update destroy added_tag]
+  before_action :set_tag, only: %i[ show edit update destroy added_tag show_video]
   before_action :authorize_admin, only: %i[ edit update ]
   def index
     @tags = Tag.left_joins(:taggings).group(:id, :name, :detail).order('count(taggings.id) desc')
@@ -7,6 +7,12 @@ class TagsController < ApplicationController
 
   def show
     @posts = Post.where(published: true).tagged_with(@tag.name)
+    @user_with_tag = true
+  end
+
+  def show_video
+    @videos = Video.where(published: true).tagged_with(@tag.name)
+    @user_with_tag = true
   end
 
   def edit

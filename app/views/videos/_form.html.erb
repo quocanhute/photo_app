@@ -48,7 +48,6 @@
                               direct_upload: true %>
         </div>
       </div>
-
     </div>
     <div class="col-9">
       <div class="">
@@ -56,10 +55,10 @@
           <div class="video">
             <%= video_tag url_for(video.video), style: 'width:100%', controls: true, autoplay: true,loop: true %>
           </div>
-          <%= form.file_field :video %>
+          <%= form.file_field :video, accept: 'video/*' %>
         <% else %>
           <h3>Add your video</h3>
-          <%= form.file_field :video %>
+          <%= form.file_field :video, accept: 'video/*' %>
         <% end %>
 
       </div>

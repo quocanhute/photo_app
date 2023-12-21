@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   end
   resources :tags do
     member do
+      get :show_video
       post :added_tag
     end
   end

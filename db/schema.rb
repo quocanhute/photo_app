@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_20_214948) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_21_155650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -136,6 +136,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_20_214948) do
     t.integer "cached_weighted_bookmark_total", default: 0
     t.float "cached_weighted_bookmark_average", default: 0.0
     t.boolean "already_published", default: false
+    t.integer "total_views"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -254,6 +255,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_20_214948) do
     t.integer "cached_weighted_bookmark_score", default: 0
     t.integer "cached_weighted_bookmark_total", default: 0
     t.float "cached_weighted_bookmark_average", default: 0.0
+    t.integer "total_views"
     t.index ["user_id"], name: "index_videos_on_user_id"
   end
 

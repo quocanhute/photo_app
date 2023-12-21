@@ -31,8 +31,8 @@
         <button class="<%= (path.include?("tags") && !path.include?("show_video")) ? "btn btn-primary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "POSTS WITH TAG", tag_path,class: "text-white"%></button>
         <button class="<%= path.include?("show_video") ? "btn btn-primary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "VIDEOS WITH TAG", show_video_tag_path, class: "text-white"%></button>
       </div>
-      <div class="d-flex flex-column rounded-3">
-        <%= render "posts/all_post_card", posts: @posts %>
+      <div class="row row-col-2">
+        <%= render "videos/all_video_card", videos: @videos %>
       </div>
     </div>
   </div>

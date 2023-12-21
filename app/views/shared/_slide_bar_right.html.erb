@@ -14,4 +14,23 @@
       </div>
     </div>
   </div>
+  <% if @user_with_tag %>
+    <div class="col-md-10 mt-5">
+      <h4>Who follow this tag:</h4>
+      <div class="d-flex flex-column px-3 py-3">
+        <% @tag.users.each do |user| %>
+          <div>
+            <% if user.avatar.attached? %>
+              <%= image_tag(user.avatar, alt: "#{user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
+            <% else %>
+              <%= image_tag("user.jpg", alt: "#{user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
+            <% end %>
+            <%= link_to "#{user.username }", profile_path(user),data:{turbo: false},class: "mx-1 text-dark" %>
+          </div>
+          <hr/>
+          <br>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </nav>

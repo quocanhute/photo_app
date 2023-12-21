@@ -10,6 +10,9 @@ class VideosController < ApplicationController
 
   # GET /photos/1 or /photos/1.json
   def show
+    if current_user
+      @video.increment!(:total_views)
+    end
   end
 
   # GET /photos/new

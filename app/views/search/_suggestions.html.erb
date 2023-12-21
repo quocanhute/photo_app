@@ -1,5 +1,5 @@
 <div class="position-absolute rounded overflow-hidden suggestion" style="width: 83%">
-  <% if users.any? || posts.any? %>
+  <% if users.any? || posts.any? || videos.any? %>
     <% if users.any? %>
       <h5>Users suggest</h5>
       <% users.each do |user| %>
@@ -24,6 +24,23 @@
           </div>
           <div>
             <% post.tags.each do |tag| %>
+              <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <hr/>
+    <% end %>
+    <% if videos.any? %>
+      <h5>Videos suggest</h5>
+      <% videos.each do |video| %>
+        <div class="p-2  d-flex flex-column align-items-center border">
+          <div class="d-flex">
+            <%= image_tag(video.header_image, alt: "#{video.title}", class: "avatar-image mx-1", id: "avatarUserHeader") %>
+            <%= link_to video.title, video_path(video),class: "suggestion-title" %>
+          </div>
+          <div>
+            <% video.tags.each do |tag| %>
               <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
             <% end %>
           </div>

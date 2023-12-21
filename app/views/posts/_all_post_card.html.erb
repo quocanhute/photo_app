@@ -25,8 +25,9 @@
       </div>
       <div class="card-footer text-muted d-flex justify-content-between" style="border: none; background-color: #EFEFEF;">
         <div>
-          <span style="" class="text-dark">️🏅 <%= post.cached_weighted_like_score %> Points</span>
-          <span style="" class="text-dark">💬 <%= post.comments.count %> Comments</span>
+          <span style="" class="text-dark mx-1">️🏅 <%= "#{pluralize(post.cached_weighted_like_score, "Point")}"%></span>
+          <span style="" class="text-dark mx-1">💬 <%= "#{pluralize(post.comments.count, "Comment")}"%></span>
+          <span style="" class="text-dark mx-1">👀 <%= "#{pluralize(post.total_views, "View")}"%></span>
         </div>
         <% if current_user %>
           <i class="fa-solid fa-bookmark <%= label_styles_bookmark(post, current_user) %>"></i>

@@ -1,5 +1,11 @@
 <%= turbo_frame_tag "#{dom_id(tag)} private_added_tag" do %>
-  <%= link_to added_tag_tag_path(tag),data: { turbo_method: :post }, class: "btn btn-outline-secondary" do %>
-    <%= added_status ?  "Remove" : "Add" %>
+  <% if added_status %>
+    <%= link_to added_tag_tag_path(tag),data: { turbo_method: :post }, class: "btn btn-danger" do %>
+      Remove
+    <% end %>
+  <% else %>
+    <%= link_to added_tag_tag_path(tag),data: { turbo_method: :post }, class: "btn btn-success" do %>
+      Add
+    <% end %>
   <% end %>
 <% end %>
