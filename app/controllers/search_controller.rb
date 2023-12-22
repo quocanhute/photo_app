@@ -66,25 +66,25 @@ class SearchController < ApplicationController
   end
   def search_for_users
     if params[:query].blank?
-      User.limit(2)
+      User.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(2)
     else
-      @set_users
+      @set_users.limit(3)
     end
   end
 
   def search_for_posts
     if params[:query].blank?
-      Post.limit(2)
+      Post.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(2)
     else
-      @set_posts
+      @set_posts.limit(3)
     end
   end
 
   def search_for_videos
     if params[:query].blank?
-      Video.limit(2)
+      Video.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(2)
     else
-      @set_videos
+      @set_videos.limit(3)
     end
   end
 end
