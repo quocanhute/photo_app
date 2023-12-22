@@ -32,7 +32,18 @@
         <button class="<%= path.include?("show_video") ? "btn btn-primary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "VIDEOS WITH TAG", show_video_tag_path, class: "text-white"%></button>
       </div>
       <div class="row row-col-2">
-        <%= render "videos/all_video_card", videos: @videos %>
+        <%= turbo_frame_tag "videos_tags_#{dom_id(@tag)}", class: "row" do %>
+          <%= render "videos/all_video_card", videos: @videos %>
+        <% end %>
+        <div id="load_more_button_videos_tags_<%= dom_id(@tag) %>" class="d-flex justify-content-center mb-5">
+          <% if @pagy.next.present? %>
+            <%= button_to "Load more", pagy_url_for(@pagy, @pagy.next), class: "btn btn-outline-primary btn-lg" %>
+          <% else %>
+          <span>
+            <b>Nothing to show!!! May be you need add more tags 😁</b>
+          </span>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

@@ -6,13 +6,44 @@ class TagsController < ApplicationController
   end
 
   def show
-    @posts = Post.where(published: true).tagged_with(@tag.name)
+    # @posts = Post.where(published: true).tagged_with(@tag.name)
     @user_with_tag = true
+    data_post = set_data_post
+    case params[:index]
+    when "top"
+      @pagy, @posts = pagy(data_post.where(published: true).distinct.order(cached_weighted_like_score: :desc,total_views: :desc), items: POSTS_PER_PAGE)
+    when "oldest"
+      @pagy, @posts = pagy(data_post.where(published: true).distinct.order(created_at: :asc,total_views: :desc), items: POSTS_PER_PAGE)
+    when "newest"
+      @pagy, @posts = pagy(data_post.where(published: true).distinct.order(created_at: :desc,total_views: :desc), items: POSTS_PER_PAGE)
+    else
+      @pagy, @posts = pagy(data_post.where(published: true).order(total_views: :desc).distinct, items: POSTS_PER_PAGE)
+    end
+    # sleep(1)
+    respond_to do |format|
+      format.html # GET
+      format.turbo_stream # POST
+    end
   end
 
   def show_video
-    @videos = Video.where(published: true).tagged_with(@tag.name)
     @user_with_tag = true
+    data_video = set_data_video
+    case params[:index]
+    when "top"
+      @pagy, @videos = pagy(data_video.where(published: true).distinct.order(cached_weighted_like_score: :desc,total_views: :desc), items: VIDEOS_PER_PAGE)
+    when "oldest"
+      @pagy, @videos = pagy(data_video.where(published: true).distinct.order(created_at: :asc,total_views: :desc), items: VIDEOS_PER_PAGE)
+    when "newest"
+      @pagy, @videos = pagy(data_video.where(published: true).distinct.order(created_at: :desc,total_views: :desc), items: VIDEOS_PER_PAGE)
+    else
+      @pagy, @videos = pagy(data_video.where(published: true).order(total_views: :desc).distinct, items: VIDEOS_PER_PAGE)
+    end
+    # sleep(1)
+    respond_to do |format|
+      format.html # GET
+      format.turbo_stream # POST
+    end
   end
 
   def edit
@@ -63,6 +94,22 @@ class TagsController < ApplicationController
   def authorize_admin
     unless current_user&.admin?
       redirect_to root_path, alert: 'Access denied.'
+    end
+  end
+
+  def set_data_post
+    if params[:query].present?
+      Post.where(published: true).tagged_with(@tag.name).ransack(title_or_description_cont: params[:query]).result(distinct: true)
+    else
+      Post.where(published: true).tagged_with(@tag.name)
+    end
+  end
+
+  def set_data_video
+    if params[:query].present?
+      Video.where(published: true).tagged_with(@tag.name).ransack(title_or_description_cont: params[:query]).result(distinct: true)
+    else
+      Video.where(published: true).tagged_with(@tag.name)
     end
   end
 end

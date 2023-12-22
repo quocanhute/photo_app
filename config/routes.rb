@@ -53,7 +53,9 @@ Rails.application.routes.draw do
   end
   resources :tags do
     member do
+      post :show, as: 'get_posts_tag_index_pagy'
       get :show_video
+      post :show_video, as: 'get_videos_tag_index_pagy'
       post :added_tag
     end
   end

@@ -31,8 +31,38 @@
         <button class="<%= (path.include?("tags") && !path.include?("show_video")) ? "btn btn-primary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "POSTS WITH TAG", tag_path,class: "text-white"%></button>
         <button class="<%= path.include?("show_video") ? "btn btn-primary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "VIDEOS WITH TAG", show_video_tag_path, class: "text-white"%></button>
       </div>
-      <div class="d-flex flex-column rounded-3">
-        <%= render "posts/all_post_card", posts: @posts %>
+      <div class="d-flex justify-content-between align-items-center">
+        <%= form_with(url: tag_path(@tag), method: :get, class: "form-inline my-2 my-lg-0 d-flex") do |form| %>
+          <div class="position-relative d-flex">
+            <%= hidden_field_tag 'index', params[:index].to_s %>
+            <%= form.text_field :query,
+                                class: "form-control mr-sm-2",
+                                placeholder: "Search your post ....", autocomplete: "off" %>
+            <div class="d-flex">
+              <%= form.submit "🔦", class: "btn btn-outline-primary mx-2" %>
+            </div>
+          </div>
+        <% end %>
+        <div class="d-flex">
+          <button class="<%= params[:index] == "top" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "TOP", tag_path(@tag, index: "top"),class: "text-white"%></button>
+          <button class="<%= params[:index] == "oldest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "OLDEST", tag_path(@tag, index: "oldest"), class: "text-white"%></button>
+          <button class="<%= params[:index] == "newest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "NEWEST", tag_path(@tag, index: "newest"), class: "text-white"%></button>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column rounded-3 mt-3">
+        <%= turbo_frame_tag "posts_tags_#{dom_id(@tag)}", class: "row" do %>
+          <%= render "posts/all_post_card", posts: @posts %>
+        <% end %>
+        <div id="load_more_button_posts_tags_<%= dom_id(@tag) %>" class="d-flex justify-content-center mb-5">
+          <% if @pagy.next.present? %>
+            <%= button_to "Load more", pagy_url_for(@pagy, @pagy.next), class: "btn btn-outline-primary btn-lg" %>
+          <% else %>
+          <span>
+            <b>Nothing to show!!! May be you need add more tags 😁</b>
+          </span>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
