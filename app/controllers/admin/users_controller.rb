@@ -75,16 +75,22 @@ class Admin::UsersController < ApplicationController
   end
 
   def ban_user
-    @user = User.find(params[:id])
-    @user.update(is_ban: true)
+    ActiveRecord::Base.transaction do
+      @user = User.find(params[:id])
+      @user.update_columns(is_ban: true)
+      UserMailer.ban_user_email(@user).deliver_later
+    end
     respond_to do |format|
       format.html { redirect_to admin_users_url, :notice => 'User was successfully banned.'  }
     end
   end
 
   def unban_user
-    @user = User.find(params[:id])
-    @user.update(is_ban: false )
+    ActiveRecord::Base.transaction do
+      @user = User.find(params[:id])
+      @user.update_columns(is_ban: false)
+      UserMailer.unban_user_email(@user).deliver_later
+    end
 
     respond_to do |format|
       format.html { redirect_to admin_index_ban_user_url, :notice => 'User was successfully unbanned.'  }

@@ -7,6 +7,16 @@ class UserMailer < ApplicationMailer
   #
   def new_user_email(user)
     @user = user
-    mail(to: user.email, subject: 'Welcome to PhotoBook!!!')
+    mail(to: user.email, subject: 'Welcome to MyBlog!!!')
+  end
+
+  def ban_user_email(user)
+    @user = user
+    mail(to: user.email, subject: 'You were banned on MyBlog')
+  end
+
+  def unban_user_email(user)
+    @user = user
+    mail(to: user.email, subject: 'You were unbanned on MyBlog')
   end
 end

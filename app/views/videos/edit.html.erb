@@ -1,6 +1,7 @@
 <div class="d-flex mb-2 justify-content-between">
   <%= link_to "Back to videos", videos_path,class: "btn btn-secondary" %>
-  <%= button_to "Delete this videos", video_path(@video), :method => :delete,  data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <%= link_to "Delete", action_delete_video_video_path(@video),
+              class: "btn btn-danger", data: { turbo_frame: "remote_modal" } %>
 </div>
 <hr/>
 <%= render "form", video: @video %>

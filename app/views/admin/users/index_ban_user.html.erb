@@ -31,8 +31,6 @@
       <% end %>
       </tbody>
     </table>
-
-    <p><%= link_to "New User", new_admin_user_path,class: 'btn primary-bg my-2 my-sm-0 text-white',data: { turbo_frame: "remote_modal" } %></p>
   </div>
   <%= paginate @users, theme: 'bootstrap-5',
                pagination_class: "pagination-sm flex-wrap justify-content-center",

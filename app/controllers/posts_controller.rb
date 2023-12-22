@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: %i[ index new edit create update destroy vote bookmark]
-  before_action :set_post, only: %i[ show edit update destroy publish unpublish vote bookmark]
+  before_action :set_post, only: %i[ show edit update destroy publish unpublish vote bookmark action_delete_post]
   before_action :check_post_ownership, only: [:edit, :update, :destroy]
 
   # GET /posts or /posts.json
@@ -90,15 +90,15 @@ class PostsController < ApplicationController
   end
 
   def bookmark
-      @post.bookmark!(current_user)
-      respond_to do |format|
-        format.html do
-          redirect_to @post
-        end
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(@post, partial: "posts/post", locals: {post: @post})
-        end
+    @post.bookmark!(current_user)
+    respond_to do |format|
+      format.html do
+        redirect_to @post
       end
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(@post, partial: "posts/post", locals: {post: @post})
+      end
+    end
   end
 
   def vote
@@ -118,6 +118,9 @@ class PostsController < ApplicationController
         render turbo_stream: turbo_stream.replace(@post, partial: "posts/post", locals: {post: @post})
       end
     end
+  end
+
+  def action_delete_post
   end
 
   private

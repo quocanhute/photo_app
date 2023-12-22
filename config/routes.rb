@@ -33,6 +33,7 @@ Rails.application.routes.draw do
         patch :bookmark
         post :unpublish
         post :publish
+        get :action_delete_post
       end
       resources :elements
       resources :comments, only: [:create, :destroy] do
@@ -47,6 +48,7 @@ Rails.application.routes.draw do
         patch :bookmark
         post :unpublish
         post :publish
+        get :action_delete_video
       end
       resources :vcomments, only: [:create, :destroy] do
         member do
@@ -79,6 +81,7 @@ Rails.application.routes.draw do
       get :following_tags
       get :following_users
       get :posts_bookmark
+      get :videos_bookmark
     end
   end
 

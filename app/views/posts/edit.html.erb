@@ -8,8 +8,8 @@
       </div>
       <div class="card-footer">
         <%= render partial: 'posts/publisher_button',locals: {post: @post} %>
-        <%= button_to "Delete", post_path(@post), method: :delete,
-                    class: "btn btn-danger w-100 mt-2", data: { confirm: t("confirm_delete") } %>
+        <%= link_to "Delete", action_delete_post_post_path(@post),
+                    class: "btn btn-danger w-100 mt-2", data: { turbo_frame: "remote_modal" } %>
       </div>
     </div>
   </div>

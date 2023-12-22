@@ -17,6 +17,10 @@ class DashboardController < ApplicationController
     @posts = Post.bookmarked_by_user(current_user)
   end
 
+  def videos_bookmark
+    @videos = Video.bookmarked_by_user(current_user)
+  end
+
   private
 
 end

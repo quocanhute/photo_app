@@ -1,6 +1,6 @@
 class VideosController < ApplicationController
   before_action :authenticate_user!, only: %i[ index new edit create update destroy vote bookmark]
-  before_action :set_video, only: %i[ show edit update destroy publish unpublish vote bookmark]
+  before_action :set_video, only: %i[ show edit update destroy publish unpublish vote bookmark action_delete_video]
   before_action :check_video_ownership, only: [:edit, :update, :destroy]
 
   # GET /photos or /photos.json
@@ -116,6 +116,9 @@ class VideosController < ApplicationController
         render turbo_stream: turbo_stream.replace(@video, partial: "videos/video", locals: {video: @video})
       end
     end
+  end
+
+  def action_delete_video
   end
 
   private

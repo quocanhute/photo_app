@@ -2,17 +2,15 @@
   <h2>Dashboard</h2>
   <div class="row w-100 ">
     <div class="col-md-4">
-      <%= render "dashboard/dashboard_menu", page: "tags" %>
+      <%= render "dashboard/dashboard_menu", page: "videos" %>
     </div>
     <div class="col-md-8">
       <div class="d-flex row">
-        <% if @tags.count > 0  %>
-          <% @tags.each do |tag| %>
-            <%= render "dashboard/tag", tag: tag %>
-          <% end %>
+        <% if @videos.count > 0  %>
+          <%= render "dashboard/all_video_card", videos: @videos %>
         <% else %>
           <div class="d-flex justify-content-center align-items-center">
-            <b>You don't have any tags! 😢😢😢</b>
+            <b>You don't bookmark any posts! 😢😢😢</b>
           </div>
         <% end %>
       </div>

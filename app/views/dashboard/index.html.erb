@@ -1,10 +1,10 @@
 <div class="row justify-content-center">
   <h2>Dashboard</h2>
   <div class="row w-100 ">
-    <div class="col-md-3">
+    <div class="col-md-4">
       <%= render "dashboard/dashboard_menu", page: "index" %>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8">
       <div class="d-flex row">
         <% if @follower.count > 0  %>
           <% @follower.each do |user| %>
