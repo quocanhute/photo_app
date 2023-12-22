@@ -1,0 +1,11 @@
+<%= render "layouts/remote_modal" do %>
+  <div class="modal-header">
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    Delete this user
+    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">No</button>
+    <%= button_to "Yes", ban_user_admin_user_path(@user), class: "btn btn-danger" %>
+  </div>
+  <div class="modal-footer"></div>
+<% end %>

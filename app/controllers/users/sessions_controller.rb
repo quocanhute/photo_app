@@ -9,9 +9,17 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    self.resource = warden.authenticate!(auth_options)
+    if resource.is_ban?
+      sign_out
+      redirect_to new_user_session_path, alert: 'Your account is ban, check your email register!⛔⛔⛔'
+    else
+      sign_in(resource_name, resource)
+      yield resource if block_given?
+      respond_with resource, location: after_sign_in_path_for(resource)
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy

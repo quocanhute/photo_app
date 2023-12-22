@@ -14,7 +14,15 @@ Rails.application.routes.draw do
 
   # action admin
   namespace 'admin' do
-    resources :users
+    get :index_ban_user, to: "users#index_ban_user"
+    resources :users do
+      member do
+        get :action_ban_user
+        get :action_unban_user
+        post :ban_user
+        post :unban_user
+      end
+    end
   end
 
   # action user

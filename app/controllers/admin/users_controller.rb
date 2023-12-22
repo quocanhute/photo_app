@@ -3,7 +3,11 @@ class Admin::UsersController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @users = User.page(params[:page]).per(15)
+    @users = User.where(is_ban: false ).order(last_name: :asc,first_name: :asc).page(params[:page]).per(15)
+  end
+
+  def index_ban_user
+    @users = User.where(is_ban: true ).order(last_name: :asc,first_name: :asc).page(params[:page]).per(15)
   end
 
   def show
@@ -59,6 +63,31 @@ class Admin::UsersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to admin_users_url, :notice => 'User was successfully destroyed.'  }
+    end
+  end
+
+  def action_ban_user
+    @user = User.find(params[:id])
+  end
+
+  def action_unban_user
+    @user = User.find(params[:id])
+  end
+
+  def ban_user
+    @user = User.find(params[:id])
+    @user.update(is_ban: true)
+    respond_to do |format|
+      format.html { redirect_to admin_users_url, :notice => 'User was successfully banned.'  }
+    end
+  end
+
+  def unban_user
+    @user = User.find(params[:id])
+    @user.update(is_ban: false )
+
+    respond_to do |format|
+      format.html { redirect_to admin_index_ban_user_url, :notice => 'User was successfully unbanned.'  }
     end
   end
 
