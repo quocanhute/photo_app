@@ -67,14 +67,14 @@ class PostsController < ApplicationController
     if @post.accept?
       @post.update(published: true, published_at: Time.now)
       respond_to do |format|
-        format.html { redirect_to edit_post_path(@post)}
+        format.html { redirect_to edit_post_url(@post), notice: "Your post was successfully published." }
       end
     else
       @post.update(published: true,status: 1, published_at: Time.now)
       @post_status = @post.status
       User.admin_and_censor.each do |user|
         message = "Need to check a post #{@post.user.username} just published!!!"
-        create_notification_for_follower(@post.user,user,@post,message)
+        create_notification_for_censor(@post.user,user,@post,message)
       end
       respond_to do |format|
         format.html { redirect_to edit_post_url(@post), notice: "Your post need to check before publish!" }
@@ -153,17 +153,6 @@ class PostsController < ApplicationController
                              locals: {
                                post: @post
                              })
-  end
-
-  def create_notification_for_follower(sender,receiver,post,message)
-    # Tạo Notification cho comment
-    Notification.create(
-      sender: sender,
-      receiver: receiver,
-      object: post,
-      as_read: false,
-      content: message
-    )
   end
 
   def create_notification_for_censor(sender,receiver,post,message)

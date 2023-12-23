@@ -1,7 +1,15 @@
 <div class="d-flex mb-2 justify-content-between">
   <%= link_to "Back to videos", videos_path,class: "btn btn-secondary" %>
-  <%= link_to "Delete", action_delete_video_video_path(@video),
-              class: "btn btn-danger", data: { turbo_frame: "remote_modal" } %>
+  <div class="d-flex">
+    <% if @video.published? %>
+      <%= button_to "Unpublish", unpublish_video_path(@video), class: "btn btn-warning btn-block mx-2"%>
+    <% else %>
+      <%= button_to "Publish", publish_video_path(@video), class: "btn btn-primary btn-block mx-2"%>
+    <% end %>
+    <%= link_to "Delete", action_delete_video_video_path(@video),
+                class: "btn btn-danger", data: { turbo_frame: "remote_modal" } %>
+  </div>
+
 </div>
 <hr/>
 <%= render "form", video: @video %>

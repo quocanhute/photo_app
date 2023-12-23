@@ -25,9 +25,6 @@
         <%= form.label :tag_list, "Tags (separated by commas)" %><br />
         <%= form.text_field :tag_list, value: video.tag_list.join(","), class: 'form-control' %>
       </div>
-      <% if video.id? %>
-        <%= render partial: 'videos/publisher_button',locals: {video: video} %>
-      <% end %>
       <div class="mb-2 mt-2">
         <div class="profile-img" data-controller="upload-image">
           <% if video.header_image.attached? %>
@@ -68,3 +65,4 @@
     <%= form.submit class: "btn btn-primary"%>
   </div>
 <% end %>
+

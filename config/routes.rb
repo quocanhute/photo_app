@@ -31,6 +31,14 @@ Rails.application.routes.draw do
         post :refuse_post
       end
     end
+    resources :videos do
+      member do
+        get :action_accept_video
+        get :action_refuse_video
+        post :accept_video
+        post :refuse_video
+      end
+    end
   end
 
   # action user
@@ -54,8 +62,8 @@ Rails.application.routes.draw do
       member do
         patch :vote
         patch :bookmark
-        patch :unpublish
-        patch :publish
+        post :unpublish
+        post :publish
         get :action_delete_video
       end
       resources :vcomments, only: [:create, :destroy] do

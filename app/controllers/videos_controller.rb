@@ -62,28 +62,31 @@ class VideosController < ApplicationController
   end
 
   def publish
-    @video.update(published: true, published_at: Time.now)
-    unless @video.already_published
-      @video.update(already_published: true)
-      @video.user.follower.each do |user|
-        message = "User #{@video.user.username} just creating a new video"
-        create_notification_for_follower(@video,@video.user,user,message)
+    if @video.accept?
+      @video.update(published: true, published_at: Time.now)
+      respond_to do |format|
+        format.html { redirect_to edit_video_url(@video), notice: "Your video was successfully published." }
+      end
+    else
+      @video.update(published: true,status: 1, published_at: Time.now)
+      @video_status = @video.status
+      User.admin_and_censor.each do |user|
+        message = "Need to check a video #{@video.user.username} just published!!!"
+        create_notification_for_censor(@video.user,user,@video,message)
+      end
+      respond_to do |format|
+        format.html { redirect_to edit_video_url(@video), notice: "Your video need to check before publish!" }
       end
     end
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [update_action_publish,update_published_at]
-      end
-    end
+
+
   end
 
   def unpublish
     @video.update(published: false, published_at: nil)
 
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [update_action_publish,update_published_at]
-      end
+      format.html { redirect_to edit_video_url(@video), notice: "Your video was successfully unpublished." }
     end
   end
 
@@ -158,11 +161,11 @@ class VideosController < ApplicationController
                              })
   end
 
-  def create_notification_for_follower(video,followee,follower,message)
+  def create_notification_for_censor(sender,receiver,video,message)
     # Tạo Notification cho comment
     Notification.create(
-      sender: followee,
-      receiver: follower,
+      sender: sender,
+      receiver: receiver,
       object: video,
       as_read: false,
       content: message
