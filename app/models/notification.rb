@@ -3,6 +3,8 @@ class Notification < ApplicationRecord
   belongs_to :receiver, class_name: 'User', foreign_key: 'receiver_id'
   belongs_to :object, polymorphic: true
 
+  enum status: { healthy: 0, warning: 1}
+
   scope :unread, -> { where(as_read: false) }
   scope :read, -> { where(as_read: true) }
 

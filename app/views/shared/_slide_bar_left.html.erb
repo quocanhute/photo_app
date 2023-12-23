@@ -7,7 +7,7 @@
             <%= link_to "🐧 #{t('home')}", root_path, class: "nav-link text-black"%>
           </div>
         <% end %>
-        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("posts") && !path.include?("users")) }") do %>
+        <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("posts") && !path.include?("users") && !path.include?("admin")) }") do %>
           <div class="d-flex align-items-center">
             <%= link_to "📰 #{t('user.post.object.posts')}", posts_index_path(index: "top"), class: "nav-link text-black" %>
           </div>
@@ -72,6 +72,16 @@
           <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("admin") && path.include?("users")) }") do %>
             <div class="d-flex align-items-center">
               <%= link_to "⚙ #{t('admin.user.user_management.management')}", admin_users_path, class: "nav-link text-black" %>
+            </div>
+          <% end %>
+          <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("admin") && path.include?("posts")) }") do %>
+            <div class="d-flex align-items-center">
+              <%= link_to "⚙ Post moderation", admin_posts_path, class: "nav-link text-black" %>
+            </div>
+          <% end %>
+          <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(path.include?("admin") && path.include?("videos")) }") do %>
+            <div class="d-flex align-items-center">
+              <%= link_to "⚙ Video moderation", "#", class: "nav-link text-black" %>
             </div>
           <% end %>
         <% end %>

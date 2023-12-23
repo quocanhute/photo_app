@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_23_155650) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_23_255650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -108,6 +108,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_23_155650) do
     t.datetime "read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
     t.index ["object_type", "object_id"], name: "index_notifications_on_object"
     t.index ["receiver_id"], name: "index_notifications_on_receiver_id"
     t.index ["sender_id"], name: "index_notifications_on_sender_id"
@@ -136,9 +137,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_23_155650) do
     t.integer "cached_weighted_bookmark_total", default: 0
     t.float "cached_weighted_bookmark_average", default: 0.0
     t.boolean "already_published", default: false
-    t.integer "total_views"
+    t.integer "total_views", default: 0, null: false
     t.boolean "is_ban", default: false
-    t.boolean "status", default: false
+    t.integer "status", default: 0, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -259,9 +260,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_23_155650) do
     t.integer "cached_weighted_bookmark_score", default: 0
     t.integer "cached_weighted_bookmark_total", default: 0
     t.float "cached_weighted_bookmark_average", default: 0.0
-    t.integer "total_views"
+    t.integer "total_views", default: 0, null: false
     t.boolean "is_ban", default: false
-    t.boolean "status", default: false
+    t.integer "status", default: 0, null: false
     t.index ["user_id"], name: "index_videos_on_user_id"
   end
 

@@ -11,7 +11,7 @@
           <div class="card" style="border: none;">
             <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
               <div>
-                <%= link_to notification.content, view_object_path(notification), data:{turbo: false}, class: "text-dark" %>
+                <%= link_to "🔔 #{notification.content}", view_object_path(notification), data:{turbo: false}, style: "color: #E36414;" %>
               </div>
               <div class="ms-2">
                 <b>Created</b> <%= time_ago_in_words(notification.created_at) %> ago

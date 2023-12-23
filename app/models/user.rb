@@ -41,6 +41,8 @@ class User < ApplicationRecord
   validates :birthday, presence: true
   validates :address, presence: true
 
+  scope :admin_and_censor, -> { where(role: [:admin, :censor]) }
+
 
   def tag_added?(tag)
     tags.include?(tag)

@@ -23,6 +23,14 @@ Rails.application.routes.draw do
         post :unban_user
       end
     end
+    resources :posts do
+      member do
+        get :action_accept_post
+        get :action_refuse_post
+        post :accept_post
+        post :refuse_post
+      end
+    end
   end
 
   # action user
@@ -46,8 +54,8 @@ Rails.application.routes.draw do
       member do
         patch :vote
         patch :bookmark
-        post :unpublish
-        post :publish
+        patch :unpublish
+        patch :publish
         get :action_delete_video
       end
       resources :vcomments, only: [:create, :destroy] do

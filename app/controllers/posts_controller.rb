@@ -64,28 +64,31 @@ class PostsController < ApplicationController
   end
 
   def publish
-    @post.update(published: true, published_at: Time.now)
-    unless @post.already_published
-      @post.update(already_published: true)
-      @post.user.follower.each do |user|
-        message = "User #{@post.user.username} just creating a new posts"
-        create_notification_for_follower(@post,@post.user,user,message)
+    if @post.accept?
+      @post.update(published: true, published_at: Time.now)
+      respond_to do |format|
+        format.html { redirect_to edit_post_path(@post)}
+      end
+    else
+      @post.update(published: true,status: 1, published_at: Time.now)
+      @post_status = @post.status
+      User.admin_and_censor.each do |user|
+        message = "Need to check a post #{@post.user.username} just published!!!"
+        create_notification_for_follower(@post.user,user,@post,message)
+      end
+      respond_to do |format|
+        format.html { redirect_to edit_post_url(@post), notice: "Your post need to check before publish!" }
       end
     end
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [update_action_publish,update_published_at]
-      end
-    end
+
+
   end
 
   def unpublish
     @post.update(published: false, published_at: nil)
 
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [update_action_publish,update_published_at]
-      end
+      format.html { redirect_to edit_post_url(@post), notice: "Your post was successfully unpublished." }
     end
   end
 
@@ -152,11 +155,22 @@ class PostsController < ApplicationController
                              })
   end
 
-  def create_notification_for_follower(post,followee,follower,message)
+  def create_notification_for_follower(sender,receiver,post,message)
     # Tạo Notification cho comment
     Notification.create(
-      sender: followee,
-      receiver: follower,
+      sender: sender,
+      receiver: receiver,
+      object: post,
+      as_read: false,
+      content: message
+    )
+  end
+
+  def create_notification_for_censor(sender,receiver,post,message)
+    # Tạo Notification cho comment
+    Notification.create(
+      sender: sender,
+      receiver: receiver,
       object: post,
       as_read: false,
       content: message
