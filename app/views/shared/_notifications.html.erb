@@ -7,8 +7,30 @@
   <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
     <% user.received_notifications.where(as_read: false).limit(9).each do |notification| %>
       <li class="dropdown-item">
-        <%= link_to notification.content, view_object_path(notification), data:{turbo: false}, class: "text-dark" %>
+        <%= content_tag(:div) do %>
+          <div class="card" style="border: none;">
+            <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
+              <div>
+                <%= link_to notification.content, view_object_path(notification), data:{turbo: false}, class: "text-dark" %>
+              </div>
+              <div class="ms-2">
+                <b>Created</b> <%= time_ago_in_words(notification.created_at) %> ago
+              </div>
+            </div>
+          </div>
+        <% end %>
       </li>
     <% end %>
+    <li class="dropdown-item">
+      <%= content_tag(:div) do %>
+        <div class="card" style="border: none;">
+          <div class="card-header d-flex justify-content-center align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
+            <div>
+              <%= link_to "View all your notifications!!!", notifications_dashboard_index_path, data:{turbo: false}, class: "text-primary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </li>
   </ul>
 </li>

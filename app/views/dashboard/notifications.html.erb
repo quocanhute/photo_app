@@ -1,0 +1,27 @@
+<div class="row justify-content-center">
+  <h2>Dashboard</h2>
+  <div class="row w-100 ">
+    <div class="col-md-4">
+      <%= render "dashboard/dashboard_menu", page: "notifications" %>
+    </div>
+    <div class="col-md-8">
+      <% @notifications.each do |notification| %>
+          <%= content_tag(:div) do %>
+            <div class="card mb-2" style="border: none;">
+              <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
+                <div>
+                  <%= link_to "#{notification.as_read?? "☑️" : "🔔"} #{notification.content}",
+                              view_object_path(notification),
+                              data:{turbo: false},
+                              style: "#{notification.as_read?? "color: #3887BE;" : "color: #E36414;"}" %>
+                </div>
+                <div>
+                  <b>Created</b> <%= time_ago_in_words(notification.created_at) %> ago
+                </div>
+              </div>
+            </div>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

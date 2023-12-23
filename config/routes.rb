@@ -81,7 +81,10 @@ Rails.application.routes.draw do
       get :following_tags
       get :following_users
       get :posts_bookmark
+      post :posts_bookmark, as: 'get_posts_dashboard_pagy'
       get :videos_bookmark
+      post :videos_bookmark, as: 'get_videos_dashboard_pagy'
+      get :notifications
     end
   end
 

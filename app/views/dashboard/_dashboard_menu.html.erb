@@ -25,5 +25,10 @@
         <%= link_to "Videos bookmark", videos_bookmark_dashboard_index_path, class: "nav-link text-black" %>
       </div>
     <% end %>
+    <%= content_tag(:li,class: "hover-animation-nav-item nav-item #{"active" if(page == "notifications") }") do %>
+      <div class="d-flex align-items-center">
+        <%= link_to "Notifications", notifications_dashboard_index_path, class: "nav-link text-black" %>
+      </div>
+    <% end %>
   </ul>
 </div>

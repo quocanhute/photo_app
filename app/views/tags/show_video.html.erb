@@ -28,8 +28,8 @@
     <div class="col-md-12">
       <div class="d-flex mb-3">
         <% path = URI.parse(request.original_url).path.split('/').reject(&:empty?)  %>
-        <button class="<%= (path.include?("tags") && !path.include?("show_video")) ? "btn btn-primary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "POSTS WITH TAG", tag_path,class: "text-white"%></button>
-        <button class="<%= path.include?("show_video") ? "btn btn-primary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "VIDEOS WITH TAG", show_video_tag_path, class: "text-white"%></button>
+        <button class="<%= (path.include?("tags") && !path.include?("show_video")) ? "btn btn-primary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "POSTS WITH TAG", tag_path(index: params[:index].to_s),class: "text-white"%></button>
+        <button class="<%= path.include?("show_video") ? "btn btn-primary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "VIDEOS WITH TAG", show_video_tag_path(index: params[:index].to_s), class: "text-white"%></button>
       </div>
 
       <div class="d-flex justify-content-between align-items-center">
@@ -38,7 +38,7 @@
             <%= hidden_field_tag 'index', params[:index].to_s %>
             <%= form.text_field :query,
                                 class: "form-control mr-sm-2",
-                                placeholder: "Search your post ....", autocomplete: "off" %>
+                                placeholder: "Search your video ....", autocomplete: "off" %>
             <div class="d-flex">
               <%= form.submit "🔦", class: "btn btn-outline-primary mx-2" %>
             </div>

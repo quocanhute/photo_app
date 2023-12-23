@@ -1,0 +1,13 @@
+<%= turbo_stream.append "posts_dashboard_#{dom_id(current_user)}" do %>
+  <%= render "posts/all_post_card", posts: @posts %>
+<%end %>
+
+<%= turbo_stream.update "load_more_button_posts_dashboard_#{dom_id(current_user)}" do %>
+  <% if @pagy.next.present? %>
+    <%= button_to "Load more", pagy_url_for(@pagy, @pagy.next), class: "btn btn-outline-primary btn-lg" %>
+  <% else %>
+    <span>
+      <b>Nothing to show!!! 😁</b>
+    </span>
+  <% end %>
+<% end %>

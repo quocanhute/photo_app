@@ -5,14 +5,37 @@
       <%= render "dashboard/dashboard_menu", page: "videos" %>
     </div>
     <div class="col-md-8">
-      <div class="d-flex row">
-        <% if @videos.count > 0  %>
-          <%= render "dashboard/all_video_card", videos: @videos %>
-        <% else %>
-          <div class="d-flex justify-content-center align-items-center">
-            <b>You don't bookmark any posts! 😢😢😢</b>
+      <div class="d-flex justify-content-between align-items-center">
+        <%= form_with(url: videos_bookmark_dashboard_index_path, method: :get, class: "form-inline my-2 my-lg-0 d-flex") do |form| %>
+          <div class="position-relative d-flex">
+            <%= hidden_field_tag 'index', params[:index].to_s %>
+            <%= form.text_field :query,
+                                class: "form-control mr-sm-2",
+                                placeholder: "Search video bookmark ....", autocomplete: "off" %>
+            <div class="d-flex">
+              <%= form.submit "🔦", class: "btn btn-outline-primary mx-2" %>
+            </div>
           </div>
         <% end %>
+        <div class="d-flex">
+          <button class="<%= params[:index] == "top" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "TOP", videos_bookmark_dashboard_index_path(index: "top"),class: "text-white"%></button>
+          <button class="<%= params[:index] == "oldest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "OLDEST", videos_bookmark_dashboard_index_path(index: "oldest"), class: "text-white"%></button>
+          <button class="<%= params[:index] == "newest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "NEWEST", videos_bookmark_dashboard_index_path(index: "newest"), class: "text-white"%></button>
+        </div>
+      </div>
+      <div class="d-flex row mt-3">
+        <%= turbo_frame_tag "videos_dashboard_#{dom_id(current_user)}", class: "row" do %>
+          <%= render "dashboard/all_video_card", videos: @videos %>
+        <% end %>
+        <div id="load_more_button_videos_dashboard_<%= dom_id(current_user) %>" class="d-flex justify-content-center mb-5">
+          <% if @pagy.next.present? %>
+            <%= button_to "Load more", pagy_url_for(@pagy, @pagy.next), class: "btn btn-outline-primary btn-lg" %>
+          <% else %>
+          <span>
+            <b>Nothing to show!!! 😁</b>
+          </span>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
