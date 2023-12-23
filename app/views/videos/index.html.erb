@@ -3,4 +3,10 @@
   <%= link_to "New video", new_video_path, class: 'btn btn-primary' %>
 </div>
 
-<%= render "videos/video_card", videos: @videos %>
+<% if @videos.count > 0 %>
+  <%= render "videos/video_card", videos: @videos %>
+<% else %>
+  <span class="d-flex justify-content-center">
+    <b>You don't have any videos!!! 😁</b>
+  </span>
+<% end %>

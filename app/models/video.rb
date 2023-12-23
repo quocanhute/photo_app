@@ -10,6 +10,8 @@ class Video < ApplicationRecord
   acts_as_votable
   acts_as_taggable_on :tags
 
+  enum status: { un_status: 0, in_queue: 1, accept: 2, refuse: 3 }
+
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true, length: { maximum: 255 }
   validates :header_image, presence: true

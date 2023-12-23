@@ -3,40 +3,47 @@
   <%= link_to "New post", new_post_path, class: 'btn btn-primary' %>
 </div>
 
-<% @posts.each do |post| %>
-  <%= content_tag(:div) do %>
-    <div class="card mb-2" style="border: none;">
-      <div class="card-header d-flex justify-content-between align-items-center" style="border: none; background-color: #EFEFEF;">
-        <div>
-          <% if post.user.avatar.attached? %>
-            <%= image_tag(post.user.avatar, alt: "#{post.user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
-          <% else %>
-            <%= image_tag("user.jpg", alt: "#{post.user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
+<% if @posts.count > 0 %>
+  <% @posts.each do |post| %>
+    <%= content_tag(:div) do %>
+      <div class="card mb-2" style="border: none;">
+        <div class="card-header d-flex justify-content-between align-items-center" style="border: none; background-color: #EFEFEF;">
+          <div>
+            <% if post.user.avatar.attached? %>
+              <%= image_tag(post.user.avatar, alt: "#{post.user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
+            <% else %>
+              <%= image_tag("user.jpg", alt: "#{post.user.username}", class: "avatar-image rounded-circle", id: "avatarUserHeader") %>
+            <% end %>
+            <%= link_to "#{post.user.username}", profile_path(post.user),data:{turbo: false},class: "mx-1 text-dark" %>
+          </div>
+          <div>
+            <b>Created</b> <%= time_ago_in_words(post.created_at) %> ago
+          </div>
+        </div>
+        <div class="card-body" style="background-color: #EFEFEF;">
+          <%= link_to edit_post_path(post), data:{turbo: false}, class: 'text-decoration-none text-dark' do %>
+            <h3 class="card-title"><%= post.title %></h3>
           <% end %>
-          <%= link_to "#{post.user.username}", profile_path(post.user),data:{turbo: false},class: "mx-1 text-dark" %>
+          <p class="card-text"><%= post.description %></p>
+          <% post.tags.each do |tag| %>
+            <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
+          <% end %>
         </div>
-        <div>
-          <b>Created</b> <%= time_ago_in_words(post.created_at) %> ago
+        <div class="card-footer text-muted d-flex justify-content-between" style="border: none; background-color: #EFEFEF;">
+          <div>
+            <span style="" class="text-dark">️🏅 <%= post.cached_weighted_like_score %> Points</span>
+            <span style="" class="text-dark">💬 <%= post.comments.count %> Comments</span>
+          </div>
+          <% if current_user %>
+            <i class="fa-solid fa-bookmark <%= label_styles_bookmark(post, current_user) %>"></i>
+          <% end %>
         </div>
       </div>
-      <div class="card-body" style="background-color: #EFEFEF;">
-        <%= link_to edit_post_path(post), data:{turbo: false}, class: 'text-decoration-none text-dark' do %>
-          <h3 class="card-title"><%= post.title %></h3>
-        <% end %>
-        <p class="card-text"><%= post.description %></p>
-        <% post.tags.each do |tag| %>
-          <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
-        <% end %>
-      </div>
-      <div class="card-footer text-muted d-flex justify-content-between" style="border: none; background-color: #EFEFEF;">
-        <div>
-          <span style="" class="text-dark">️🏅 <%= post.cached_weighted_like_score %> Points</span>
-          <span style="" class="text-dark">💬 <%= post.comments.count %> Comments</span>
-        </div>
-        <% if current_user %>
-          <i class="fa-solid fa-bookmark <%= label_styles_bookmark(post, current_user) %>"></i>
-        <% end %>
-      </div>
-    </div>
+    <% end %>
   <% end %>
+<% else %>
+  <span class="d-flex justify-content-center">
+    <b>You don't have any posts!!! 😁</b>
+  </span>
 <% end %>
+

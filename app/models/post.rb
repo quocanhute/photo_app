@@ -1,16 +1,16 @@
 class Post < ApplicationRecord
 
   belongs_to :user
+  has_one_attached :header_image
   has_many :elements, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :commented_users, through: :comments, source: :user
   has_many :tags
   has_many :notifications, as: :object, dependent: :destroy
 
   acts_as_votable
   acts_as_taggable_on :tags
 
-  has_one_attached :header_image
+  enum status: { un_status: 0, in_queue: 1, accept: 2, refuse: 3 }
 
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true
