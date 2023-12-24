@@ -1,0 +1,6 @@
+<% if posts.count > 0 %>
+  <h3 class="col-12">Posts Result</h3>
+  <%= render "posts/all_post_card", posts: posts %>
+<% else %>
+  <h3 class="col-12">Nothing posts to show!!!</h3>
+<% end %>

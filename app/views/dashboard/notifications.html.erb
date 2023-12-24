@@ -28,4 +28,7 @@
       <% end %>
     </div>
   </div>
+  <%= paginate @notifications, theme: 'bootstrap-5',
+               pagination_class: "pagination-sm flex-wrap justify-content-end",
+               nav_class: "d-inline-block col-12" %>
 </div>

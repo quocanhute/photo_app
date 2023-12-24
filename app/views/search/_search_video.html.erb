@@ -1,0 +1,6 @@
+<% if videos.count > 0 %>
+  <h3 class="col-12">Videos Result</h3>
+  <%= render "videos/all_video_card", videos: videos %>
+<% else %>
+  <h3 class="col-12">Nothing videos to show!!!</h3>
+<% end %>

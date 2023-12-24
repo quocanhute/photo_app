@@ -22,11 +22,11 @@ class SearchController < ApplicationController
     if params[:query].blank?
       @users =  @search_blank_users
       @posts = @search_blank_posts
-      @video = @search_blank_videos
+      @videos = @search_blank_videos
     else
       @users = @set_users.limit(6)
       @posts = @set_posts.limit(6)
-      @video = @set_videos.limit(6)
+      @videos = @set_videos.limit(6)
 
     end
 
@@ -66,7 +66,7 @@ class SearchController < ApplicationController
   end
   def search_for_users
     if params[:query].blank?
-      User.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(2)
+      User.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(3)
     else
       @set_users.limit(3)
     end
@@ -74,7 +74,7 @@ class SearchController < ApplicationController
 
   def search_for_posts
     if params[:query].blank?
-      Post.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(2)
+      Post.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(3)
     else
       @set_posts.limit(3)
     end
@@ -82,7 +82,7 @@ class SearchController < ApplicationController
 
   def search_for_videos
     if params[:query].blank?
-      Video.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(2)
+      Video.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(3)
     else
       @set_videos.limit(3)
     end

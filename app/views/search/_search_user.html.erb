@@ -1,24 +1,8 @@
-<div class="row row-cols-6 d-flex align-items-center">
-  <% if users.count > 0 %>
-    <h3 class="col-12">Users Result</h3>
-    <% users.each do |user| %>
-      <div class="col-6 col-md-2 item">
-        <div class="card-user-detail border rounded p-2 my-2 ">
-          <% if user.avatar.blob %>
-            <%= image_tag(user.avatar, alt: "Profile Picture", class: "avatar-user rounded-circle", id: "avatar") %>
-          <%else %>
-            <%= image_tag('user.jpg', class: "avatar-user rounded-circle", id: "avatar") %>
-          <% end %>
-          <%= link_to(profile_path(user)) do %>
-            <%= content_tag(:h3, user.last_name, class: "name text-center") %>
-          <% end %>
-          <%= content_tag(:p, user.role, class: "title text-center") %>
-          <%= render partial: 'profile/follow_button',locals: {user: user} %>
-        </div>
-      </div>
-    <% end %>
-    <%= link_to "View all users", url_for(controller: 'search', action: 'show_all_user_search', params: request.query_parameters),class: "col-12" %>
-  <% else %>
-    <h3 class="col-12">Nothing users to show!!!</h3>
+<% if users.count > 0 %>
+  <h3 class="col-12">Users Result</h3>
+  <% users.each do |user| %>
+    <%= render "profile/user_card", user: user %>
   <% end %>
-</div>
+<% else %>
+  <h3 class="col-12">Nothing users to show!!!</h3>
+<% end %>
