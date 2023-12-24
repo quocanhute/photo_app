@@ -25,17 +25,17 @@
           </div>
 
           <div class="form-outline mb-4 w-100">
-            <%= f.label :email, class: "" %><br />
+            <%= f.label :email, class: "" %><br/>
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control form-control-lg" %>
           </div>
 
           <div class="form-outline mb-4 w-100">
-            <%= f.label :first_name %><br />
+            <%= f.label :first_name %><br/>
             <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control form-control-lg" %>
           </div>
 
           <div class="form-outline mb-4 w-100">
-            <%= f.label :last_name %><br />
+            <%= f.label :last_name %><br/>
             <%= f.text_field :last_name, autocomplete: "last_name", class: "form-control form-control-lg" %>
           </div>
 
@@ -44,30 +44,30 @@
             <%= f.select :sex, User.sexes.keys ,class: "form-control form-control-lg"%>
           </div>
           <div class="form-outline mb-4 w-100">
-            <%= f.label :phone_number, class: "" %><br />
+            <%= f.label :phone_number, class: "" %><br/>
             <%= f.text_field :phone_number, autofocus: true, autocomplete: "phone_number", class: "form-control form-control-lg" %>
           </div>
 
           <div class="form-outline mb-4 w-100">
-            <%= f.label :address, class: "" %><br />
+            <%= f.label :address, class: "" %><br/>
             <%= f.text_field :address, autofocus: true, autocomplete: "address", class: "form-control form-control-lg" %>
           </div>
 
           <div class="form-outline mb-4 w-100">
-            <%= f.label :birthday, class: "" %><br />
-            <%= f.date_select :birthday, autofocus: true, autocomplete: "birthday", class: "form-control form-control-lg", type: "date"%>
+            <%= f.label :birthday, class: "" %><br/>
+            <%= f.date_field :birthday, autofocus: true, autocomplete: "birthday", class: "form-control form-control-lg"%>
           </div>
 
           <div class="form-outline mb-4 w-100">
             <%= f.label :password %>
             <% if @minimum_password_length %>
               <em>(<%= @minimum_password_length %> characters minimum)</em>
-            <% end %><br />
+            <% end %><br/>
             <%= f.password_field :password, autocomplete: "new-password", class: "form-control form-control-lg" %>
           </div>
 
           <div class="form-outline mb-4 w-100">
-            <%= f.label :password_confirmation %><br />
+            <%= f.label :password_confirmation %><br/>
             <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control form-control-lg" %>
           </div>
 

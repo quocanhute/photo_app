@@ -5,7 +5,6 @@
   <%= render "users/shared/error_messages", resource: resource %>
   <div class="col-md-4">
     <div class="profile-img">
-
       <div data-controller="upload-image">
         <div class="avatar">
           <% if resource.avatar.attached? %>
@@ -22,8 +21,6 @@
                          accept: 'image/*',
                          direct_upload: true %>
       </div>
-
-
     </div>
   </div>
 
@@ -62,7 +59,7 @@
 
   <div class="form-group  d-flex mb-3 w-25">
     <%= f.label :birthday,class: "col-6 col-form-label" %>
-    <%= f.date_select :birthday ,class: "col-6 form-control" %>
+    <%= f.date_field :birthday ,class: "col-6 form-control",type: "date"%>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

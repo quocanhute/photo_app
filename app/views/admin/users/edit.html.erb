@@ -26,26 +26,16 @@
 
       <div class="form-group  d-flex mb-3 w-25">
         <%= f.label :first_name,class: "col-6 col-form-label" %>
-        <%= f.text_field :first_name ,class: "col-6 form-control here" %>
+        <%= f.text_field :first_name ,class: "col-6 form-control here" , disabled: true%>
       </div>
 
       <div class="form-group  d-flex mb-3 w-25">
         <%= f.label :last_name,class: "col-6 col-form-label" %>
-        <%= f.text_field :last_name ,class: "col-6 form-control"%>
+        <%= f.text_field :last_name ,class: "col-6 form-control", disabled: true%>
       </div>
       <div class="form-group  d-flex mb-3 w-25">
         <%= f.label :role,class: "col-6 col-form-label" %>
         <%= f.select :role, User.roles.keys ,class: "col-6 form-control"%>
-      </div>
-
-      <div class="form-group  d-flex mb-3 w-25">
-        <%= f.label :password,class: "col-6 col-form-label" %>
-        <%= f.password_field :password ,class: "col-6 form-control"%>
-      </div>
-
-      <div class="form-group  d-flex mb-3 w-25">
-        <%= f.label :password_confirmation,class: "col-6 col-form-label" %>
-        <%= f.password_field :password_confirmation ,class: "col-6 form-control"%>
       </div>
 
       <div class="actions">

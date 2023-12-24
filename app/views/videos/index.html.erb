@@ -4,7 +4,57 @@
 </div>
 
 <% if @videos.count > 0 %>
-  <%= render "videos/video_card", videos: @videos %>
+  <% @videos.each do |video| %>
+    <div class="col-12 col-md-4">
+      <div class="card mb-3 border" style="border: none">
+        <%= link_to edit_video_path(video), data:{turbo: false}, class: '' do %>
+          <img src="<%= url_for(video.header_image) %>" class="card-img-top border-bottom"  style="height: 250px" alt="...">
+        <% end %>
+        <div class="card-body">
+          <%= link_to edit_video_path(video), data:{turbo: false}, class: 'text-decoration-none text-dark' do %>
+            <h5 class="card-title single-line"><%= video.title %></h5>
+          <% end %>
+          <p class="card-text single-line"><%= video.description %></p>
+        </div>
+        <div class="card-header flex-column text-start">
+          <div class="d-flex justify-content-between ">
+            <div class="d-flex">
+              <div class="d-flex justify-content-start align-items-center">
+                <% if video.user.avatar_attachment %>
+                  <%= image_tag(video.user.avatar, alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                <% else %>
+                  <%= image_tag('user.jpg', alt: "User Avatar", class: "avatar-image rounded-circle") %>
+                <% end %>
+                <%= link_to "#{video.user.username}", profile_path(video.user),data:{turbo: false},class: "mx-1" %>
+              </div>
+              <% if current_user %>
+                <% if video.user != current_user %>
+                  <%= render partial: 'profile/follow_button',locals: {user: video.user} %>
+                <% end %>
+              <% end %>
+            </div>
+            <%= render partial: 'videos/published_at',locals: {video: video} %>
+          </div>
+          <div class="mt-2">
+            <strong>Tags:</strong>
+            <% video.tags.each do |tag| %>
+              <%= link_to "##{tag.name}", tag_path(tag), data:{turbo: false}, class: "title-post-card rounded-3 px-2 py-1"%>
+            <% end %>
+          </div>
+        </div>
+        <div class="card-footer text-muted d-flex justify-content-between" style="border: none; background-color: #EFEFEF;">
+          <div>
+            <span style="" class="text-dark mx-1">️🏅 <%= "#{pluralize(video.cached_weighted_like_score, "Point")}"%></span>
+            <span style="" class="text-dark mx-1">💬 <%= "#{pluralize(video.vcomments.count, "Comment")}"%></span>
+            <span style="" class="text-dark mx-1">👀 <%= "#{pluralize(video.total_views, "View")}"%></span>
+          </div>
+          <% if current_user %>
+            <i class="fa-solid fa-bookmark <%= label_styles_bookmark(video, current_user) %>"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 <% else %>
   <span class="d-flex justify-content-center">
     <b>You don't have any videos!!! 😁</b>
