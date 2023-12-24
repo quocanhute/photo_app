@@ -52,7 +52,7 @@ class DashboardController < ApplicationController
   end
 
   def notifications
-    @notifications = current_user.received_notifications.order(created_at: :desc).page(params[:page]).per(15)
+    @notifications = current_user.received_notifications.order(created_at: :desc).page(params[:page]).per(NOTIFICATIONS_PER_PAGE)
   end
 
   private
