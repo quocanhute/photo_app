@@ -3,10 +3,11 @@ import "choices"
 
 // Connects to data-controller="search"
 export default class extends Controller {
-  static targets = ["input", "suggestions","list_tags"];
+  static targets = ["input", "suggestions","list_tags","total_tags"];
 
   connect() {
     this.hideSuggestions();
+    this.selectChanged();
     document.addEventListener("click", (event) => {
       if (!this.element.contains(event.target)) {
         this.hideSuggestions();
@@ -30,9 +31,18 @@ export default class extends Controller {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
       this.requestSuggestions(query,selectedTagIds, url);
+      // this.updateTotalTagsCount();
     }, 250);
   }
 
+  updateTotalTagsCount() {
+    const count = this.list_tagsTarget.selectedOptions.length;
+    this.total_tagsTarget.innerText = `Total tags: ${count}`;
+  }
+
+  selectChanged() {
+    this.updateTotalTagsCount();
+  }
   requestSuggestions(query,selectedTagIds, url) {
     if (query.length === 0) {
       this.hideSuggestions();

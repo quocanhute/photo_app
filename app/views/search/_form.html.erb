@@ -5,22 +5,26 @@
 }) do |form| %>
   <div class="position-relative d-flex" style="width: 500px">
     <%= form.text_field :query,
+                        value: (params[:query] if params[:query].present?),
                         data: {
                           search_target: "input",
                           action: "blur->search#hideSuggestions",
                         },
                         class: "form-control mr-sm-2",
                         placeholder: "Type something....", autocomplete: "off" %>
-    <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"></a>
+    <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" data-target="search.total_tags">
+      <%= "Total tags: #{params[:tag_ids].present? ? params[:tag_ids].count : 0}" %>
+    </a>
     <ul class="dropdown-menu" style="left: -20%; width: 540px" aria-labelledby="dropdownMenuButton1">
       <div class="d-flex w-100" >
         <div class="col-md-12">
           <select id="choices-multiple-remove-button"
                   data-search-target="list_tags"
                   placeholder="Select upto 5 tags"
-                  multiple>
+                  multiple name="tag_ids[]"
+                  data-action="change->search#selectChanged">
             <% Tag.all.each do |tag| %>
-              <%= content_tag(:option,value: tag.id) do %>
+              <%= content_tag(:option,value: tag.id, selected: (params[:tag_ids].include?(tag.id.to_s) if params[:tag_ids].present?)) do %>
                 <%= tag.name %>
               <% end %>
             <% end %>
@@ -29,8 +33,7 @@
       </div>
     </ul>
     <div class="d-flex">
-      <%= form.submit "🔎", class: "btn btn-outline-light mx-2" %>
-
+      <%= form.submit "🔎", class: "button-search btn btn-outline-light mx-2" %>
     </div>
     <div id="suggestions" class="position-absolute w-100 top-100"
          data-search-target="suggestions" data-action="mousedown->search#childClicked">

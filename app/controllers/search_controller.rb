@@ -24,10 +24,9 @@ class SearchController < ApplicationController
       @posts = @search_blank_posts
       @videos = @search_blank_videos
     else
-      @users = @set_users.limit(6)
-      @posts = @set_posts.limit(6)
-      @videos = @set_videos.limit(6)
-
+      @users = @set_users
+      @posts = @set_posts
+      @videos = @set_videos
     end
 
   end
@@ -52,14 +51,17 @@ class SearchController < ApplicationController
     if params[:tag_ids].present?
       @set_posts = @q_post.result(distinct: true).joins(:tags).where(tags: { id: params[:tag_ids] }).where(published: true).distinct
       @set_videos = @q_video.result(distinct: true).joins(:tags).where(tags: { id: params[:tag_ids] }).where(published: true).distinct
-
+      @search_blank_users = User.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(6)
+      @search_blank_posts = Post.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(6)
+      @search_blank_videos = Video.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(6)
     else
       @set_posts = @q_post.result(distinct: true).where(published: true).distinct
       @set_videos = @q_video.result(distinct: true).where(published: true).distinct
+      @search_blank_users = User.limit(6)
+      @search_blank_posts = Post.limit(6)
+      @search_blank_videos = Video.limit(6)
     end
-    @search_blank_users = User.limit(6)
-    @search_blank_posts = Post.limit(6)
-    @search_blank_videos = Video.limit(6)
+
   end
   def search_params
     params.permit(:term)
