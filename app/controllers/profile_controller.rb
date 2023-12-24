@@ -1,6 +1,6 @@
 class ProfileController < ApplicationController
   include ProfileHelper
-  before_action :authenticate_user!, only: %i[ follow unfollow]
+  before_action :authenticate_user!, only: %i[ follow unfollow report_user]
   before_action :set_user
   def show
     if current_user
@@ -47,6 +47,24 @@ class ProfileController < ApplicationController
       format.turbo_stream do
         render turbo_stream: [update_action_follow,update_count_follower]
       end
+    end
+  end
+
+  def action_report_user
+  end
+  def report_user
+    User.admin_role.each do |user|
+      message = "User #{@user.email} was been report please check this user!!!"
+      Notification.create(
+        sender: current_user,
+        receiver: user,
+        object: @user,
+        as_read: false,
+        content: message
+      )
+    end
+    respond_to do |format|
+        format.html { redirect_to profile_path(@user), :notice => 'User was successfully reported.'  }
     end
   end
 

@@ -42,6 +42,7 @@ class User < ApplicationRecord
   validates :address, presence: true
 
   scope :admin_and_censor, -> { where(role: [:admin, :censor]) }
+  scope :admin_role, -> { where(role: [:admin]) }
 
 
   def tag_added?(tag)
@@ -68,6 +69,10 @@ class User < ApplicationRecord
   end
   def self.ransackable_associations(auth_object = nil)
     %w[avatar_attachment avatar_blob comments followed_user followee follower following_user liked_comments posts votes videos]
+  end
+
+  def self.logout(id)
+    User.where(id: id).update_all(session_validity_token: nil)
   end
 
 end

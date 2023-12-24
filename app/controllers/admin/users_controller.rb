@@ -78,6 +78,7 @@ class Admin::UsersController < ApplicationController
     ActiveRecord::Base.transaction do
       @user = User.find(params[:id])
       @user.update_columns(is_ban: true)
+      User.logout(@user.id)
       UserMailer.ban_user_email(@user).deliver_later
     end
     respond_to do |format|

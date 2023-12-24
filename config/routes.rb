@@ -89,6 +89,8 @@ Rails.application.routes.draw do
     member do
       post :follow
       delete :unfollow
+      get :action_report_user
+      post :report_user
     end
   end
   resources :dashboard do
