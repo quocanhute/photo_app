@@ -5,6 +5,16 @@
 
 <% if @posts.count > 0 %>
   <% @posts.each do |post| %>
+    <% case post.status %>
+    <% when "un_status" %>
+      <% style_color = "" %>
+    <% when "in_queue" %>
+      <% style_color = "#EEC759" %>
+    <% when "accept" %>
+      <% style_color = "#65B741" %>
+    <% when "refuse" %>
+      <% style_color = "#EF4040" %>
+    <% end %>
     <%= content_tag(:div) do %>
       <div class="card mb-2" style="border: none;">
         <div class="card-header d-flex justify-content-between align-items-center" style="border: none; background-color: #EFEFEF;">
@@ -16,13 +26,13 @@
             <% end %>
             <%= link_to "#{post.user.username}", profile_path(post.user),data:{turbo: false},class: "mx-1 text-dark" %>
           </div>
-          <div>
-            <b>Created</b> <%= time_ago_in_words(post.created_at) %> ago
+          <div class="d-flex">
+            <p><b>Created</b> <%= time_ago_in_words(post.created_at) %> ago</p>
           </div>
         </div>
         <div class="card-body" style="background-color: #EFEFEF;">
           <%= link_to edit_post_path(post), data:{turbo: false}, class: 'text-decoration-none text-dark' do %>
-            <h3 class="card-title"><%= post.title %></h3>
+            <h3 class="card-title" style="color: <%= style_color %>"><%= post.title %></h3>
           <% end %>
           <p class="card-text"><%= post.description %></p>
           <% post.tags.each do |tag| %>

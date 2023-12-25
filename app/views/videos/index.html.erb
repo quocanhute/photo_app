@@ -5,6 +5,16 @@
 
 <% if @videos.count > 0 %>
   <% @videos.each do |video| %>
+    <% case video.status %>
+    <% when "un_status" %>
+      <% style_color = "" %>
+    <% when "in_queue" %>
+      <% style_color = "#EEC759" %>
+    <% when "accept" %>
+      <% style_color = "#65B741" %>
+    <% when "refuse" %>
+      <% style_color = "#EF4040" %>
+    <% end %>
     <div class="col-12 col-md-4">
       <div class="card mb-3 border" style="border: none">
         <%= link_to edit_video_path(video), data:{turbo: false}, class: '' do %>
@@ -12,7 +22,7 @@
         <% end %>
         <div class="card-body">
           <%= link_to edit_video_path(video), data:{turbo: false}, class: 'text-decoration-none text-dark' do %>
-            <h5 class="card-title single-line"><%= video.title %></h5>
+            <h5 class="card-title single-line" style="color: <%= style_color %>"><%= video.title %></h5>
           <% end %>
           <p class="card-text single-line"><%= video.description %></p>
         </div>

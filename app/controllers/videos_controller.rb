@@ -22,13 +22,13 @@ class VideosController < ApplicationController
 
   # GET /photos/1/edit
   def edit
-
+    @video_status = @video.status
   end
 
   # POST /photos or /photos.json
   def create
     @video = current_user.videos.build(video_params)
-
+    @video_status = @video.status
     respond_to do |format|
       if @video.save
         format.html { redirect_to edit_video_path(@video), notice: "Video was successfully created." }
@@ -40,6 +40,7 @@ class VideosController < ApplicationController
 
   # PATCH/PUT /photos/1 or /photos/1.json
   def update
+    @video_status = @video.status
     respond_to do |format|
       if @video.update(video_params)
         format.html {
@@ -84,7 +85,7 @@ class VideosController < ApplicationController
 
   def unpublish
     @video.update(published: false, published_at: nil)
-
+    @video_status = @video.status
     respond_to do |format|
       format.html { redirect_to edit_video_url(@video), notice: "Your video was successfully unpublished." }
     end

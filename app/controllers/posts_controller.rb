@@ -23,12 +23,13 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @element = @post.elements.build
+    @post_status = @post.status
   end
 
   # POST /posts or /posts.json
   def create
     @post = current_user.posts.build(post_params)
-
+    @post_status = @post.status
     respond_to do |format|
       if @post.save
         format.html { redirect_to edit_post_path(@post), notice: "Post was successfully created." }
@@ -40,6 +41,7 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
+    @post_status = @post.status
     respond_to do |format|
       if @post.update(post_params)
         format.html {
@@ -86,7 +88,7 @@ class PostsController < ApplicationController
 
   def unpublish
     @post.update(published: false, published_at: nil)
-
+    @post_status = @post.status
     respond_to do |format|
       format.html { redirect_to edit_post_url(@post), notice: "Your post was successfully unpublished." }
     end

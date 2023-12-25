@@ -33,4 +33,94 @@
       </div>
     </div>
   <% end %>
+  <% if @post_status %>
+    <% case @post_status %>
+    <% when "un_status" %>
+      <div class="col-md-10 mt-5">
+        <div class="card" style="border: none;">
+          <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
+            <div>
+              <p>You can publish your post to everybody! 🤗</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% when "in_queue" %>
+      <div class="col-md-10 mt-5">
+        <div class="card" style="border: none;">
+          <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
+            <div>
+              <p>Your post need to check before publish! 🤗</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% when "accept" %>
+      <div class="col-md-10 mt-5">
+        <div class="card" style="border: none;">
+          <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
+            <div>
+              <p>Your post is healthy! 🤗</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% when "refuse" %>
+      <div class="col-md-10 mt-5">
+        <div class="card" style="border: none;">
+          <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
+            <div class="d-flex flex-column">
+              <p>Your post is rejected! ⛔</p>
+              <p>Please change your content! ⛔</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% if @video_status %>
+    <% case @video_status %>
+    <% when "un_status" %>
+      <div class="col-md-10 mt-5">
+        <div class="card" style="border: none;">
+          <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
+            <div>
+              <p>You can publish your video to everybody! 🤗</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% when "in_queue" %>
+      <div class="col-md-10 mt-5">
+        <div class="card" style="border: none;">
+          <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
+            <div>
+              <p>Your video need to check before publish! 🤗</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% when "accept" %>
+      <div class="col-md-10 mt-5">
+        <div class="card" style="border: none;">
+          <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
+            <div>
+              <p>Your video is healthy! 🤗</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% when "refuse" %>
+      <div class="col-md-10 mt-5">
+        <div class="card" style="border: none;">
+          <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
+            <div class="d-flex flex-column">
+              <p>Your video is rejected! ⛔</p>
+              <p>Please change your content! ⛔</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 </nav>
