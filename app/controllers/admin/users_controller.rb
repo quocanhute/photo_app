@@ -3,11 +3,13 @@ class Admin::UsersController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @users = User.where(is_ban: false ).order(last_name: :asc,first_name: :asc).page(params[:page]).per(15)
+    data_user = set_data_user
+    @users = data_user.where(is_ban: false ).order(last_name: :asc,first_name: :asc).page(params[:page]).per(15)
   end
 
   def index_ban_user
-    @users = User.where(is_ban: true ).order(last_name: :asc,first_name: :asc).page(params[:page]).per(15)
+    data_user = set_data_user
+    @users = data_user.where(is_ban: true ).order(last_name: :asc,first_name: :asc).page(params[:page]).per(15)
   end
 
   def show
@@ -110,6 +112,14 @@ class Admin::UsersController < ApplicationController
   def authorize_admin
     unless current_user&.admin?
       redirect_to root_path, alert: 'Access denied.'
+    end
+  end
+
+  def set_data_user
+    if params[:query_admin_user].present?
+      User.ransack(first_name_or_last_name_cont: params[:query_admin_user]).result(distinct: true)
+    else
+      User
     end
   end
 end

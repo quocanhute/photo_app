@@ -2,6 +2,16 @@
   <div class="row justify-content-center">
     <!-- app/views/users/index.html.erb -->
     <h1>Posts moderation</h1>
+    <%= form_with(url: admin_posts_path, method: :get, class: "form-inline my-2 my-lg-0 d-flex") do |form| %>
+      <div class="position-relative d-flex">
+        <%= form.text_field :query_admin_post,
+                            class: "form-control mr-sm-2",
+                            placeholder: "Search post ....", autocomplete: "off" %>
+        <div class="d-flex">
+          <%= form.submit "🔦", class: "btn btn-outline-primary mx-2" %>
+        </div>
+      </div>
+    <% end %>
     <% if @posts.count > 0 %>
       <table class="table overflow-auto mt-3">
         <thead class="table-dark">

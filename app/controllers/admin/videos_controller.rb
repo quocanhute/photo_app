@@ -3,7 +3,8 @@ class Admin::VideosController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @videos = Video.where(status: :in_queue).order(created_at: :desc).page(params[:page]).per(15)
+    data_video = set_data_video
+    @videos = data_video.where(status: :in_queue).order(created_at: :desc).page(params[:page]).per(15)
   end
 
   def action_accept_video
@@ -65,6 +66,14 @@ class Admin::VideosController < ApplicationController
   def authorize_admin
     unless current_user&.admin? || current_user&.censor?
       redirect_to root_path, alert: 'Access denied.'
+    end
+  end
+
+  def set_data_video
+    if params[:query_admin_video].present?
+      Video.ransack(title_or_description_cont: params[:query_admin_video]).result(distinct: true)
+    else
+      Video
     end
   end
 end

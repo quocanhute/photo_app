@@ -2,7 +2,17 @@
   <div class="row justify-content-center">
     <!-- app/views/users/index.html.erb -->
     <h1>Users Management</h1>
-    <div class="d-flex mb-3">
+    <%= form_with(url: admin_index_ban_user_path, method: :get, class: "form-inline my-2 my-lg-0 d-flex") do |form| %>
+      <div class="position-relative d-flex">
+        <%= form.text_field :query_admin_user,
+                            class: "form-control mr-sm-2",
+                            placeholder: "Search user ....", autocomplete: "off" %>
+        <div class="d-flex">
+          <%= form.submit "🔦", class: "btn btn-outline-primary mx-2" %>
+        </div>
+      </div>
+    <% end %>
+    <div class="d-flex mb-3 mt-3">
       <button class="btn btn-primary mx-1"><%= link_to "LIST USERS", admin_users_path,class: "text-white"%></button>
       <button class="btn btn-primary mx-1"><%= link_to "LIST BAN USERS", admin_index_ban_user_path, class: "text-white"%></button>
     </div>

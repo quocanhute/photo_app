@@ -2,31 +2,41 @@
   <div class="row justify-content-center">
     <!-- app/views/users/index.html.erb -->
     <h1>Videos moderation</h1>
-      <% if @videos.count > 0 %>
-        <table class="table overflow-auto mt-3">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">Title</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-          <% @videos.each do |video| %>
-            <tr>
-              <th><%= link_to video.title, video_path(video),class: "text-dark" %></th>
-              <th>
-                <%= link_to "ACCEPT", action_accept_video_admin_video_path(video),class: "btn btn-success text-white",data: { turbo_frame: "remote_modal" } %>
-                <%= link_to "REFUSE",action_refuse_video_admin_video_path(video), class: "btn btn-danger text-white" ,data: { turbo_frame: "remote_modal" }%>
-              </th>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      <% else %>
-          <span class="d-flex justify-content-center">
-            <b>No videos to check!!! 😁</b>
-          </span>
-      <% end %>
+    <%= form_with(url: admin_videos_path, method: :get, class: "form-inline my-2 my-lg-0 d-flex") do |form| %>
+      <div class="position-relative d-flex">
+        <%= form.text_field :query_admin_video,
+                            class: "form-control mr-sm-2",
+                            placeholder: "Search video ....", autocomplete: "off" %>
+        <div class="d-flex">
+          <%= form.submit "🔦", class: "btn btn-outline-primary mx-2" %>
+        </div>
+      </div>
+    <% end %>
+    <% if @videos.count > 0 %>
+      <table class="table overflow-auto mt-3">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Title</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @videos.each do |video| %>
+          <tr>
+            <th><%= link_to video.title, video_path(video),class: "text-dark" %></th>
+            <th>
+              <%= link_to "ACCEPT", action_accept_video_admin_video_path(video),class: "btn btn-success text-white",data: { turbo_frame: "remote_modal" } %>
+              <%= link_to "REFUSE",action_refuse_video_admin_video_path(video), class: "btn btn-danger text-white" ,data: { turbo_frame: "remote_modal" }%>
+            </th>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+        <span class="d-flex justify-content-center">
+          <b>No videos to check!!! 😁</b>
+        </span>
+    <% end %>
   </div>
   <%= paginate @videos, theme: 'bootstrap-5',
                pagination_class: "pagination-sm flex-wrap justify-content-center",

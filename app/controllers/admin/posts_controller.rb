@@ -3,7 +3,8 @@ class Admin::PostsController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @posts = Post.where(status: :in_queue).order(created_at: :desc).page(params[:page]).per(15)
+    data_post = set_data_post
+    @posts = data_post.where(status: :in_queue).order(created_at: :desc).page(params[:page]).per(15)
   end
 
   def action_accept_post
@@ -65,6 +66,14 @@ class Admin::PostsController < ApplicationController
   def authorize_admin
     unless current_user&.admin? || current_user&.censor?
       redirect_to root_path, alert: 'Access denied.'
+    end
+  end
+
+  def set_data_post
+    if params[:query_admin_post].present?
+      Post.ransack(title_or_description_cont: params[:query_admin_post]).result(distinct: true)
+    else
+      Post
     end
   end
 end
