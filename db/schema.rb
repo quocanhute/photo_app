@@ -137,7 +137,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_24_255650) do
     t.integer "cached_weighted_bookmark_total", default: 0
     t.float "cached_weighted_bookmark_average", default: 0.0
     t.boolean "already_published", default: false
-    t.integer "total_views", default: 0, null: false
+    t.integer "total_views"
     t.boolean "is_ban", default: false
     t.integer "status", default: 0, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -261,7 +261,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_24_255650) do
     t.integer "cached_weighted_bookmark_score", default: 0
     t.integer "cached_weighted_bookmark_total", default: 0
     t.float "cached_weighted_bookmark_average", default: 0.0
-    t.integer "total_views", default: 0, null: false
+    t.integer "total_views"
     t.boolean "is_ban", default: false
     t.integer "status", default: 0, null: false
     t.index ["user_id"], name: "index_videos_on_user_id"

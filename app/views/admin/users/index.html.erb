@@ -19,8 +19,8 @@
     <table class="table overflow-auto mt-3">
       <thead class="table-dark">
       <tr>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
         <th scope="col">Email</th>
         <th scope="col">Role</th>
         <th scope="col">Action</th>
@@ -29,8 +29,12 @@
       <tbody>
       <% @users.each do |user| %>
         <tr class="<%= "d-none" if user.id == current_user.id %>">
-          <th><%= user.first_name %></th>
-          <th><%= user.last_name %></th>
+          <th>
+            <%= link_to user.first_name, profile_path(user), class: "text-primary" %>
+          </th>
+          <th>
+            <%= link_to user.last_name, profile_path(user), class: "text-primary" %>
+          </th>
           <th><%= user.email %></th>
           <th><%= user.role %></th>
           <th>

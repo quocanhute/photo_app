@@ -16,14 +16,16 @@
       <table class="table overflow-auto mt-3">
         <thead class="table-dark">
         <tr>
-          <th scope="col">Title</th>
+          <th scope="col">Post Title</th>
           <th></th>
         </tr>
         </thead>
         <tbody>
         <% @posts.each do |post| %>
           <tr>
-            <th><%= link_to post.title, post_path(post),class: "text-dark" %></th>
+            <th>
+              <%= link_to post.title, post_path(post),class: "text-primary" %>
+            </th>
             <th>
               <%= link_to "ACCEPT", action_accept_post_admin_post_path(post),class: "btn btn-success text-white",data: { turbo_frame: "remote_modal" } %>
               <%= link_to "REFUSE",action_refuse_post_admin_post_path(post), class: "btn btn-danger text-white" ,data: { turbo_frame: "remote_modal" }%>
