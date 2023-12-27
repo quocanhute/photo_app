@@ -16,6 +16,7 @@
       <table class="table overflow-auto mt-3">
         <thead class="table-dark">
         <tr>
+          <th scope="col">Author</th>
           <th scope="col">Post Title</th>
           <th></th>
         </tr>
@@ -23,6 +24,9 @@
         <tbody>
         <% @posts.each do |post| %>
           <tr>
+            <th>
+              <%= link_to post.user.username, profile_path(post.user),class: "text-primary" %>
+            </th>
             <th>
               <%= link_to post.title, post_path(post),class: "text-primary" %>
             </th>

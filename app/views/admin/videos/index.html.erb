@@ -16,6 +16,7 @@
       <table class="table overflow-auto mt-3">
         <thead class="table-dark">
           <tr>
+            <th scope="col">Author</th>
             <th scope="col">Video Title</th>
             <th></th>
           </tr>
@@ -23,6 +24,9 @@
         <tbody>
         <% @videos.each do |video| %>
           <tr>
+            <th>
+              <%= link_to video.user.username, profile_path(video.user),class: "text-primary" %>
+            </th>
             <th>
               <%= link_to video.title, video_path(video),class: "text-primary" %>
             </th>
