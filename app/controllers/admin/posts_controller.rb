@@ -18,7 +18,7 @@ class Admin::PostsController < ApplicationController
   def accept_post
     ActiveRecord::Base.transaction do
       @post = Post.find(params[:id])
-      @post.update_columns(status: 2)
+      @post.update_columns(published: true,status: 2)
       Notification.create(
         sender: current_user,
         receiver: @post.user,

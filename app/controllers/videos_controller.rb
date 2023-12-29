@@ -69,7 +69,7 @@ class VideosController < ApplicationController
         format.html { redirect_to edit_video_url(@video), notice: "Your video was successfully published." }
       end
     else
-      @video.update(published: true,status: 1, published_at: Time.now)
+      @video.update(status: 1, published_at: Time.now)
       @video_status = @video.status
       User.admin_and_censor.each do |user|
         message = "Need to check a video #{@video.user.username} just published!!!"

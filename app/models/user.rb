@@ -22,8 +22,8 @@ class User < ApplicationRecord
   has_many :following_user, foreign_key: :followee_id, class_name: 'Relationship', dependent: :destroy
   has_many :follower, through: :following_user, dependent: :destroy
   # access the Notification object
-  has_many :sent_notifications, class_name: 'Notification', foreign_key: 'sender_id'
-  has_many :received_notifications, class_name: 'Notification', foreign_key: 'receiver_id'
+  has_many :sent_notifications, class_name: 'Notification', foreign_key: 'sender_id', dependent: :destroy
+  has_many :received_notifications, class_name: 'Notification', foreign_key: 'receiver_id', dependent: :destroy
   has_many :notifications, as: :object, dependent: :destroy
 
   has_many :posts, dependent: :destroy

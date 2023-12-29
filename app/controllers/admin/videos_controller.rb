@@ -18,7 +18,7 @@ class Admin::VideosController < ApplicationController
   def accept_video
     ActiveRecord::Base.transaction do
       @video = Video.find(params[:id])
-      @video.update_columns(status: 2)
+      @video.update_columns(published: true,status: 2)
       Notification.create(
         sender: current_user,
         receiver: @video.user,

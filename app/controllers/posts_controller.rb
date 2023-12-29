@@ -72,7 +72,7 @@ class PostsController < ApplicationController
         format.html { redirect_to edit_post_url(@post), notice: "Your post was successfully published." }
       end
     else
-      @post.update(published: true,status: 1, published_at: Time.now)
+      @post.update(status: 1, published_at: Time.now)
       @post_status = @post.status
       User.admin_and_censor.each do |user|
         message = "Need to check a post #{@post.user.username} just published!!!"
