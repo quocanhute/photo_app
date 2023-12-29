@@ -1,82 +1,35 @@
-<% if current_user %>
-  <% if @post.published || current_user.admin? || current_user.censor? || @post.user == current_user %>
-    <div class="row">
-      <div class="col-md-12">
-        <%= render @post %>
-      </div>
-    </div>
+<div class="row">
+  <div class="col-md-12">
+    <%= render @post %>
+  </div>
+</div>
 
-    <div class="blog-comment">
-      <h3 class="text-success">Comments:</h3>
-      <% if current_user %>
-        <%= render partial: 'comments/form', locals: { post: @post , parent: nil, user: current_user, cancel: false} %>
-      <% end %>
-
-      <hr/>
-      <div class="d-flex justify-content-center mb-5">
-        <% if current_user %>
-          <ul class="comments w-100">
-            <turbo-frame id="post-comments_<%= @post.id %>">
-              <% if @post.comments.count > 0 %>
-                <%= render "comments/comments", post: @post %>
-              <% else %>
-                <b>No comments here!!! 😢😢😢</b>
-              <% end %>
-            </turbo-frame>
-          </ul>
-        <% else %>
-          <% if @post.comments.count > 0 %>
-            <ul class="comments w-100">
-              <%= render "comments/comments_for_guest" , comments: @post.comments.where(parent_id: nil) %>
-            </ul>
-          <% else %>
-            No comments here!!! 😢😢😢
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-  <%else %>
-    403 page
+<div class="blog-comment">
+  <h3 class="text-success">Comments:</h3>
+  <% if current_user %>
+    <%= render partial: 'comments/form', locals: { post: @post , parent: nil, user: current_user, cancel: false} %>
   <% end %>
-<% else %>
-  <% if @post.published %>
-    <div class="row">
-      <div class="col-md-12">
-        <%= render @post %>
-      </div>
-    </div>
 
-    <div class="blog-comment">
-      <h3 class="text-success">Comments:</h3>
-      <% if current_user %>
-        <%= render partial: 'comments/form', locals: { post: @post , parent: nil, user: current_user, cancel: false} %>
-      <% end %>
-
-      <hr/>
-      <div class="d-flex justify-content-center mb-5">
-        <% if current_user %>
-          <ul class="comments w-100">
-            <turbo-frame id="post-comments_<%= @post.id %>">
-              <% if @post.comments.count > 0 %>
-                <%= render "comments/comments", post: @post %>
-              <% else %>
-                <b>No comments here!!! 😢😢😢</b>
-              <% end %>
-            </turbo-frame>
-          </ul>
-        <% else %>
+  <hr/>
+  <div class="d-flex justify-content-center mb-5">
+    <% if current_user %>
+      <ul class="comments w-100">
+        <turbo-frame id="post-comments_<%= @post.id %>">
           <% if @post.comments.count > 0 %>
-            <ul class="comments w-100">
-              <%= render "comments/comments_for_guest" , comments: @post.comments.where(parent_id: nil) %>
-            </ul>
+            <%= render "comments/comments", post: @post %>
           <% else %>
-            No comments here!!! 😢😢😢
+            <b>No comments here!!! 😢😢😢</b>
           <% end %>
-        <% end %>
-      </div>
-    </div>
-  <%else %>
-    403 page
-  <% end %>
-<% end %>
-
+        </turbo-frame>
+      </ul>
+    <% else %>
+      <% if @post.comments.count > 0 %>
+        <ul class="comments w-100">
+          <%= render "comments/comments_for_guest" , comments: @post.comments.where(parent_id: nil) %>
+        </ul>
+      <% else %>
+        No comments here!!! 😢😢😢
+      <% end %>
+    <% end %>
+  </div>
+</div>

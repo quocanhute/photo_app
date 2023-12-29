@@ -71,17 +71,17 @@ class HomeController < ApplicationController
 
   def set_data_post
     if params[:query].present?
-      Post.ransack(title_or_description_cont: params[:query]).result(distinct: true)
+      Post.where(published: true, status: 2).ransack(title_or_description_cont: params[:query]).result(distinct: true)
     else
-      Post
+      Post.where(published: true, status: 2)
     end
   end
 
   def set_data_video
     if params[:query].present?
-      Video.ransack(title_or_description_cont: params[:query]).result(distinct: true)
+      Video.where(published: true, status: 2).ransack(title_or_description_cont: params[:query]).result(distinct: true)
     else
-      Video
+      Video.where(published: true, status: 2)
     end
   end
 end

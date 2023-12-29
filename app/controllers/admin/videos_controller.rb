@@ -65,7 +65,7 @@ class Admin::VideosController < ApplicationController
 
   def authorize_admin
     unless current_user&.admin? || current_user&.censor?
-      redirect_to root_path, alert: 'Access denied.'
+      redirect_to '/403'
     end
   end
 

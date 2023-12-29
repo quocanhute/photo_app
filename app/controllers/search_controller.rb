@@ -20,7 +20,7 @@ class SearchController < ApplicationController
   end
   def search_all
     if params[:query].blank?
-      @users =  @search_blank_users
+      @users =  @set_users
       @posts = @search_blank_posts
       @videos = @search_blank_videos
     else
@@ -45,21 +45,19 @@ class SearchController < ApplicationController
 
     # @set_users = User.where('first_name LIKE ? OR last_name = ?', "%#{params[:query]}%", "%#{params[:query]}%")
     @q_user = User.ransack(first_name_or_last_name_cont: params[:query])
-    @q_post = Post.ransack(title_or_description_cont: params[:query])
-    @q_video = Video.ransack(title_or_description_cont: params[:query])
+    @q_post = Post.where(published: true, status: 2).ransack(title_or_description_cont: params[:query])
+    @q_video = Video.where(published: true, status: 2).ransack(title_or_description_cont: params[:query])
     @set_users = @q_user.result(distinct: true)
     if params[:tag_ids].present?
-      @set_posts = @q_post.result(distinct: true).joins(:tags).where(tags: { id: params[:tag_ids] }).where(published: true).distinct
-      @set_videos = @q_video.result(distinct: true).joins(:tags).where(tags: { id: params[:tag_ids] }).where(published: true).distinct
-      @search_blank_users = User.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(6)
-      @search_blank_posts = Post.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(6)
-      @search_blank_videos = Video.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(6)
+      @set_posts = @q_post.result(distinct: true).joins(:tags).where(tags: { id: params[:tag_ids] }).distinct
+      @set_videos = @q_video.result(distinct: true).joins(:tags).where(tags: { id: params[:tag_ids] }).distinct
+      @search_blank_posts = Post.joins(:tags).where(published: true, status: 2).where(tags: { id: params[:tag_ids] }).limit(3)
+      @search_blank_videos = Video.joins(:tags).where(published: true, status: 2).where(tags: { id: params[:tag_ids] }).limit(3)
     else
       @set_posts = @q_post.result(distinct: true).where(published: true).distinct
       @set_videos = @q_video.result(distinct: true).where(published: true).distinct
-      @search_blank_users = User.limit(6)
-      @search_blank_posts = Post.limit(6)
-      @search_blank_videos = Video.limit(6)
+      @search_blank_posts = Post.where(published: true, status: 2).limit(3)
+      @search_blank_videos = Video.where(published: true, status: 2).limit(3)
     end
 
   end
@@ -67,16 +65,12 @@ class SearchController < ApplicationController
     params.permit(:term)
   end
   def search_for_users
-    if params[:query].blank?
-      User.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(3)
-    else
-      @set_users.limit(3)
-    end
+    @set_users.limit(3)
   end
 
   def search_for_posts
     if params[:query].blank?
-      Post.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(3)
+      @search_blank_posts
     else
       @set_posts.limit(3)
     end
@@ -84,7 +78,7 @@ class SearchController < ApplicationController
 
   def search_for_videos
     if params[:query].blank?
-      Video.joins(:tags).where(tags: { id: params[:tag_ids] }).limit(3)
+      @search_blank_videos
     else
       @set_videos.limit(3)
     end

@@ -7,10 +7,10 @@ class ProfileController < ApplicationController
       if params[:id].to_f == current_user.id
         @posts = @user.posts
       else
-        @posts = @user.posts.where(published: true)
+        @posts = @user.posts.where(published: true,status: 2)
       end
     else
-      @posts = @user.posts.where(published: true)
+      @posts = @user.posts.where(published: true, status: 2)
     end
   end
 

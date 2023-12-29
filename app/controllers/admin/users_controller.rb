@@ -111,7 +111,7 @@ class Admin::UsersController < ApplicationController
 
   def authorize_admin
     unless current_user&.admin?
-      redirect_to root_path, alert: 'Access denied.'
+      redirect_to '/403'
     end
   end
 

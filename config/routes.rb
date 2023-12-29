@@ -111,6 +111,13 @@ Rails.application.routes.draw do
   get 'search', to: 'search#search_all', as: 'search_all'
   get 'show_all_user_search', to: 'search#show_all_user_search', as: :show_all_user_search
 
+  # get 'error404', to: 'errors#not_found_404', as: 'error404'
+  # get 'error403', to: 'errors#not_authen_403', as: 'error403'
+
+  match "/404", via: :all, to: 'errors#not_found_404'
+  match "/403", via: :all, to: 'errors#not_authen_403'
+  # match "/422", to: "errors#unprocessable'" via: :all
+  match "/500", via: :all, to: "errors#internal_server_error_500"
   # View Object Notification
   get '/notification/:id', to: 'notification#view_object', as: 'view_object'
 end

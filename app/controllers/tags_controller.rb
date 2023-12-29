@@ -99,17 +99,17 @@ class TagsController < ApplicationController
 
   def set_data_post
     if params[:query].present?
-      Post.where(published: true).tagged_with(@tag.name).ransack(title_or_description_cont: params[:query]).result(distinct: true)
+      Post.where(published: true, status: 2).tagged_with(@tag.name).ransack(title_or_description_cont: params[:query]).result(distinct: true)
     else
-      Post.where(published: true).tagged_with(@tag.name)
+      Post.where(published: true, status: 2).tagged_with(@tag.name)
     end
   end
 
   def set_data_video
     if params[:query].present?
-      Video.where(published: true).tagged_with(@tag.name).ransack(title_or_description_cont: params[:query]).result(distinct: true)
+      Video.where(published: true, status: 2).tagged_with(@tag.name).ransack(title_or_description_cont: params[:query]).result(distinct: true)
     else
-      Video.where(published: true).tagged_with(@tag.name)
+      Video.where(published: true, status: 2).tagged_with(@tag.name)
     end
   end
 end

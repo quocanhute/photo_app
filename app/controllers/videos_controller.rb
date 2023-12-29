@@ -1,6 +1,7 @@
 class VideosController < ApplicationController
   before_action :authenticate_user!, only: %i[ index new edit create update destroy vote bookmark]
   before_action :set_video, only: %i[ show edit update destroy publish unpublish vote bookmark action_delete_video]
+  before_action :check_authorization, only: [:show]
   before_action :check_video_ownership, only: [:edit, :update, :destroy]
 
   # GET /photos or /photos.json
@@ -140,7 +141,7 @@ class VideosController < ApplicationController
     video = Video.find_by(id: params[:id])
     if video && video.user_id == current_user.id
     else
-      redirect_to root_path, alert: 'Access denied.'
+      redirect_to '/403'
     end
   end
 
@@ -171,5 +172,23 @@ class VideosController < ApplicationController
       as_read: false,
       content: message
     )
+  end
+
+  def check_authorization
+    video = Video.find_by(id: params[:id])
+    if video
+      if video.accept?
+      elsif current_user
+        if video.user_id == current_user.id || current_user.admin? || current_user.censor?
+        else
+          redirect_to '/403'
+        end
+      else
+        redirect_to '/403'
+      end
+
+    else
+      redirect_to '/404'
+    end
   end
 end
