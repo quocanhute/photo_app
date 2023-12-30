@@ -4,7 +4,7 @@ class Admin::PostsController < ApplicationController
 
   def index
     data_post = set_data_post
-    @posts = data_post.where(status: :in_queue).order(created_at: :desc).page(params[:page]).per(15)
+    @posts = data_post.where(status: :in_queue).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def action_accept_post

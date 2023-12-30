@@ -4,12 +4,12 @@ class Admin::UsersController < ApplicationController
 
   def index
     data_user = set_data_user
-    @users = data_user.where(is_ban: false ).order(last_name: :asc,first_name: :asc).page(params[:page]).per(15)
+    @users = data_user.where(is_ban: false ).order(last_name: :asc,first_name: :asc).page(params[:page]).per(10)
   end
 
   def index_ban_user
     data_user = set_data_user
-    @users = data_user.where(is_ban: true ).order(last_name: :asc,first_name: :asc).page(params[:page]).per(15)
+    @users = data_user.where(is_ban: true ).order(last_name: :asc,first_name: :asc).page(params[:page]).per(10)
   end
 
   def show

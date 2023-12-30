@@ -4,7 +4,7 @@ class Admin::VideosController < ApplicationController
 
   def index
     data_video = set_data_video
-    @videos = data_video.where(status: :in_queue).order(created_at: :desc).page(params[:page]).per(15)
+    @videos = data_video.where(status: :in_queue).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def action_accept_video

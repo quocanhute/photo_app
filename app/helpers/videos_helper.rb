@@ -4,13 +4,13 @@ module VideosHelper
     case type
     when 'upvote'
       if user.voted_up_on? video, vote_scope: "like"
-        "fa-bounce text-info"
+        "text-info"
       else
         "text-dark"
       end
     when 'downvote'
       if user.voted_down_on? video, vote_scope: "like"
-        "fa-bounce text-danger"
+        "text-danger"
       else
         "text-dark"
       end
