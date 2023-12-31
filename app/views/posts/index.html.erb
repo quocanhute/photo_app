@@ -1,6 +1,19 @@
 <div class="d-flex justify-content-between mb-2">
   <h2>My Posts</h2>
-  <%= link_to "New post", new_post_path, class: 'btn btn-primary' %>
+  <div class="d-flex justify-content-between align-items-center">
+    <%= form_with(url: posts_path, method: :get, class: "form-inline my-2 my-lg-0 d-flex") do |form| %>
+      <div class="position-relative d-flex">
+        <%= form.text_field :query_my_post,
+                            value: (params[:query_my_post] if params[:query_my_post].present?),
+                            class: "form-control mr-sm-2",
+                            placeholder: "Search your posts ....", autocomplete: "off" %>
+        <div class="d-flex">
+          <%= form.submit "🔦", class: "btn btn-outline-primary mx-2" %>
+        </div>
+      </div>
+    <% end %>
+    <%= link_to "New post", new_post_path, class: 'btn btn-primary' %>
+  </div>
 </div>
 
 <% if @posts.count > 0 %>
@@ -56,4 +69,8 @@
     <b>You don't have any posts!!! 😁</b>
   </span>
 <% end %>
+
+<%= paginate @posts, theme: 'bootstrap-5',
+             pagination_class: "pagination-sm flex-wrap justify-content-center",
+             nav_class: "d-inline-block col-12" %>
 

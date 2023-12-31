@@ -6,7 +6,11 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = current_user.posts
+    if params[:query_my_post].present?
+      @posts = current_user.posts.ransack(title_or_description_cont: params[:query_my_post]).result(distinct: true).page(params[:page]).per(5)
+    else
+      @posts = current_user.posts.page(params[:page]).per(5)
+    end
   end
 
   # GET /posts/1 or /posts/1.json

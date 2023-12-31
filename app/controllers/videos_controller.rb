@@ -6,7 +6,11 @@ class VideosController < ApplicationController
 
   # GET /photos or /photos.json
   def index
-    @videos = current_user.videos.page(params[:page]).per(8)
+    if params[:query_my_video].present?
+      @videos = current_user.videos.ransack(title_or_description_cont: params[:query_my_video]).result(distinct: true).page(params[:page]).per(VIDEOS_PER_PAGE)
+    else
+      @videos = current_user.videos.page(params[:page]).per(VIDEOS_PER_PAGE)
+    end
   end
 
   # GET /photos/1 or /photos/1.json

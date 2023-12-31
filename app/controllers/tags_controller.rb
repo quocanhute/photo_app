@@ -2,7 +2,11 @@ class TagsController < ApplicationController
   before_action :set_tag, only: %i[ show edit update destroy added_tag show_video]
   before_action :authorize_admin, only: %i[ edit update ]
   def index
-    @tags = Tag.left_joins(:taggings).group(:id, :name, :detail).order('count(taggings.id) desc')
+    if params[:query_tag_name].present?
+      @tags = Tag.ransack(name_cont: params[:query_tag_name]).result(distinct: true)
+    else
+      @tags = Tag.left_joins(:taggings).group(:id, :name, :detail).order('count(taggings.id) desc').limit(20)
+    end
   end
 
   def show
@@ -54,7 +58,7 @@ class TagsController < ApplicationController
       if @tag.update(tag_params)
         format.html {
           flash[:notice] = 'Tag was successfully updated.'
-          redirect_to tag_path(@tag)
+          redirect_to edit_tag_path(@tag)
         }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -110,6 +114,14 @@ class TagsController < ApplicationController
       Video.where(published: true, status: 2).tagged_with(@tag.name).ransack(title_or_description_cont: params[:query]).result(distinct: true)
     else
       Video.where(published: true, status: 2).tagged_with(@tag.name)
+    end
+  end
+
+  def set_data_tag
+    if params[:query_tag_name].present?
+      Tag.ransack(name_cont: params[:query_tag_name]).result(distinct: true)
+    else
+      Tag
     end
   end
 end
