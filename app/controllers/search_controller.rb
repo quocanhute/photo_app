@@ -41,9 +41,6 @@ class SearchController < ApplicationController
 
   private
   def set_data
-
-
-    # @set_users = User.where('first_name LIKE ? OR last_name = ?', "%#{params[:query]}%", "%#{params[:query]}%")
     @q_user = User.ransack(first_name_or_last_name_cont: params[:query])
     @q_post = Post.where(published: true, status: 2).ransack(title_or_description_cont: params[:query])
     @q_video = Video.where(published: true, status: 2).ransack(title_or_description_cont: params[:query])
@@ -51,13 +48,13 @@ class SearchController < ApplicationController
     if params[:tag_ids].present?
       @set_posts = @q_post.result(distinct: true).joins(:tags).where(tags: { id: params[:tag_ids] }).distinct
       @set_videos = @q_video.result(distinct: true).joins(:tags).where(tags: { id: params[:tag_ids] }).distinct
-      @search_blank_posts = Post.joins(:tags).where(published: true, status: 2).where(tags: { id: params[:tag_ids] }).limit(3)
-      @search_blank_videos = Video.joins(:tags).where(published: true, status: 2).where(tags: { id: params[:tag_ids] }).limit(3)
+      @search_blank_posts = Post.joins(:tags).where(published: true, status: 2).where(tags: { id: params[:tag_ids] }).limit(10)
+      @search_blank_videos = Video.joins(:tags).where(published: true, status: 2).where(tags: { id: params[:tag_ids] }).limit(10)
     else
-      @set_posts = @q_post.result(distinct: true).where(published: true).distinct
-      @set_videos = @q_video.result(distinct: true).where(published: true).distinct
-      @search_blank_posts = Post.where(published: true, status: 2).limit(3)
-      @search_blank_videos = Video.where(published: true, status: 2).limit(3)
+      @set_posts = @q_post.result(distinct: true).where(published: true, status: 2).distinct
+      @set_videos = @q_video.result(distinct: true).where(published: true, status: 2  ).distinct
+      @search_blank_posts = Post.where(published: true, status: 2).limit(10)
+      @search_blank_videos = Video.where(published: true, status: 2).limit(10)
     end
 
   end
@@ -70,7 +67,7 @@ class SearchController < ApplicationController
 
   def search_for_posts
     if params[:query].blank?
-      @search_blank_posts
+      @search_blank_posts.limit(3)
     else
       @set_posts.limit(3)
     end
@@ -78,7 +75,7 @@ class SearchController < ApplicationController
 
   def search_for_videos
     if params[:query].blank?
-      @search_blank_videos
+      @search_blank_videos.limit(3)
     else
       @set_videos.limit(3)
     end
