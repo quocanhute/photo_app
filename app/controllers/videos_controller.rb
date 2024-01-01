@@ -38,7 +38,7 @@ class VideosController < ApplicationController
       if @video.save
         format.html { redirect_to edit_video_path(@video), notice: "Video was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to new_video_path, alert: @video.errors.full_messages.join(', ')}
       end
     end
   end

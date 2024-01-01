@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between mb-2">
-  <h2>My Posts</h2>
+  <h2><%= t('user.post.object.user_post') %></h2>
   <div class="d-flex justify-content-between align-items-center">
     <%= form_with(url: posts_path, method: :get, class: "form-inline my-2 my-lg-0 d-flex") do |form| %>
       <div class="position-relative d-flex">
@@ -12,7 +12,7 @@
         </div>
       </div>
     <% end %>
-    <%= link_to "New post", new_post_path, class: 'btn btn-primary' %>
+    <%= link_to t('new_post'), new_post_path, class: 'btn btn-primary' %>
   </div>
 </div>
 
@@ -40,7 +40,7 @@
             <%= link_to "#{post.user.username}", profile_path(post.user),data:{turbo: false},class: "mx-1 text-dark" %>
           </div>
           <div class="d-flex">
-            <p><b>Created</b> <%= time_ago_in_words(post.created_at) %> ago</p>
+            <p><b>Created</b> <%= time_ago_in_words(post.created_at) %> <%= t('ago') %></p>
           </div>
         </div>
         <div class="card-body" style="background-color: #EFEFEF;">

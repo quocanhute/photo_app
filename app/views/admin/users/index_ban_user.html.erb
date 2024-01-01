@@ -38,7 +38,7 @@
           <th><%= user.email %></th>
           <th><%= user.role %></th>
           <th>
-            <%= link_to "UNBAN", action_unban_user_admin_user_path(user), class: "btn btn-outline-success" ,data: { turbo_frame: "remote_modal" }%>
+            <%= link_to "UNBAN", action_unban_user_admin_user_path(user), class: "btn btn-outline-success" ,data: { turbo_frame: "small_remote_modal" }%>
           </th>
         </tr>
       <% end %>

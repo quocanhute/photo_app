@@ -45,9 +45,9 @@
           </div>
         <% end %>
         <div class="d-flex">
-          <button class="<%= params[:index] == "top" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "TOP", show_video_tag_path(@tag, index: "top"),class: "text-white"%></button>
-          <button class="<%= params[:index] == "oldest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "OLDEST", show_video_tag_path(@tag, index: "oldest"), class: "text-white"%></button>
-          <button class="<%= params[:index] == "newest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "NEWEST", show_video_tag_path(@tag, index: "newest"), class: "text-white"%></button>
+          <button class="<%= params[:index] == "top" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "#{t('top')}", show_video_tag_path(@tag, index: "top"),class: "text-white"%></button>
+          <button class="<%= params[:index] == "oldest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "#{t('oldest')}", show_video_tag_path(@tag, index: "oldest"), class: "text-white"%></button>
+          <button class="<%= params[:index] == "newest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "#{t('newest')}", show_video_tag_path(@tag, index: "newest"), class: "text-white"%></button>
         </div>
       </div>
 

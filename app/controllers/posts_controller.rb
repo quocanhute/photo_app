@@ -39,7 +39,7 @@ class PostsController < ApplicationController
       if @post.save
         format.html { redirect_to edit_post_path(@post), notice: "Post was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to new_post_path, alert: @post.errors.full_messages.join(', ')}
       end
     end
   end

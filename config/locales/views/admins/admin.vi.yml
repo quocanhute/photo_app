@@ -7,13 +7,3 @@ vi:
         delete: "Xóa User"
         edit: "Sửa User"
     post:
-    photo:
-      photo_management:
-        management: "Quản lý ảnh"
-        delete: "Xóa ảnh"
-        edit: "Sửa ảnh"
-    album:
-      album_management:
-        management: "Quản lý album"
-        delete: "Xóa album"
-        edit: "Sửa album"

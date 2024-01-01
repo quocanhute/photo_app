@@ -11,7 +11,7 @@
           <%= link_to "#{post.user.username}", profile_path(post.user),data:{turbo: false},class: "mx-1 text-dark" %>
         </div>
         <div>
-          <b>Created</b> <%= time_ago_in_words(post.created_at) %> ago
+          <b>Created</b> <%= time_ago_in_words(post.created_at) %> <%= t('ago') %>
         </div>
       </div>
       <div class="card-body" style="background-color: #EFEFEF;">

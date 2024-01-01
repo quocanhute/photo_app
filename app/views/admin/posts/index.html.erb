@@ -31,8 +31,8 @@
               <%= link_to post.title, post_path(post),class: "text-primary" %>
             </th>
             <th>
-              <%= link_to "ACCEPT", action_accept_post_admin_post_path(post),class: "btn btn-outline-success",data: { turbo_frame: "remote_modal" } %>
-              <%= link_to "REFUSE",action_refuse_post_admin_post_path(post), class: "btn btn-outline-danger" ,data: { turbo_frame: "remote_modal" }%>
+              <%= link_to "ACCEPT", action_accept_post_admin_post_path(post),class: "btn btn-outline-success",data: { turbo_frame: "small_remote_modal" } %>
+              <%= link_to "REFUSE",action_refuse_post_admin_post_path(post), class: "btn btn-outline-danger" ,data: { turbo_frame: "small_remote_modal" }%>
             </th>
           </tr>
         <% end %>

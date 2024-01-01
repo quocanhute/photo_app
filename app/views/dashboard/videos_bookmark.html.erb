@@ -18,9 +18,9 @@
           </div>
         <% end %>
         <div class="d-flex">
-          <button class="<%= params[:index] == "top" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "TOP", videos_bookmark_dashboard_index_path(index: "top"),class: "text-white"%></button>
-          <button class="<%= params[:index] == "oldest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "OLDEST", videos_bookmark_dashboard_index_path(index: "oldest"), class: "text-white"%></button>
-          <button class="<%= params[:index] == "newest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "NEWEST", videos_bookmark_dashboard_index_path(index: "newest"), class: "text-white"%></button>
+          <button class="<%= params[:index] == "top" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "#{t('top')}", videos_bookmark_dashboard_index_path(index: "top"),class: "text-white"%></button>
+          <button class="<%= params[:index] == "oldest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "#{t('oldest')}", videos_bookmark_dashboard_index_path(index: "oldest"), class: "text-white"%></button>
+          <button class="<%= params[:index] == "newest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "#{t('newest')}", videos_bookmark_dashboard_index_path(index: "newest"), class: "text-white"%></button>
         </div>
       </div>
       <div class="d-flex row mt-3">

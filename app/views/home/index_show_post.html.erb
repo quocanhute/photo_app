@@ -3,7 +3,7 @@
     <div class="col-12">
       <div id="postContent">
         <div class="d-flex justify-content-between align-items-center">
-          <h1>Posts</h1>
+          <h1><%= t('user.post.object.posts') %></h1>
           <%= form_with(url: posts_index_path, method: :get, class: "form-inline my-2 my-lg-0 d-flex") do |form| %>
             <div class="position-relative d-flex">
               <%= hidden_field_tag 'index', params[:index].to_s %>
@@ -16,9 +16,9 @@
             </div>
           <% end %>
           <div class="d-flex">
-            <button class="<%= params[:index] == "top" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "TOP", posts_index_path(index: "top"),class: "text-white"%></button>
-            <button class="<%= params[:index] == "oldest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "OLDEST", posts_index_path(index: "oldest"), class: "text-white"%></button>
-            <button class="<%= params[:index] == "newest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "NEWEST", posts_index_path(index: "newest"), class: "text-white"%></button>
+            <button class="<%= params[:index] == "top" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "#{t('top')}", posts_index_path(index: "top"),class: "text-white"%></button>
+            <button class="<%= params[:index] == "oldest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "#{t('oldest')}", posts_index_path(index: "oldest"), class: "text-white"%></button>
+            <button class="<%= params[:index] == "newest" ? "btn btn-secondary mx-1 primary-color":"btn primary-bg mx-1"%>"><%= link_to "#{t('newest')}", posts_index_path(index: "newest"), class: "text-white"%></button>
           </div>
         </div>
         <%= turbo_frame_tag :posts, class: "row" do %>

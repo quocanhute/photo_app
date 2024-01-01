@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "#{dom_id(post)}_published_at" ,class: "#{dom_id(post)}_published_at" do %>
   <% if post.published? %>
-    <b>Published</b> <%= time_ago_in_words(post.published_at) %> ago
+    <b>Published</b> <%= time_ago_in_words(post.published_at) %> <%= t('ago') %>
   <% else %>
     <b>Unpublished</b>
   <% end %>
