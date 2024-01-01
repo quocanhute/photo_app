@@ -38,8 +38,8 @@
           <th><%= user.email %></th>
           <th><%= user.role %></th>
           <th>
-            <%= link_to "EDIT", edit_admin_user_path(user),class: "btn btn-warning text-white",data: { turbo_frame: "remote_modal" } %>
-            <%= link_to "BAN", action_ban_user_admin_user_path(user), class: "btn btn-danger text-white" ,data: { turbo_frame: "remote_modal" }%>
+            <%= link_to "EDIT", edit_admin_user_path(user),class: "btn btn-outline-warning",data: { turbo_frame: "remote_modal" } %>
+            <%= link_to "BAN", action_ban_user_admin_user_path(user), class: "btn btn-outline-danger" ,data: { turbo_frame: "remote_modal" }%>
           </th>
         </tr>
       <% end %>

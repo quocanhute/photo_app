@@ -1,8 +1,6 @@
 <%= form_with(model: video, class: "mb-2") do |form| %>
   <% if video.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(video.errors.count, "error") %> prohibited this photo from being saved:</h2>
-
       <ul>
         <% video.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -50,7 +48,7 @@
       <div class="">
         <% if video.video.attached? %>
           <div class="video">
-            <%= video_tag url_for(video.video), style: 'width:100%', controls: true, autoplay: true,loop: true %>
+            <%= video_tag url_for(video.video), style: 'width:100%', controls: true, autoplay: false,loop: false %>
           </div>
           <%= form.file_field :video, accept: 'video/*' %>
         <% else %>

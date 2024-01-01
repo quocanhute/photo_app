@@ -5,7 +5,7 @@
       <%= "#{pluralize(Post.tagged_with(tag.name).count, "post")}" %>
     </div>
     <div class="card-body" style="background-color: #EFEFEF;">
-      <p class="card-text"><%= tag.detail %></p>
+      <p class="card-text tag-title"><%= tag.detail %></p>
     </div>
     <div class="card-footer text-muted d-flex align-items-center justify-content-between" style="border: none; background-color: #EFEFEF;">
       <div>

@@ -2,15 +2,15 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @follower = current_user.follower
+    @follower = current_user.follower.page(params[:page]).per(9)
   end
 
   def following_users
-    @followee = current_user.followee
+    @followee = current_user.followee.page(params[:page]).per(9)
   end
 
   def following_tags
-    @tags = current_user.tags
+    @tags = current_user.tags.page(params[:page]).per(9)
   end
 
   def posts_bookmark
