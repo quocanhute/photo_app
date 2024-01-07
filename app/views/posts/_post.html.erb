@@ -1,13 +1,13 @@
 <div id="<%= dom_id post %>">
   <div class="row">
-    <div class="col-md-1">
+    <div class="col-1">
       <% if current_user %>
         <%= render 'votable' , user: current_user, post: post%>
       <% else %>
         <%= render 'votable_guest',post: post%>
       <% end %>
     </div>
-    <div class="col-md-11">
+    <div class="col-11">
       <div class="card mb-3" style="border: none">
         <div class="card-header flex-column text-start">
           <div class="d-flex justify-content-between ">
@@ -37,7 +37,7 @@
         </div>
         <img src="<%= url_for(post.header_image) %>" class="card-img-top" alt="..." style="height: 500px">
         <div class="card-body">
-          <h5 class="card-title"><%= post.title %></h5>
+          <h2 class="card-title"><%= post.title %></h2>
           <p class="card-text"><%= post.description %></p>
         </div>
       </div>

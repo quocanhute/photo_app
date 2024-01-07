@@ -4,7 +4,7 @@
     <div class="col-md-4">
       <%= render "dashboard/dashboard_menu", page: "notifications" %>
     </div>
-    <div class="col-md-8">
+    <div class="col-8">
       <% @notifications.each do |notification| %>
           <%= content_tag(:div) do %>
             <div class="card mb-2" style="border: none;">

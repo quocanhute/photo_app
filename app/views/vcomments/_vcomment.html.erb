@@ -20,7 +20,7 @@
           <p class="meta">Comment <%= time_ago_in_words(vcomment.updated_at) %> <%= link_to vcomment.user.username, profile_path(vcomment.user) %> says :</p>
           <% if current_user == vcomment.user %>
             <div class="button-group float-end">
-              <%= button_to "Delete", [@video, vcomment], class: "btn btn-danger", method: :delete %>
+              <%= button_to "❌", [@video, vcomment], class: "btn btn-outline-danger", method: :delete %>
             </div>
           <% end %>
           <p><%= vcomment.content %></p>

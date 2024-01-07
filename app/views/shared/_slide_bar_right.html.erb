@@ -1,5 +1,5 @@
 <nav id="slideBarRight" class="col-2 sidebar-right pt-5 d-none d-md-block">
-  <div class="col-md-10 mt-5">
+  <div class="col-10 mt-5">
     <div class="profile-card text-center shadow bg-light p-4 rounded-3">
 <!--      <h3 class="pt-3 text-dark">KLTN-HCMUTE</h3>-->
       <p class="text-secondary">Made by <span style="text-decoration: underline">TaQuocAnh</span></p>
@@ -15,7 +15,7 @@
     </div>
   </div>
   <% if @user_with_tag %>
-    <div class="col-md-10 mt-5">
+    <div class="col-10 mt-5">
       <h4>Who follow this tag:</h4>
       <div class="d-flex flex-column px-3 py-3">
         <% @tag.users.each do |user| %>
@@ -36,7 +36,7 @@
   <% if @post_status %>
     <% case @post_status %>
     <% when "un_status" %>
-      <div class="col-md-10 mt-5">
+      <div class="col-10 mt-5">
         <div class="card" style="border: none;">
           <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
             <div>
@@ -46,7 +46,7 @@
         </div>
       </div>
     <% when "in_queue" %>
-      <div class="col-md-10 mt-5">
+      <div class="col-10 mt-5">
         <div class="card" style="border: none;">
           <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
             <div>
@@ -56,7 +56,7 @@
         </div>
       </div>
     <% when "accept" %>
-      <div class="col-md-10 mt-5">
+      <div class="col-10 mt-5">
         <div class="card" style="border: none;">
           <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
             <div>
@@ -66,7 +66,7 @@
         </div>
       </div>
     <% when "refuse" %>
-      <div class="col-md-10 mt-5">
+      <div class="col-10 mt-5">
         <div class="card" style="border: none;">
           <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
             <div class="d-flex flex-column">
@@ -81,7 +81,7 @@
   <% if @video_status %>
     <% case @video_status %>
     <% when "un_status" %>
-      <div class="col-md-10 mt-5">
+      <div class="col-10 mt-5">
         <div class="card" style="border: none;">
           <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
             <div>
@@ -91,7 +91,7 @@
         </div>
       </div>
     <% when "in_queue" %>
-      <div class="col-md-10 mt-5">
+      <div class="col-10 mt-5">
         <div class="card" style="border: none;">
           <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
             <div>
@@ -101,7 +101,7 @@
         </div>
       </div>
     <% when "accept" %>
-      <div class="col-md-10 mt-5">
+      <div class="col-10 mt-5">
         <div class="card" style="border: none;">
           <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
             <div>
@@ -111,7 +111,7 @@
         </div>
       </div>
     <% when "refuse" %>
-      <div class="col-md-10 mt-5">
+      <div class="col-10 mt-5">
         <div class="card" style="border: none;">
           <div class="card-header d-flex justify-content-between align-items-center rounded-2" style="border: none; background-color: #EFEFEF;">
             <div class="d-flex flex-column">

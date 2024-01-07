@@ -16,4 +16,9 @@ BAD_WORDS = ['2g1c', '2 girls 1 cup', 'acrotomophilia', 'alabama hot pocket', 'a
              'bimbos', 'birdlock', 'bitch', 'bitches', 'black cock', 'blonde action', 'blonde on blonde action',
              'blowjob', 'blow job', 'blow your load', 'blue waffle', 'blumpkin', 'bollocks', 'bondage', 'boner',
              'boob', 'boobs', 'booty call', 'brown showers', 'brunette action', 'bukkake', 'bulldyke', 'bullet vibe',
-             'bullshit', 'bung hole', 'bunghole', 'busty', 'ngu']
+             'bullshit', 'bung hole', 'bunghole', 'busty', 'ngu', 'óc', 'chó', 'dốt','buồi', 'buoi', 'daubuoi',
+             'caidaubuoi', 'nhucaidaubuoi', 'dau boi', 'bòi', 'dauboi', 'caidauboi', 'đầu bòy', 'đầu bùi', 'dau boy', 'dauboy', 'caidauboy',
+             'cặc', 'cak', 'kak', 'kac', 'cac', 'concak', 'nungcak', 'bucak', 'caiconcac', 'caiconcak', 'cu', 'cặk', 'cak', 'dái', 'giái', 'zái', 'kiu',
+             'cứt', 'cuccut', 'cutcut', 'cứk', 'cuk', 'cười ỉa', 'cười ẻ',
+             'đéo', 'đếch', 'đếk', 'dek', 'đết', 'đệt', 'đách', 'dech', 'đ\'', 'deo', 'd\'','dell', 'đel', 'đél', 'del', 'dell ngửi', 'dell ngui',
+             'dell chịu', 'dell chiu', 'dell hiểu', 'dell hieu', 'dellhieukieugi', 'dell nói', 'dell noi', 'dellnoinhieu', 'dell biết', 'dell biet', 'dell nghe', 'dell ăn', 'dell an', 'dell được', 'dell duoc', 'dell làm', 'dell lam', 'dell đi', 'dell di', 'dell chạy', 'dell chay', 'deohieukieugi']
